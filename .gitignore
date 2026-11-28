@@ -10,6 +10,7 @@
 # local working notes (not part of the published repository)
 HANDOFF.md
 TODO.md
+/docs/archive/
 
 # local debug captures
 /err.txt
@@ -19,3 +20,6 @@ debug-*.png
 
 # local tooling state
 /.zcode/
+
+# generated documentation site
+/site/

@@ -98,4 +98,4 @@ context file is `en/ai/reference.md`; the widget lookup table is
 - [AI reference (single file)](en/ai/reference.md)
 - [AI widget table](en/ai/widgets.md)
 - [Authoring guide](DOC-GUIDE.md)
-- [Archived design docs](archive/)
+- Archived design docs (local, untracked): `archive/`.

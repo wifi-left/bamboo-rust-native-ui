@@ -141,9 +141,8 @@ and the exact XML definition rules.
 
 A compact, self-contained context file lives at
 [`ai/reference.md`](ai/reference.md), with a one-page
-[widget lookup table](ai/widgets.md). The repository-level
-[`llms.txt`](../llms.txt) is the entry point for tools that follow the
-llmstxt.org convention.
+[widget lookup table](ai/widgets.md). The repository-level `docs/llms.txt` is
+the entry point for tools that follow the llmstxt.org convention.
 
 ## Status
 
@@ -155,4 +154,4 @@ every area. See the [introduction](overview/introduction.md) for details.
 
 ## License
 
-Apache License 2.0. See [`LICENSE`](../../LICENSE) and [`NOTICE`](../../NOTICE).
+Apache License 2.0. See the `LICENSE` and `NOTICE` files in the repository root.

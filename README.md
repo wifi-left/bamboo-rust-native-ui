@@ -91,7 +91,7 @@ complete program.
 | [中文文档](docs/zh/) | Pending translation; the English docs are complete and the `zh/` tree mirrors them. |
 | [llms.txt](docs/llms.txt) | AI-oriented index following the llmstxt.org convention. |
 | [AI reference](docs/en/ai/reference.md) | One self-contained context file: crate map, features, signatures, widget catalog, XML/theme grammar. |
-| [Archived design docs](docs/archive/) | `API.md`, `DECISIONS.md`, `M7-XML.md`, `CUSTOM-WIDGETS.md`. |
+| Local design records | `docs/archive/` (untracked): `API.md`, `DECISIONS.md`, `M7-XML.md`, `CUSTOM-WIDGETS.md`. |
 
 Build the HTML site with mkdocs-material:
 
