@@ -1,6 +1,7 @@
 name: Docs
 
 on:
+  # Build and deploy whenever the documentation or its configuration changes.
   push:
     branches: [main]
     paths:
@@ -9,17 +10,23 @@ on:
       - "mkdocs.zh.yml"
       - "requirements-docs.txt"
       - ".github/workflows/docs.yml"
+
+  # Allows manual runs from the Actions tab.
   workflow_dispatch:
 
+# The Pages artifact deployment needs these permissions.
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
 
+# One Pages deployment at a time; let an in-progress production deploy finish.
 concurrency:
-  group: docs-${{ github.ref }}
-  cancel-in-progress: true
+  group: "pages"
+  cancel-in-progress: false
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -35,19 +42,34 @@ jobs:
       - name: Install mkdocs
         run: pip install -r requirements-docs.txt
 
+      # English at the site root: site/index.html
       - name: Build English site
         run: mkdocs build --config-file mkdocs.yml
 
+      # Chinese under /zh/: site/zh/index.html (does not remove the English build)
       - name: Build Chinese site
         if: ${{ hashFiles('docs/zh/index.md') != '' }}
         run: mkdocs build --config-file mkdocs.zh.yml
 
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v4
+      # Pages must not hand the artifact to Jekyll.
+      - name: Disable Jekyll
+        run: touch site/.nojekyll
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_branch: gh-pages
-          publish_dir: ./site
-          force_orphan: true
-          user_name: github-actions[bot]
-          user_email: github-actions[bot]@users.noreply.github.com
+          path: site
+
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

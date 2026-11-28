@@ -29,7 +29,8 @@ mkdocs build -f mkdocs.zh.yml   # Chinese -> site/zh/
 ```
 
 The GitHub Actions workflow in `.github/workflows/docs.yml` builds both and
-publishes the result to the `gh-pages` branch on every push that touches the
+deploys the result to GitHub Pages (the official `configure-pages` /
+`upload-pages-artifact` / `deploy-pages` flow) on every push that touches the
 documentation.
 
 ## About these documents

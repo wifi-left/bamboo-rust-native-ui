@@ -100,7 +100,8 @@ mkdocs build              # English -> site/
 mkdocs build -f mkdocs.zh.yml
 ```
 
-`.github/workflows/docs.yml` 将两者都发布到 `gh-pages` 分支。
+`.github/workflows/docs.yml` 通过官方 `configure-pages` / `upload-pages-artifact` /
+`deploy-pages` 流程将两者部署到 GitHub Pages。
 
 ## 仓库布局
 

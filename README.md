@@ -101,7 +101,8 @@ mkdocs build              # English -> site/
 mkdocs build -f mkdocs.zh.yml
 ```
 
-`.github/workflows/docs.yml` publishes both to the `gh-pages` branch.
+`.github/workflows/docs.yml` deploys both to GitHub Pages with the official
+`configure-pages` / `upload-pages-artifact` / `deploy-pages` flow.
 
 ## Repository layout
 
