@@ -88,7 +88,7 @@ complete program.
 | Resource | Contents |
 |---|---|
 | [English docs](docs/en/index.md) | Overview, thirteen quick starts (six core, seven practical), API reference, 62 widget pages, guides, lookup tables. |
-| [中文文档](docs/zh/index.md) | The same structure in Simplified Chinese. |
+| [中文文档](docs/zh/) | Pending translation; the English docs are complete and the `zh/` tree mirrors them. |
 | [llms.txt](docs/llms.txt) | AI-oriented index following the llmstxt.org convention. |
 | [AI reference](docs/en/ai/reference.md) | One self-contained context file: crate map, features, signatures, widget catalog, XML/theme grammar. |
 | [Archived design docs](docs/archive/) | `API.md`, `DECISIONS.md`, `M7-XML.md`, `CUSTOM-WIDGETS.md`. |
