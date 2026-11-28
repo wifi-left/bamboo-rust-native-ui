@@ -9,6 +9,34 @@ every page repeats the commands it needs, so you can also jump to the one you
 care about and copy the project state it assumes. The practical tutorials reuse
 the same project and add a complete feature area.
 
+## Terms used in these tutorials
+
+You do not need to memorise this list. Pages 01–04 open with a short block that
+defines only the terms they use, and the last column says where a term is first
+explained in context.
+
+| Term | What it means | Introduced on |
+|---|---|---|
+| Rust | The programming language your application and this framework are written in; its compiler checks the whole program before it runs. | 01 |
+| Cargo | Rust's build tool and package manager: it creates projects, fetches dependencies, compiles them and runs the result. | 01 |
+| crate | One Rust package that compiles as a unit; the framework is a library crate, and your program is a binary crate. | 01 |
+| workspace | A Cargo project that groups several crates and shares one `Cargo.lock` and one `target/` build folder. | 01 |
+| dependency | Another crate your crate builds on, listed under `[dependencies]` in a `Cargo.toml`. | 02 |
+| feature flag | A named, optional switch inside a crate that turns extra code on when it is listed in `features = [...]`. | 02 |
+| path dependency | A dependency found by a folder path on your disk, used for a local checkout you can edit. | 02 |
+| git dependency | A dependency Cargo clones from a Git URL, used when you do not keep a local checkout. | 02 |
+| widget | One element on the page — a button, a label, or your own bar — with a stable id, a rectangle, paint code and input handling. | 03 |
+| `Host` | The trait (Rust's word for an interface) your application implements so the window can call it for paint, resize and input. | 03 |
+| `Ui<M>` | The container that owns all widgets of one page and routes input to them; `M` is the message type you define. | 03 |
+| message (`M`) | A value a widget returns to say what happened, such as "the button was clicked"; you define it as an `enum`. | 03 |
+| event | A normalized input or window occurrence (pointer move, click, key press) delivered to `Host`; an event is not a message. | 03 |
+| DIP | Device-independent pixel: 1/96 inch, which the host scales by the monitor DPI so a size looks the same on any screen. | 03 |
+| dirty rectangle | A rectangle whose pixels changed and must be repainted; the framework merges them and copies only those pieces to the window. | 03 |
+| layout document (`.buixml`) | An XML file that declares widget rectangles and properties instead of writing them in Rust code. | 05 |
+| theme document (`.buitheme`) | An XML file of palette and theme values that is applied to the running application. | 11 |
+| code generation | A build step that writes Rust source from a `.buixml` file, so the shipped program contains no XML parser. | 06 |
+| proc macro | A Rust macro that runs during compilation and expands into code; `layout_xml!` is one. | 06 |
+
 ## Before you start
 
 - **Operating system:** Windows 10 or Windows 11 on x64, which is the
