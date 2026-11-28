@@ -78,8 +78,30 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 | a `<const>` name | its value |
 
 `N%` is a percentage of the attribute's axis (`x`/`w`/`right` use `cw`;
-`y`/`h`/`bottom` use `ch`). `rust:` prefixes an inline-Rust expression for the
-compiled mode only.
+`y`/`h`/`bottom` use `ch`). For a horizontal attribute, `50%` is half the
+space width; for a vertical attribute, it is half the height. `rust:` prefixes
+an inline-Rust expression for the compiled mode only.
+
+#### Worked examples
+
+Assume a 1000×700 space. Each row is a complete geometry fragment; the other
+`<widget>` attributes are omitted.
+
+| Goal | Write | Resolves to |
+|---|---|---|
+| Full width, 16 DIP margins | `x="16" w="cw-32"` | `x = 16`, `w = 968` |
+| Right-aligned, 120 wide, 16 from the right | `right="16" w="120"` | `x = 864`, `w = 120` |
+| Horizontally centred, 120 wide | `x="cx-60" w="120"` | `x = 440`, `w = 120` |
+| Centred in both axes, 200×100 | `x="cx-100" y="cy-50" w="200" h="100"` | `x = 400`, `y = 300` |
+| Half width | `x="0" w="50%"` | `x = 0`, `w = 500` |
+| `x` at 25% + 8, width at 50% - 16 | `x="25%+8" w="50%-16"` | `x = 258`, `w = 484` |
+| Stretch below a 48 DIP header, 16 DIP bottom | `y="48" bottom="16"` | `y = 48`, `h = 636` |
+| Bottom bar 40 high, 16 from the bottom | `bottom="16" h="40"` | `y = 644`, `h = 40` |
+| Two equal columns, 16 gap and margins | `x="16" w="(cw-48)/2"` and `x="32+(cw-48)/2" w="(cw-48)/2"` | `w = 476`; `x = 16` and `x = 508` |
+| Fill the whole space | `x="0" right="0" y="0" bottom="0"` | `0, 0, 1000, 700` |
+
+`*` and `/` bind tighter than `+` and `-`; parentheses override. So
+`cw-2*pad` is `cw - (2*pad)`, and a horizontal `50%+8` is `cw/2 + 8`.
 
 ### Properties
 

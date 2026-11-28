@@ -125,6 +125,28 @@ attribute's axis (`x`/`w`/`right` use `cw`; `y`/`h`/`bottom` use `ch`).
 Constants resolve before evaluation. `w`/`h` must be `>= 0`; `right`/`bottom`
 must be `>= 0`; a zero size is a warning.
 
+A 1000×700 window with `pad = 16` makes these concrete:
+
+| Goal | Geometry |
+|---|---|
+| Full-width header | `x="pad" y="pad" w="cw-2*pad" h="48"` |
+| Sidebar 240 wide, full height below the header | `x="pad" y="80" w="240" bottom="pad"` |
+| Content to its right | `x="272" y="80" right="pad" bottom="pad"` |
+| Two equal columns with a 16 DIP gap | `x="pad" w="(cw-3*pad)/2"` and `x="2*pad+(cw-3*pad)/2" w="(cw-3*pad)/2"` |
+| Centred 400×280 card | `x="cx-200" y="cy-140" w="400" h="280"` |
+| Bottom bar 40 high | `x="pad" bottom="pad" w="cw-2*pad" h="40"` |
+
+The same shell as a document:
+
+```xml
+<const name="pad" value="16"/>
+<layout id="base" min-width="0" min-height="0">
+  <widget id="header"  x="pad" y="pad" w="cw-2*pad" h="48"/>
+  <widget id="sidebar" x="pad" y="80" w="240" bottom="pad"/>
+  <widget id="content" x="272" y="80" right="pad" bottom="pad"/>
+</layout>
+```
+
 A widget scrolled by a registered panel is positioned in that panel's **content**
 space, and `cw`/`ch` mean that content's extent. `cw` inside an `auto`
 content-height panel is one apply behind; use an explicit `content-height` for

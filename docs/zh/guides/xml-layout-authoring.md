@@ -124,6 +124,28 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 常量在求值之前解析。`w`/`h` 必须 `>= 0`；`right`/`bottom`
 必须 `>= 0`；零尺寸是警告。
 
+以 1000×700 的窗口、`pad = 16` 为例，这些写法就很具体：
+
+| 目标 | 几何写法 |
+|---|---|
+| 通栏页眉 | `x="pad" y="pad" w="cw-2*pad" h="48"` |
+| 侧栏宽 240，页眉下方占满高度 | `x="pad" y="80" w="240" bottom="pad"` |
+| 侧栏右侧的内容区 | `x="272" y="80" right="pad" bottom="pad"` |
+| 两列等宽，间距 16 DIP | `x="pad" w="(cw-3*pad)/2"` 与 `x="2*pad+(cw-3*pad)/2" w="(cw-3*pad)/2"` |
+| 居中的 400×280 卡片 | `x="cx-200" y="cy-140" w="400" h="280"` |
+| 高 40 的底栏 | `x="pad" bottom="pad" w="cw-2*pad" h="40"` |
+
+同一个外壳写成文档：
+
+```xml
+<const name="pad" value="16"/>
+<layout id="base" min-width="0" min-height="0">
+  <widget id="header"  x="pad" y="pad" w="cw-2*pad" h="48"/>
+  <widget id="sidebar" x="pad" y="80" w="240" bottom="pad"/>
+  <widget id="content" x="272" y="80" right="pad" bottom="pad"/>
+</layout>
+```
+
 由已注册面板滚动的控件定位在该面板的**内容**
 空间中，`cw`/`ch` 表示该内容的范围。`auto`
 内容高度面板中的 `cw` 会晚一次应用；对于

@@ -196,6 +196,12 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
   `xml.rust.unsupported`, the compiled generator splices it (see
   [layout-codegen.md](layout-codegen.md)).
 
+In a 1000×700 space, `x="16" w="cw-32"` resolves to `x = 16, w = 968`;
+`x="cx-60" w="120"` centres a 120-wide widget; `x="25%+8" w="50%-16"` gives
+`x = 258, w = 484`; `y="48" bottom="16"` stretches the height to 636. The
+[XML elements reference](../reference/xml-elements.md#geometry) has the full
+recipe table.
+
 ## Example
 
 ```rust

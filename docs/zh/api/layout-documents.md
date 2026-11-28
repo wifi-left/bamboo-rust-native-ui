@@ -188,6 +188,11 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
   该文档，编译生成器则将其拼接进去（参见
   [layout-codegen.md](layout-codegen.md)）。
 
+在 1000×700 的空间里，`x="16" w="cw-32"` 得到 `x = 16, w = 968`；
+`x="cx-60" w="120"` 让 120 宽的控件水平居中；`x="25%+8" w="50%-16"`
+得到 `x = 258, w = 484`；`y="48" bottom="16"` 把高度拉伸到 636。完整的
+写法表见 [XML 元素参考](../reference/xml-elements.md)。
+
 ## 示例
 
 ```rust
