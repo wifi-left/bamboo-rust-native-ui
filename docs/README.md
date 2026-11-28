@@ -8,7 +8,7 @@ GDI + dirty-rectangle rendering, backend-abstracted, no egui/wgpu/WebView.
 | Language | Contents |
 |---|---|
 | **English** | [`en/index.md`](en/index.md) — overview, thirteen quick starts, API reference, 62 widget pages, guides, lookup tables. |
-| **中文** | [`zh/`](zh/) — translation pending; the tree mirrors `en/`. |
+| **中文** | [`zh/index.md`](zh/index.md) — the same structure, translated. |
 
 ## Machine-readable entry points
 

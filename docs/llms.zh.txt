@@ -1,0 +1,101 @@
+# Bamboo Native UI
+
+> 一个小巧的、声明式的原生 Windows UI 框架：GDI + 脏矩形渲染，
+> 一个后端抽象的绘制器，不依赖 egui/wgpu/WebView。应用负责计算控件
+> 矩形；框架只绘制脏矩形并分发规范化后的输入。
+> 空闲即零绘制。Rust 2024，Apache-2.0，宿主层仅限 Windows。
+
+本文件是面向 AI 助手的精选入口。完整、自包含的
+上下文文件是 `zh/ai/reference.md`；控件速查表是
+`zh/ai/widgets.md`。所有链接均相对于本目录。
+
+## 综述
+
+- [项目介绍](zh/overview/introduction.md)：框架是什么、为何存在、状态与目标读者。
+- [架构](zh/overview/architecture.md)：crate、运行时层、消息与绘制流程、特性门控。
+- [设计原则](zh/overview/design-principles.md)：脏矩形契约、后备缓冲区、绘制路径无分配。
+
+## 快速上手
+
+- [快速上手索引](zh/quickstart/index.md)：前置条件和十三个教程（六个核心、七个实战）。
+- [创建项目](zh/quickstart/01-create-project.md)：`cargo new`、工作区、MSVC/SDK。
+- [引入 crate](zh/quickstart/02-add-the-crate.md)：路径依赖和特性开关。
+- [第一个窗体](zh/quickstart/03-first-window.md)：`Host`、`WindowBuilder`、`Ui`、paint/resize/event。
+- [自定义控件](zh/quickstart/04-custom-widgets.md)：`CustomWidget` 和手写的 `Widget<M>`。
+- [运行时 XML 布局](zh/quickstart/05-xml-dynamic.md)：`.buixml` + `LayoutDocument::parse` + `apply_layout`、创建的控件与热重载。
+- [编译期 XML 布局](zh/quickstart/06-xml-compiled.md)：代码生成 CLI 和 `layout_xml!`。
+- [布局与断点](zh/quickstart/07-layout-and-breakpoints.md)：布局辅助函数、变体、常量和表达式。
+- [列表、表格与树](zh/quickstart/08-lists-tables-trees.md)：虚拟化数据视图和 XML 子列表。
+- [菜单、工具栏与状态栏](zh/quickstart/09-menus-toolbars-status.md)：应用窗口装饰与命令路由。
+- [对话框、托盘与热键](zh/quickstart/10-dialogs-tray-hotkeys.md)：原生对话框、托盘、通知、全局热键。
+- [主题与图像](zh/quickstart/11-theming-and-images.md)：`ThemeSettings`/`Palette`、`.buitheme`、RGBA 图像。
+- [文本编辑与输入法](zh/quickstart/12-text-editing-and-ime.md)：原生/绘制式编辑器、选择、IME。
+- [播放器界面](zh/quickstart/13-player-ui.md)：封面墙、播放列表、传输控件和波形进度滑块。
+
+## API 参考
+
+- [API 索引](zh/api/index.md)：下面的分组列表。
+- [几何与颜色](zh/api/geometry-and-color.md)：`Rect`、`Size`、`Point`、`Insets`、`Corners`、`Color`、`Rgba`、DIP。
+- [主题与调色板](zh/api/theme-and-palette.md)：`ThemeSettings`、`Palette`、强调色、密度、半径。
+- [Ui 容器](zh/api/ui-container.md)：`Ui<M>` 的构造、路由、绑定、滚动、损坏、菜单、辅助功能。
+- [Widget trait](zh/api/widget-trait.md)：`Widget<M>` 的必需/提供方法、状态、输入、皮肤协议。
+- [事件与输入](zh/api/events-and-input.md)：`Event`、`KeyCode`、`KeyEvent`、`MouseButton`、`Cursor`、修饰键。
+- [绘制与 Canvas](zh/api/painting-and-canvas.md)：`Painter`、`Canvas`、文本样式、`Renderer`。
+- [Host 与窗口](zh/api/host-and-window.md)：`Host` 钩子、`PaintCtx`、`WindowBuilder`、`WindowHandle`。
+- [布局辅助](zh/api/layout-helpers.md)：`VStack`、`HStack`、`padded`、`split_h`、`split_v`、`grid`。
+- [图像](zh/api/images.md)：`UiImage`、`ImageStore`、`ImageId`、`ImageData`。
+- [滚动](zh/api/scrolling.md)：`ScrollView`、`ScrollChild`、偏移量、滚动条样式。
+- [辅助功能](zh/api/accessibility.md)：`A11yRole`、`A11yInfo`、`A11yNode`、操作、宣告。
+- [对话框](zh/api/dialogs.md)：消息/文件/字体/颜色对话框及结果。
+- [菜单](zh/api/menus.md)：`Menu`、`MenuItem`、`MenuBarModel`、`MenuDecision`、助记符。
+- [托盘与通知](zh/api/tray-and-notifications.md)：`TrayIcon`、`Notification`、宿主钩子。
+- [热键](zh/api/hotkeys.md)：`Hotkey`、`HotkeyModifiers`、解析/标签、捕获。
+- [拖放](zh/api/drag-and-drop.md)：`DragData`、`DropEffect`、文本/文件拖动、宿主回调。
+- [手柄](zh/api/gamepad.md)：`Gamepad`、`PadButtons`、`PadState`、按键路由。
+- [布局文档](zh/api/layout-documents.md)：`.buixml` 模型、变体、表达式、诊断。
+- [布局代码生成](zh/api/layout-codegen.md)：CLI/库、生成的 `LAYOUT`/`install`、`layout_xml!`、`apply_compiled`。
+- [主题文档](zh/api/theme-documents.md)：`.buitheme`、`ThemeDocument`、`palette()`、`set_palette_token`。
+- [控件注册表与创建](zh/api/widget-registry-and-creation.md)：`WidgetRegistry`、`type`/`command`/`parent`、`STANDARD_TYPES`。
+- [属性与朗读](zh/api/props-and-narration.md)：`WidgetProps`、`FontSpec`、`Narration`、`ContentCaps`。
+- [诊断与调试](zh/api/diagnostics-and-debug.md)：诊断、`LayoutReport`/`LayoutFailure`、调试快照。
+
+## 控件
+
+- [控件目录](zh/widgets/index.md)：按类别划分的全部 62 个控件，附一行摘要。
+- 内容：[Label](zh/widgets/content/label.md)、[Icon](zh/widgets/content/icon.md)、[Badge](zh/widgets/content/badge.md)、[Divider](zh/widgets/content/divider.md)、[Avatar](zh/widgets/content/avatar.md)、[Kbd](zh/widgets/content/kbd.md)、[CopyableText](zh/widgets/content/copyable-text.md)、[MarqueeText](zh/widgets/content/marquee-text.md)、[RichText](zh/widgets/content/rich-text.md)。
+- 输入：[Checkbox](zh/widgets/inputs/checkbox.md)、[RadioButton](zh/widgets/inputs/radio-button.md)、[RadioGroup](zh/widgets/inputs/radio-group.md)、[SearchBox](zh/widgets/inputs/search-box.md)、[TextEdit](zh/widgets/inputs/text-edit.md)、[NumberInput](zh/widgets/inputs/number-input.md)、[ComboBox](zh/widgets/inputs/combo-box.md)、[MultiSelectList](zh/widgets/inputs/multi-select-list.md)。
+- 控件：[Button](zh/widgets/controls/button.md)、[Toggle](zh/widgets/controls/toggle.md)、[Segmented](zh/widgets/controls/segmented.md)、[Tabs](zh/widgets/controls/tabs.md)、[Slider](zh/widgets/controls/slider.md)、[ProgressBar](zh/widgets/controls/progress-bar.md)、[Pager](zh/widgets/controls/pager.md)、[ColorSwatch](zh/widgets/controls/color-swatch.md)。
+- 选择器：[ColorPicker](zh/widgets/pickers/color-picker.md)、[DatePicker](zh/widgets/pickers/date-picker.md)、[TimePicker](zh/widgets/pickers/time-picker.md)。
+- 数据：[Sparkline](zh/widgets/data/sparkline.md)、[Gauge](zh/widgets/data/gauge.md)、[RatingStars](zh/widgets/data/rating-stars.md)、[ListView](zh/widgets/data/list-view.md)、[Table](zh/widgets/data/table.md)、[TreeView](zh/widgets/data/tree-view.md)、[PropertyGrid](zh/widgets/data/property-grid.md)。
+- 导航：[Accordion](zh/widgets/navigation/accordion.md)、[Breadcrumb](zh/widgets/navigation/breadcrumb.md)、[NavRail](zh/widgets/navigation/nav-rail.md)、[Splitter](zh/widgets/navigation/splitter.md)。
+- 反馈：[Spinner](zh/widgets/feedback/spinner.md)、[ProgressRing](zh/widgets/feedback/progress-ring.md)、[Banner](zh/widgets/feedback/banner.md)、[TooltipCard](zh/widgets/feedback/tooltip-card.md)、[Scrim](zh/widgets/feedback/scrim.md)、[Toast](zh/widgets/feedback/toast.md)。
+- 展示：[Card](zh/widgets/display/card.md)、[GroupBox](zh/widgets/display/group-box.md)、[StatCard](zh/widgets/display/stat-card.md)、[EmptyState](zh/widgets/display/empty-state.md)、[SectionTitle](zh/widgets/display/section-title.md)。
+- 播放器：[WaveformSeekBar](zh/widgets/player/waveform-seek-bar.md)、[PlaybackTransport](zh/widgets/player/playback-transport.md)、[CoverWall](zh/widgets/player/cover-wall.md)、[PlaylistView](zh/widgets/player/playlist-view.md)。
+- 窗口装饰：[MenuBar](zh/widgets/chrome/menu-bar.md)、[MenuButton](zh/widgets/chrome/menu-button.md)、[SplitButton](zh/widgets/chrome/split-button.md)、[Toolbar](zh/widgets/chrome/toolbar.md)、[StatusBar](zh/widgets/chrome/status-bar.md)、[Ribbon](zh/widgets/chrome/ribbon.md)。
+- 浮层/自定义：[Popover](zh/widgets/overlay/popover.md)、[CustomWidget](zh/widgets/custom/custom-widget.md)。
+
+## 指南
+
+- [指南索引](zh/guides/index.md)
+- [主题](zh/guides/theming.md)
+- [XML 布局编写](zh/guides/xml-layout-authoring.md)
+- [性能](zh/guides/performance.md)
+- [调试](zh/guides/debugging.md)
+- [测试](zh/guides/testing.md)
+- [特性开关](zh/guides/feature-flags.md)
+- [辅助功能](zh/guides/accessibility.md)
+- [常见问题](zh/guides/faq.md)
+
+## 参考
+
+- [参考索引](zh/reference/index.md)
+- [调色板 token](zh/reference/palette-tokens.md)
+- [XML 元素](zh/reference/xml-elements.md)
+- [键码与热键](zh/reference/key-codes-and-hotkeys.md)
+
+## 可选
+
+- [AI 参考（单文件）](zh/ai/reference.md)
+- [AI 控件速查表](zh/ai/widgets.md)
+- [编写指南](DOC-GUIDE.md)
+- 归档设计文档（本地、未跟踪）：`archive/`。
