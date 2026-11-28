@@ -7,8 +7,9 @@
   `git restore` / `git reset`.
 - Use the milestone-style subject (`M3: ...`, `M2.5: ...`) and list the areas
   touched in the body.
-- Update `docs/HANDOFF.md` and `TODO.md` in the same commit; they are the
-  resume point for the next session.
+- `docs/HANDOFF.md`, `TODO.md` and `docs/archive/` are **local, untracked
+  notes** (see `.gitignore`). Update them on disk for the next session, but do
+  not expect them in the commit. The documentation lives in `docs/en/`.
 - Before committing, verify: `cargo build` (0 warnings), `cargo test`,
   `showcase --self-test` and `showcase --a11y-dump` (commands in
   `docs/HANDOFF.md`).

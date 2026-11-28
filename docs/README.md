@@ -35,6 +35,7 @@ documentation.
 ## About these documents
 
 - `DOC-GUIDE.md` — the authoring contract (templates, terminology, link rules).
-- `archive/` — older design records and milestone contracts kept for
-  reference: `API.md`, `DECISIONS.md`, `M7-XML.md`, `CUSTOM-WIDGETS.md`.
+- `archive/` (local, untracked) — older design records and milestone contracts
+  kept for reference: `API.md`, `DECISIONS.md`, `M7-XML.md`,
+  `CUSTOM-WIDGETS.md`.
 - `HANDOFF.md` and `TODO.md` are local working notes and are not tracked.
