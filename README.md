@@ -46,13 +46,25 @@ cargo run -p bamboo-native-ui-showcase -- --a11y-dump   # UIA client check + tre
 cargo run -p bamboo-native-ui-showcase -- --light
 ```
 
-Use it from another crate:
+Use it from another crate. Clone the repository first:
+
+```powershell
+git clone https://github.com/wifi-left/bamboo-rust-native-ui.git native-ui
+```
 
 ```toml
 [dependencies]
 bamboo-native-ui = { path = "native-ui/crates/native-ui" }
 # optional features:
 # features = ["layout-xml", "layout-compiled", "theme-xml", "debug-form"]
+```
+
+Or let Cargo fetch the workspace directly (pin `rev = "<commit>"` for
+reproducible builds):
+
+```toml
+[dependencies]
+bamboo-native-ui = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui" }
 ```
 
 The minimal program shape is a `Host` implementation plus a `Ui<M>`:
@@ -93,12 +105,13 @@ complete program.
 | [AI reference](docs/en/ai/reference.md) | One self-contained context file: crate map, features, signatures, widget catalog, XML/theme grammar. |
 | Local design records | `docs/archive/` (untracked): `API.md`, `DECISIONS.md`, `M7-XML.md`, `CUSTOM-WIDGETS.md`. |
 
-Build the HTML site with mkdocs-material:
+Build the HTML site with [Zensical](https://zensical.org/) (it reads the
+MkDocs-compatible YAML config):
 
 ```powershell
 pip install -r requirements-docs.txt
-mkdocs build              # English -> site/
-mkdocs build -f mkdocs.zh.yml
+zensical build -f mkdocs.yml     # English -> site/
+zensical build -f mkdocs.zh.yml  # Chinese -> site/zh/
 ```
 
 `.github/workflows/docs.yml` deploys both to GitHub Pages with the official

@@ -28,7 +28,7 @@ the same project and add a complete feature area.
 | Page | Topic | Adds |
 |---|---|---|
 | [01 — Create the project](01-create-project.md) | `cargo new`, a workspace, Windows prerequisites | A compilable binary |
-| [02 — Add the crate](02-add-the-crate.md) | Path dependency, feature flags, first build | The framework linked |
+| [02 — Add the crate](02-add-the-crate.md) | GitHub clone, path/git dependency, feature flags, first build | The framework linked |
 | [03 — First window](03-first-window.md) | `Host`, `Ui<M>`, `WindowBuilder`, paint/resize/event | A window with a label and a button |
 | [04 — Custom widgets](04-custom-widgets.md) | `CustomWidget`, implementing `Widget<M>`, skin protocol | A painted bar that emits a message |
 | [05 — Dynamic XML](05-xml-dynamic.md) | `.buixml` at runtime (`feature = "layout-xml"`) | Rectangles, properties and created widgets from a file, with hot reload |

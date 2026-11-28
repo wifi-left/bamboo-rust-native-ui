@@ -8,11 +8,31 @@
 
 ## 前置条件
 
-完成 [01 — 创建项目](01-create-project.md)。你需要 `bamboo-hello` 工作区、可用的 MSVC 工具链和 Windows SDK，以及 native-ui 仓库的本地检出。
+完成 [01 — 创建项目](01-create-project.md)。你需要 `bamboo-hello` 工作区、可用的 MSVC 工具链和 Windows SDK，以及
+<https://github.com/wifi-left/bamboo-rust-native-ui> 的本地检出或克隆它所需的网络访问。配置好 Git 代理即可；仓库是公开的。
 
 ## 步骤
 
-### 1. 指向框架
+### 1. 从 GitHub 获取框架
+
+仓库公开在
+<https://github.com/wifi-left/bamboo-rust-native-ui>。把它克隆到工作区旁边：
+
+```powershell
+git clone https://github.com/wifi-left/bamboo-rust-native-ui.git native-ui
+```
+
+如果框架属于你项目的版本历史，把它添加为子模块，这样提交会固定精确的版本：
+
+```powershell
+git submodule add https://github.com/wifi-left/bamboo-rust-native-ui.git native-ui
+git submodule update --init --recursive
+```
+
+两种形式都会得到下面使用的 `native-ui/` 文件夹。crate 本身位于
+`native-ui/crates/native-ui`；仓库根目录是虚拟工作区，不是库。
+
+### 2. 指向框架
 
 框架不在 crates.io 上；引用 crate 文件夹。如果你的项目与仓库同级：
 
@@ -38,7 +58,32 @@ bamboo-native-ui = { path = "native-ui/crates/native-ui" }
 
 使用指向 **crate**（`crates/native-ui`）的路径，而不是工作区根目录。指向根目录的路径会解析到虚拟工作区清单，而它不是库。
 
-### 2. 选择特性
+#### 或者直接依赖 GitHub 仓库
+
+如果你不想本地检出，Cargo 可以拉取整个工作区：
+
+```toml
+[dependencies]
+bamboo-native-ui = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui" }
+```
+
+必须写 `package`：URL 指向工作区根目录，Cargo 按名称选择 `bamboo-native-ui`
+成员。用 `rev = "<commit>"` 固定版本以保证可复现，或用 `branch = "main"`
+跟随默认分支。特性的写法相同：
+
+```toml
+bamboo-native-ui = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui", features = ["layout-xml"] }
+```
+
+git 形式会在首次构建时拉取整个工作区，并缓存到 `~/.cargo/git`；本地迭代时
+path 形式更快。代码生成 CLI 是一个二进制，因此要运行它请克隆仓库；
+`layout_xml!` 过程宏也可以作为 git 依赖：
+
+```toml
+bamboo-native-ui-layout-macros = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui-layout-macros" }
+```
+
+### 3. 选择特性
 
 `bamboo-native-ui` 有五个特性。默认只开启 `gdi`，这对第 03 页足够。
 
@@ -59,7 +104,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", features = ["layout
 
 `gdi` 是累加的，因此 `features = ["layout-xml"]` 会保持它启用。要构建第 05 和 06 页中的示例，你分别需要 `layout-xml` 和 `layout-compiled`。
 
-### 3. 构建工作区
+### 4. 构建工作区
 
 ```powershell
 cargo build
@@ -76,7 +121,7 @@ cargo build
 
 无警告的成功构建是框架自身 `docs/HANDOFF.md` 在提交前要求的基线；如果你看到来自*你的* crate 的警告，请在继续之前修复它们。
 
-### 4. 关于子模块
+### 5. 关于子模块
 
 如果框架作为 git 子模块存在于你的仓库中，全新的克隆必须初始化它：
 
@@ -105,6 +150,11 @@ git submodule update --init --recursive
 - **未知特性警告** —— 特性名是精确的：
   `layout-xml`、`layout-compiled`、`theme-xml`、`debug-form`、`gdi`。拼写错误会
   由 Cargo 报告，而不是被静默忽略。
+- **Cargo 无法拉取 git 依赖** —— 仓库是公开的，因此这几乎总是网络或代理问题。
+  `git ls-remote https://github.com/wifi-left/bamboo-rust-native-ui` 可验证访问；
+  没有网络时，使用本地克隆和 path 形式。
+- **编译出两份框架副本** —— 即使版本相同，path 依赖和 git 依赖也是不同的
+  Cargo 源。每个工作区只选一种形式。
 - **首次构建非常慢** —— 属预期；`windows` 绑定很大。
   后续构建会复用它。
 

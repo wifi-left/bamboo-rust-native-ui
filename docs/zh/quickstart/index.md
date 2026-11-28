@@ -19,7 +19,7 @@
 | 页面 | 主题 | 新增内容 |
 |---|---|---|
 | [01 — 创建项目](01-create-project.md) | `cargo new`、工作区、Windows 前置条件 | 一个可编译的二进制 |
-| [02 — 添加 crate](02-add-the-crate.md) | 路径依赖、特性开关、首次构建 | 链接好的框架 |
+| [02 — 添加 crate](02-add-the-crate.md) | GitHub 克隆、路径/git 依赖、特性开关、首次构建 | 链接好的框架 |
 | [03 — 第一个窗口](03-first-window.md) | `Host`、`Ui<M>`、`WindowBuilder`、绘制/尺寸改变/事件 | 一个带标签和按钮的窗口 |
 | [04 — 自定义控件](04-custom-widgets.md) | `CustomWidget`、实现 `Widget<M>`、皮肤协议 | 一个发出消息的绘制条 |
 | [05 — 动态 XML](05-xml-dynamic.md) | 运行时 `.buixml`（`feature = "layout-xml"`） | 来自文件的矩形、属性和创建的控件，支持热重载 |

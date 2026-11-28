@@ -5,7 +5,7 @@ site_dir: site
 use_directory_urls: true
 
 theme:
-  name: material
+  variant: modern
   language: en
   features:
     - navigation.sections

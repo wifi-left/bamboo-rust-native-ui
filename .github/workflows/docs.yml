@@ -39,17 +39,17 @@ jobs:
           cache: pip
           cache-dependency-path: requirements-docs.txt
 
-      - name: Install mkdocs
+      - name: Install docs toolchain
         run: pip install -r requirements-docs.txt
 
       # English at the site root: site/index.html
       - name: Build English site
-        run: mkdocs build --config-file mkdocs.yml
+        run: zensical build -f mkdocs.yml
 
       # Chinese under /zh/: site/zh/index.html (does not remove the English build)
       - name: Build Chinese site
         if: ${{ hashFiles('docs/zh/index.md') != '' }}
-        run: mkdocs build --config-file mkdocs.zh.yml
+        run: zensical build -f mkdocs.zh.yml
 
       # Pages must not hand the artifact to Jekyll.
       - name: Disable Jekyll

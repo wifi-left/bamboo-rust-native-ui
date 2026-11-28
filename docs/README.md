@@ -20,12 +20,13 @@ GDI + dirty-rectangle rendering, backend-abstracted, no egui/wgpu/WebView.
 
 ## Building the HTML site
 
-The site is built with [mkdocs-material](https://squidfunk.github.io/mkdocs-material/):
+The site is built with [Zensical](https://zensical.org/), which reads the
+MkDocs-compatible YAML configuration:
 
 ```powershell
 pip install -r requirements-docs.txt
-mkdocs build            # English -> site/
-mkdocs build -f mkdocs.zh.yml   # Chinese -> site/zh/
+zensical build -f mkdocs.yml     # English -> site/
+zensical build -f mkdocs.zh.yml  # Chinese -> site/zh/
 ```
 
 The GitHub Actions workflow in `.github/workflows/docs.yml` builds both and

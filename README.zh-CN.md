@@ -46,13 +46,24 @@ cargo run -p bamboo-native-ui-showcase -- --a11y-dump   # UIA 客户端检查 + 
 cargo run -p bamboo-native-ui-showcase -- --light
 ```
 
-从另一个 crate 使用它：
+从另一个 crate 使用它。先克隆仓库：
+
+```powershell
+git clone https://github.com/wifi-left/bamboo-rust-native-ui.git native-ui
+```
 
 ```toml
 [dependencies]
 bamboo-native-ui = { path = "native-ui/crates/native-ui" }
 # 可选特性：
 # features = ["layout-xml", "layout-compiled", "theme-xml", "debug-form"]
+```
+
+也可以让 Cargo 直接拉取整个工作区（用 `rev = "<commit>"` 固定版本以保证可复现）：
+
+```toml
+[dependencies]
+bamboo-native-ui = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui" }
 ```
 
 最小程序形态是一个 `Host` 实现加上一个 `Ui<M>`：
@@ -92,12 +103,13 @@ fn main() -> windows::core::Result<()> {
 | [AI reference](docs/en/ai/reference.md) | 一个自包含的上下文文件：crate 地图、特性、签名、控件目录、XML/主题语法；中文 AI 索引入口见 [llms.zh.txt](docs/llms.zh.txt)。 |
 | 本地设计记录 | `docs/archive/`（未跟踪）：`API.md`、`DECISIONS.md`、`M7-XML.md`、`CUSTOM-WIDGETS.md`。 |
 
-使用 mkdocs-material 构建 HTML 站点：
+使用 [Zensical](https://zensical.org/) 构建 HTML 站点（它读取 MkDocs 兼容的
+YAML 配置）：
 
 ```powershell
 pip install -r requirements-docs.txt
-mkdocs build              # English -> site/
-mkdocs build -f mkdocs.zh.yml
+zensical build -f mkdocs.yml     # 英文 -> site/
+zensical build -f mkdocs.zh.yml  # 中文 -> site/zh/
 ```
 
 `.github/workflows/docs.yml` 通过官方 `configure-pages` / `upload-pages-artifact` /

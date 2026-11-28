@@ -5,7 +5,7 @@ site_dir: site/zh
 use_directory_urls: true
 
 theme:
-  name: material
+  variant: modern
   language: zh
   features:
     - navigation.sections
