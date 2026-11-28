@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <layout id="base">
+    <widget id="list" x="12" y="12" w="200" h="120"/>
+    <rust target="list" code="static_rows()"/>
+  </layout>
+</layouts>

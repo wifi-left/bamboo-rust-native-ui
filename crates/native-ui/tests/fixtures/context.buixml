@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <layout id="base">
+    <widget id="title" x="rust:context.pad" y="rust:context.pad"
+            w="rust:cw - 2.0 * context.pad" h="24"
+            label="rust:context.title" name="rust:context.title"/>
+    <widget id="action" x="rust:context.pad" y="48" w="120" h="32"
+            visible="rust:context.show_action"
+            radius="rust:context.radius"
+            label="主操作"/>
+    <widget id="list" x="12" y="120" w="200" h="160"/>
+    <rust target="list" code="context.rows()"/>
+  </layout>
+  <layout id="wide" min-width="400" min-height="300">
+    <widget id="title" x="rust:context.pad" y="rust:context.pad"
+            w="rust:cw - 2.0 * context.pad" h="24"
+            label="rust:context.title" name="rust:context.title"/>
+    <widget id="action" x="rust:context.pad" y="48" w="120" h="32"
+            visible="rust:context.show_action"
+            radius="rust:context.radius"
+            label="主操作"/>
+    <widget id="list" x="12" y="120" w="360" h="160"/>
+    <rust target="list" code="context.rows()"/>
+  </layout>
+</layouts>

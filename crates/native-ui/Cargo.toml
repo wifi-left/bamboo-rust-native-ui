@@ -1,0 +1,68 @@
+[package]
+name = "bamboo-native-ui"
+description = "Declarative native Windows UI framework: GDI + dirty-rect rendering, backend-abstracted"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = ["gdi"]
+# GDI/Windows backend. The public API stays platform-neutral either way.
+gdi = []
+# M7: layout skins (`.buixml`, XML syntax) — parser, model and applier
+# (opt-in; the default build links no XML code).
+layout-xml = ["bamboo-native-ui-layout-core/parse"]
+# M7.8: theme documents (`.buitheme`, XML syntax) mapped to `Palette`. Only
+# the theme reader is enabled; the layout feature stays independent.
+theme-xml = ["bamboo-native-ui-layout-core/parse"]
+# M7: the compiled consumption mode — runtime support for codegen output; no
+# XML parser and no `quick-xml` in the tree.
+layout-compiled = []
+# M7: debug form + hot reload (opt-in).
+debug-form = ["layout-xml"]
+
+[dependencies]
+tracing = "0.1.44"
+# M7 layout value types + model (shared by the dynamic and compiled modes).
+bamboo-native-ui-layout-core = { path = "../layout-core" }
+
+[target.'cfg(windows)'.dependencies]
+# Direct dependency required by `#[implement]` (it emits `::windows_core` paths).
+windows-core = "0.62.2"
+windows = { version = "0.62.2", features = [
+    "Win32_Foundation",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_HiDpi",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_UI_Input_XboxController",
+    "Win32_UI_Input_Ime",
+    "Win32_UI_Accessibility",
+    "Win32_UI_Controls",
+    "Win32_UI_Controls_Dialogs",
+    "Win32_UI_Shell",
+    "Win32_UI_Shell_Common",
+    "Win32_UI_Shell_PropertiesSystem",
+    "Win32_Graphics_Gdi",
+    "Win32_Graphics_Dwm",
+    "Win32_Graphics_Direct2D",
+    "Win32_Graphics_Direct2D_Common",
+    "Win32_Graphics_DirectWrite",
+    "Win32_Graphics_Dxgi_Common",
+    "Win32_System_Com",
+    "Win32_System_Com_StructuredStorage",
+    "Win32_System_DataExchange",
+    "Win32_System_LibraryLoader",
+    "Win32_System_Memory",
+    "Win32_System_Ole",
+    "Win32_System_ProcessStatus",
+    "Win32_System_SystemInformation",
+    "Win32_System_SystemServices",
+    "Win32_System_Threading",
+    "Win32_System_Variant",
+    "Win32_System_WinRT",
+    "Data_Xml_Dom",
+    "UI_Notifications",
+    "UI_ViewManagement_Core",
+] }
+# D2D geometry/mask types name `windows_numerics` vectors directly.
+windows-numerics = "0.3.1"

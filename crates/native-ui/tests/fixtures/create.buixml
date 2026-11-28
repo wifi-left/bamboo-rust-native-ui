@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <layout id="base">
+    <widget id="hello" type="label" x="10" y="10" w="100" h="20" label="你好"/>
+    <widget id="go" type="button" command="101" x="10" y="40" w="80" h="30" label="出发"/>
+    <widget id="row" type="label" parent="panel" x="0" y="250" w="80" h="20" label="行"/>
+  </layout>
+</layouts>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<theme version="1" name="夜蓝" base="dark" accent="#7aa2f7">
+  <color name="background" value="#16181d"/>
+  <color name="sidebar" value="#1c1f26"/>
+  <color name="text" value="#e8ebee"/>
+  <color name="muted" value="#9aa5b5"/>
+  <color name="card" value="#22262e"/>
+  <color name="panel" value="#1a1d23"/>
+  <color name="search-bg" value="#121418"/>
+</theme>

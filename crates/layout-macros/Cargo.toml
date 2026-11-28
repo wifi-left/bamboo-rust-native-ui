@@ -1,0 +1,17 @@
+[package]
+name = "bamboo-native-ui-layout-macros"
+description = "The `layout_xml!` proc macro: compile a .buixml skin into Rust at build time"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+proc-macro = true
+
+[dependencies]
+# Parsing/generation happen in the codegen crate; this crate only reads the
+# token input and returns the generated source (no `syn`/`quote` needed).
+bamboo-native-ui-layout-codegen = { path = "../layout-codegen" }
+
+[dev-dependencies]
+bamboo-native-ui = { path = "../native-ui", features = ["layout-compiled"] }

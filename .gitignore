@@ -1,0 +1,21 @@
+/target/
+*.pdb
+*.exe
+*.dll
+*.lib
+*.rlib
+*.rmeta
+*.log
+
+# local working notes (not part of the published repository)
+HANDOFF.md
+TODO.md
+
+# local debug captures
+/err.txt
+*.dmp
+debug-*.txt
+debug-*.png
+
+# local tooling state
+/.zcode/

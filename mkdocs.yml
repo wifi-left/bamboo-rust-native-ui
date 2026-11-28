@@ -1,0 +1,189 @@
+site_name: Bamboo Native UI
+site_description: A small, declarative native Windows UI framework with GDI dirty-rectangle rendering.
+docs_dir: docs/en
+site_dir: site
+use_directory_urls: true
+
+theme:
+  name: material
+  language: en
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+
+extra:
+  alternate:
+    - name: English
+      link: ./
+      lang: en
+    - name: 中文
+      link: zh/
+      lang: zh
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - Home: index.md
+  - Overview:
+      - Introduction: overview/introduction.md
+      - Architecture: overview/architecture.md
+      - Design principles: overview/design-principles.md
+  - Quick start:
+      - Overview: quickstart/index.md
+      - Create a project: quickstart/01-create-project.md
+      - Add the crate: quickstart/02-add-the-crate.md
+      - Your first window: quickstart/03-first-window.md
+      - Custom widgets: quickstart/04-custom-widgets.md
+      - XML at runtime: quickstart/05-xml-dynamic.md
+      - Compiled XML: quickstart/06-xml-compiled.md
+      - Layout and breakpoints: quickstart/07-layout-and-breakpoints.md
+      - Lists, tables and trees: quickstart/08-lists-tables-trees.md
+      - Menus, toolbars and status: quickstart/09-menus-toolbars-status.md
+      - Dialogs, tray and hotkeys: quickstart/10-dialogs-tray-hotkeys.md
+      - Theming and images: quickstart/11-theming-and-images.md
+      - Text editing and IME: quickstart/12-text-editing-and-ime.md
+      - Player UI: quickstart/13-player-ui.md
+  - API:
+      - Index: api/index.md
+      - Geometry and color: api/geometry-and-color.md
+      - Theme and palette: api/theme-and-palette.md
+      - Ui container: api/ui-container.md
+      - Widget trait: api/widget-trait.md
+      - Events and input: api/events-and-input.md
+      - Painting and Canvas: api/painting-and-canvas.md
+      - Host and window: api/host-and-window.md
+      - Layout helpers: api/layout-helpers.md
+      - Images: api/images.md
+      - Scrolling: api/scrolling.md
+      - Accessibility: api/accessibility.md
+      - Dialogs: api/dialogs.md
+      - Menus: api/menus.md
+      - Tray and notifications: api/tray-and-notifications.md
+      - Hotkeys: api/hotkeys.md
+      - Drag and drop: api/drag-and-drop.md
+      - Gamepad: api/gamepad.md
+      - Layout documents: api/layout-documents.md
+      - Layout codegen: api/layout-codegen.md
+      - Theme documents: api/theme-documents.md
+      - Registry and creation: api/widget-registry-and-creation.md
+      - Props and narration: api/props-and-narration.md
+      - Diagnostics and debug: api/diagnostics-and-debug.md
+  - Widgets:
+      - Catalog: widgets/index.md
+      - Content:
+          - Label: widgets/content/label.md
+          - Icon: widgets/content/icon.md
+          - Badge: widgets/content/badge.md
+          - Divider: widgets/content/divider.md
+          - Avatar: widgets/content/avatar.md
+          - Kbd: widgets/content/kbd.md
+          - CopyableText: widgets/content/copyable-text.md
+          - MarqueeText: widgets/content/marquee-text.md
+          - RichText: widgets/content/rich-text.md
+      - Input:
+          - Checkbox: widgets/inputs/checkbox.md
+          - RadioButton: widgets/inputs/radio-button.md
+          - RadioGroup: widgets/inputs/radio-group.md
+          - SearchBox: widgets/inputs/search-box.md
+          - TextEdit: widgets/inputs/text-edit.md
+          - NumberInput: widgets/inputs/number-input.md
+          - ComboBox: widgets/inputs/combo-box.md
+          - MultiSelectList: widgets/inputs/multi-select-list.md
+      - Controls:
+          - Button: widgets/controls/button.md
+          - Toggle: widgets/controls/toggle.md
+          - Segmented: widgets/controls/segmented.md
+          - Tabs: widgets/controls/tabs.md
+          - Slider: widgets/controls/slider.md
+          - ProgressBar: widgets/controls/progress-bar.md
+          - Pager: widgets/controls/pager.md
+          - ColorSwatch: widgets/controls/color-swatch.md
+      - Pickers:
+          - ColorPicker: widgets/pickers/color-picker.md
+          - DatePicker: widgets/pickers/date-picker.md
+          - TimePicker: widgets/pickers/time-picker.md
+      - Data:
+          - Sparkline: widgets/data/sparkline.md
+          - Gauge: widgets/data/gauge.md
+          - RatingStars: widgets/data/rating-stars.md
+          - ListView: widgets/data/list-view.md
+          - Table: widgets/data/table.md
+          - TreeView: widgets/data/tree-view.md
+          - PropertyGrid: widgets/data/property-grid.md
+      - Navigation:
+          - Accordion: widgets/navigation/accordion.md
+          - Breadcrumb: widgets/navigation/breadcrumb.md
+          - NavRail: widgets/navigation/nav-rail.md
+          - Splitter: widgets/navigation/splitter.md
+      - Feedback:
+          - Spinner: widgets/feedback/spinner.md
+          - ProgressRing: widgets/feedback/progress-ring.md
+          - Banner: widgets/feedback/banner.md
+          - TooltipCard: widgets/feedback/tooltip-card.md
+          - Scrim: widgets/feedback/scrim.md
+          - Toast: widgets/feedback/toast.md
+      - Display:
+          - Card: widgets/display/card.md
+          - GroupBox: widgets/display/group-box.md
+          - StatCard: widgets/display/stat-card.md
+          - EmptyState: widgets/display/empty-state.md
+          - SectionTitle: widgets/display/section-title.md
+      - Player:
+          - WaveformSeekBar: widgets/player/waveform-seek-bar.md
+          - PlaybackTransport: widgets/player/playback-transport.md
+          - CoverWall: widgets/player/cover-wall.md
+          - PlaylistView: widgets/player/playlist-view.md
+      - Chrome:
+          - MenuBar: widgets/chrome/menu-bar.md
+          - MenuButton: widgets/chrome/menu-button.md
+          - SplitButton: widgets/chrome/split-button.md
+          - Toolbar: widgets/chrome/toolbar.md
+          - StatusBar: widgets/chrome/status-bar.md
+          - Ribbon: widgets/chrome/ribbon.md
+      - Overlay and custom:
+          - Popover: widgets/overlay/popover.md
+          - CustomWidget: widgets/custom/custom-widget.md
+  - Guides:
+      - Index: guides/index.md
+      - Theming: guides/theming.md
+      - XML layout authoring: guides/xml-layout-authoring.md
+      - Performance: guides/performance.md
+      - Debugging: guides/debugging.md
+      - Testing: guides/testing.md
+      - Feature flags: guides/feature-flags.md
+      - Accessibility: guides/accessibility.md
+      - FAQ: guides/faq.md
+  - Reference:
+      - Index: reference/index.md
+      - Palette tokens: reference/palette-tokens.md
+      - XML elements: reference/xml-elements.md
+      - Key codes and hotkeys: reference/key-codes-and-hotkeys.md
+  - For AI:
+      - Reference: ai/reference.md
+      - Widget table: ai/widgets.md

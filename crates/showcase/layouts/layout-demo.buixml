@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <const name="pad" value="18"/>
+  <layout id="wide" min-width="1000" min-height="700">
+    <scroll id="page_scroll_8" x="230" y="58" w="cw-252" h="ch-88" content-height="auto"/>
+    <widget id="m7_title" x="pad" y="28" w="cw-2*pad" h="30" font-size="18" label="XML 布局演示"/>
+    <widget id="m7_action"
+            x="pad" y="64" w="120" h="36"
+            tooltip="样式来自 .buixml"
+            radius="medium" background="accent"
+            label="主操作"/>
+    <widget id="m7_outline"
+            x="pad+132" y="64" w="120" h="36"
+            radius="pill" background="none"
+            label="描边"/>
+    <widget id="m7_progress" right="pad" y="64" w="200" h="30" radius="large" progress="0.6"/>
+    <widget id="m7_card"
+            x="pad" y="110" w="cw-2*pad" h="96"
+            radius="large" background="card"
+            body="标题、正文与强调条都是控件自己声明的本地标量。" emphasis="true" title="卡片标题来自文件"/>
+    <widget id="m7_edit"
+            x="pad+16" y="214" w="cw-2*pad-32" h="32"
+            radius="medium"
+            text="重载不会打断正在输入的会话。"
+            cue="输入提示来自文件"/>
+    <widget id="m7_slider" x="pad" y="254" w="cw-2*pad-96" h="28" value="0.4"/>
+    <widget id="m7_value" right="pad" y="254" w="80" h="28" name="当前值" label="40%"/>
+    <widget id="m7_list" x="pad" y="292" w="cw-2*pad" h="180" row-height="36" alternating="true" empty-text="暂无曲目" selected="1">
+      <item title="文件驱动的列表" subtitle="行数据来自子元素" trailing="A"/>
+      <item title="第二行" subtitle="来自 .buixml" trailing="B" current="true"/>
+      <item title="第三行" subtitle="Rust 不再设置" trailing="C"/>
+    </widget>
+    <widget id="m7_meter" x="pad" y="484" w="cw-2*pad" h="92" x-level="72" x-units="dB">
+      <x-item label="低频" weight="3"/>
+      <x-item label="中频" weight="2"/>
+      <x-item label="高频" weight="1"/>
+    </widget>
+    <widget id="m7_table" x="pad" y="594" w="cw-2*pad" h="180" row-height="24" header-height="24" cell-padding="8" striped="true" editable="true" empty-text="暂无数据" selected="1">
+      <column title="编号" width="64" align="right"/>
+      <column title="曲名" flex="true"/>
+      <column title="时长" width="80" align="right"/>
+      <row>
+        <cell text="01"/>
+        <cell text="夜曲"/>
+        <cell text="3:58"/>
+      </row>
+      <row>
+        <cell text="02"/>
+        <cell text="晴天"/>
+        <cell text="4:29"/>
+      </row>
+      <row disabled="true">
+        <cell text="03"/>
+        <cell text="稻香"/>
+        <cell text="3:43"/>
+      </row>
+    </widget>
+    <widget id="m7_tree" x="pad" y="792" w="cw-2*pad" h="180" row-height="24" indent="14" renameable="true" draggable="false" empty-text="暂无节点" selected="1">
+      <node label="音乐库" glyph="♪" secondary="3 张" expanded="true">
+        <node label="周杰伦" expanded="true">
+          <node label="夜曲" glyph="♫"/>
+          <node label="晴天" glyph="♫"/>
+        </node>
+        <node label="收藏" secondary="12" disabled="true"/>
+      </node>
+    </widget>
+    <widget id="m7_props" x="pad" y="990" w="cw-2*pad" h="180" row-height="24" header-height="22" key-width="110" grid-lines="false" empty-text="暂无属性">
+      <section title="音轨">
+        <row key="标题" value="夜曲"/>
+        <row key="音量" value="72" kind="number" min="0" max="100" step="1" decimals="0"/>
+        <row key="音质" value="无损" kind="choice" options="无损|高品质|标准"/>
+        <row key="收藏" value="否" kind="check" on="是" off="否"/>
+      </section>
+      <section title="评分">
+        <row key="评分" value="4" kind="rating" stars="5" read-only="true"/>
+        <row key="备注" value="可在网格内编辑" kind="text"/>
+      </section>
+    </widget>
+    <widget id="m7_pager" x="pad" y="1188" w="cw-2*pad" h="32" selected="1">
+      <page label="封面"/>
+      <page label="曲目"/>
+      <page label="详情"/>
+      <page label="设置"/>
+    </widget>
+    <widget id="m7_tabs" x="pad" y="1236" w="cw-2*pad" h="32" label-align="left" selected="1">
+      <option label="概览"/>
+      <option label="详情"/>
+      <option label="设置"/>
+    </widget>
+    <widget id="m7_seg" x="pad" y="1286" w="cw-2*pad" h="32" selected="2">
+      <option label="低"/>
+      <option label="中"/>
+      <option label="高"/>
+    </widget>
+    <widget id="m7_crumb" x="pad" y="1336" w="cw-2*pad" h="24" separator="›">
+      <step label="音乐"/>
+      <step label="专辑"/>
+      <step label="夜曲"/>
+    </widget>
+    <widget id="m7_rail" x="pad" y="1372" w="cw-2*pad" h="140" row-height="30" selected="1">
+      <step label="首页" icon="⌂"/>
+      <step label="曲库"/>
+      <step label="设置"/>
+    </widget>
+    <widget id="m7_rich" x="pad" y="1530" w="cw-2*pad" h="24" align="center" text-style="small">
+      <run text="重点："/>
+      <run text="夜曲" style="strong"/>
+      <run text="查看" style="link" link="7"/>
+    </widget>
+    <widget id="m7_spark" x="pad" y="1564" w="cw-2*pad" h="36" color="accent" gap="3">
+      <point value="1"/>
+      <point value="3.5"/>
+      <point value="4"/>
+      <point value="2"/>
+    </widget>
+    <widget id="m7_created" type="label" x="pad" y="1610" w="cw-2*pad" h="22" label="来自 WidgetRegistry 的创建控件"/>
+  </layout>
+  <layout id="base">
+    <scroll id="page_scroll_8" x="230" y="58" w="cw-252" h="ch-88" content-height="auto"/>
+    <widget id="m7_title" x="pad" y="28" w="cw-2*pad" h="30" font-size="16" label="XML 布局演示"/>
+    <widget id="m7_action"
+            x="pad" y="64" w="cw-2*pad" h="36"
+            tooltip="样式来自 .buixml"
+            radius="medium" background="accent"
+            label="主操作"/>
+    <widget id="m7_outline"
+            x="pad" y="108" w="cw-2*pad" h="36"
+            radius="pill" background="none"
+            label="描边"/>
+    <widget id="m7_progress" x="pad" y="152" w="cw-2*pad" h="30" radius="large" progress="0.6"/>
+    <widget id="m7_card"
+            x="pad" y="190" w="cw-2*pad" h="96"
+            radius="large" background="card"
+            body="标题、正文与强调条都是控件自己声明的本地标量。" emphasis="true" title="卡片标题来自文件"/>
+    <widget id="m7_edit"
+            x="pad" y="294" w="cw-2*pad" h="32"
+            radius="medium"
+            text="重载不会打断正在输入的会话。"
+            cue="输入提示来自文件"/>
+    <widget id="m7_slider" x="pad" y="334" w="cw-2*pad" h="28" value="0.4"/>
+    <widget id="m7_value" x="pad" y="370" w="80" h="28" name="当前值" label="40%"/>
+    <widget id="m7_list" x="pad" y="406" w="cw-2*pad" h="200" row-height="36" alternating="true" empty-text="暂无曲目" selected="1">
+      <item title="文件驱动的列表" subtitle="行数据来自子元素" trailing="A"/>
+      <item title="第二行" subtitle="来自 .buixml" trailing="B" current="true"/>
+      <item title="第三行" subtitle="Rust 不再设置" trailing="C"/>
+    </widget>
+    <widget id="m7_meter" x="pad" y="618" w="cw-2*pad" h="92" x-level="72" x-units="dB">
+      <x-item label="低频" weight="3"/>
+      <x-item label="中频" weight="2"/>
+      <x-item label="高频" weight="1"/>
+    </widget>
+    <widget id="m7_table" x="pad" y="728" w="cw-2*pad" h="180" row-height="24" header-height="24" cell-padding="8" striped="true" editable="true" empty-text="暂无数据" selected="1">
+      <column title="编号" width="64" align="right"/>
+      <column title="曲名" flex="true"/>
+      <column title="时长" width="80" align="right"/>
+      <row>
+        <cell text="01"/>
+        <cell text="夜曲"/>
+        <cell text="3:58"/>
+      </row>
+      <row>
+        <cell text="02"/>
+        <cell text="晴天"/>
+        <cell text="4:29"/>
+      </row>
+      <row disabled="true">
+        <cell text="03"/>
+        <cell text="稻香"/>
+        <cell text="3:43"/>
+      </row>
+    </widget>
+    <widget id="m7_tree" x="pad" y="926" w="cw-2*pad" h="180" row-height="24" indent="14" renameable="true" draggable="false" empty-text="暂无节点" selected="1">
+      <node label="音乐库" glyph="♪" secondary="3 张" expanded="true">
+        <node label="周杰伦" expanded="true">
+          <node label="夜曲" glyph="♫"/>
+          <node label="晴天" glyph="♫"/>
+        </node>
+        <node label="收藏" secondary="12" disabled="true"/>
+      </node>
+    </widget>
+    <widget id="m7_props" x="pad" y="1124" w="cw-2*pad" h="180" row-height="24" header-height="22" key-width="110" grid-lines="false" empty-text="暂无属性">
+      <section title="音轨">
+        <row key="标题" value="夜曲"/>
+        <row key="音量" value="72" kind="number" min="0" max="100" step="1" decimals="0"/>
+        <row key="音质" value="无损" kind="choice" options="无损|高品质|标准"/>
+        <row key="收藏" value="否" kind="check" on="是" off="否"/>
+      </section>
+      <section title="评分">
+        <row key="评分" value="4" kind="rating" stars="5" read-only="true"/>
+        <row key="备注" value="可在网格内编辑" kind="text"/>
+      </section>
+    </widget>
+    <widget id="m7_pager" x="pad" y="1322" w="cw-2*pad" h="32" selected="1">
+      <page label="封面"/>
+      <page label="曲目"/>
+      <page label="详情"/>
+      <page label="设置"/>
+    </widget>
+    <widget id="m7_tabs" x="pad" y="1370" w="cw-2*pad" h="32" label-align="left" selected="1">
+      <option label="概览"/>
+      <option label="详情"/>
+      <option label="设置"/>
+    </widget>
+    <widget id="m7_seg" x="pad" y="1420" w="cw-2*pad" h="32" selected="2">
+      <option label="低"/>
+      <option label="中"/>
+      <option label="高"/>
+    </widget>
+    <widget id="m7_crumb" x="pad" y="1470" w="cw-2*pad" h="24" separator="›">
+      <step label="音乐"/>
+      <step label="专辑"/>
+      <step label="夜曲"/>
+    </widget>
+    <widget id="m7_rail" x="pad" y="1506" w="cw-2*pad" h="140" row-height="30" selected="1">
+      <step label="首页" icon="⌂"/>
+      <step label="曲库"/>
+      <step label="设置"/>
+    </widget>
+    <widget id="m7_rich" x="pad" y="1664" w="cw-2*pad" h="24" align="center" text-style="small">
+      <run text="重点："/>
+      <run text="夜曲" style="strong"/>
+      <run text="查看" style="link" link="7"/>
+    </widget>
+    <widget id="m7_spark" x="pad" y="1698" w="cw-2*pad" h="36" color="accent" gap="3">
+      <point value="1"/>
+      <point value="3.5"/>
+      <point value="4"/>
+      <point value="2"/>
+    </widget>
+    <widget id="m7_created" type="label" x="pad" y="1744" w="cw-2*pad" h="22" label="来自 WidgetRegistry 的创建控件"/>
+  </layout>
+</layouts>

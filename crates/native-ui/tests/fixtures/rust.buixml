@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <layout id="base">
+    <widget id="title" x="rust:PAGE_PAD" y="rust:PAGE_PAD"
+            w="rust:cw - 2.0 * PAGE_PAD" h="24"
+            label="rust:TITLE" name="rust:TITLE"/>
+    <widget id="action" x="rust:PAGE_PAD" y="48" w="120" h="32"
+            visible="rust:SHOW_ACTION" enabled="rust:!LOCKED"
+            radius="rust:RADIUS"
+            label="主操作"/>
+  </layout>
+</layouts>

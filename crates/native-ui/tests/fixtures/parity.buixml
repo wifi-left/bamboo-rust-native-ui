@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layouts version="1">
+  <const name="pad" value="10"/>
+  <layout id="wide" min-width="500" min-height="400">
+    <scroll id="page" x="0" y="0" w="cw" h="ch" content-height="auto"/>
+    <widget id="title" x="pad" y="pad" w="cw-2*pad" h="24" font-size="18" name="标题文本" label="标题"/>
+    <widget id="action"
+            x="pad" y="44" w="120" h="36"
+            tooltip="样式来自文件" radius="medium" background="accent"
+            enabled="true" focus-order="2" cursor="hand"
+            label="主操作"/>
+    <widget id="slider" x="pad" y="88" w="cw-2*pad-80" h="24" value="0.25"/>
+    <widget id="rule" x="25%" y="88" w="50" h="24"/>
+    <widget id="list" x="pad" y="120" w="cw-2*pad" h="120"
+            row-height="30" alternating="true" empty-text="暂无" selected="1">
+      <item title="第一行" subtitle="子元素" trailing="1"/>
+      <item title="第二行" trailing="2" current="true"/>
+    </widget>
+    <widget id="only_wide" x="pad" y="248" w="100" h="28" visible="false" label="只在宽版"/>
+  </layout>
+  <layout id="base">
+    <scroll id="page" x="0" y="0" w="cw" h="ch"/>
+    <widget id="title" x="pad" y="pad" w="cw-2*pad" h="24" font-size="16" label="标题"/>
+    <widget id="action" x="pad" y="44" w="cw-2*pad" h="30" enabled="false" cursor="arrow" label="主操作"/>
+    <widget id="slider" x="pad" y="80" w="cw-2*pad" h="24" value="0.25"/>
+    <widget id="rule" x="pad" y="110" w="cw-2*pad" h="2"/>
+    <widget id="list" x="pad" y="120" w="cw-2*pad" h="100"
+            row-height="30" alternating="true" empty-text="暂无" selected="1">
+      <item title="第一行" subtitle="子元素" trailing="1"/>
+      <item title="第二行" trailing="2" current="true"/>
+    </widget>
+  </layout>
+</layouts>

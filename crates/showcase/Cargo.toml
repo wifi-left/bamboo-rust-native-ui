@@ -1,0 +1,46 @@
+[package]
+name = "bamboo-native-ui-showcase"
+description = "Showcase application exercising every Bamboo Native UI control"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "showcase"
+path = "src/main.rs"
+
+[features]
+# The ninth `布局` page (layout skin + hot reload) plus the debug API and its
+# `调试` menu. On by default: the showcase exercises the layout skin out of the
+# box. `--no-default-features` builds the original eight-page catalog with no
+# XML and no debug code. `layout-compiled` is enabled beside the dynamic path
+# so one workspace build type-checks both consumption modes (they are designed
+# to coexist; the showcase itself drives the dynamic one).
+default = ["m7"]
+m7 = [
+    "bamboo-native-ui/layout-xml",
+    "bamboo-native-ui/layout-compiled",
+    "bamboo-native-ui/debug-form",
+    "bamboo-native-ui/theme-xml",
+]
+
+[dependencies]
+bamboo-native-ui = { path = "../native-ui" }
+
+[target.'cfg(windows)'.dependencies]
+# Client-side UI Automation probe for `--a11y-dump` (test tooling only).
+windows = { version = "0.62.2", features = [
+    "Win32_Foundation",
+    "Win32_UI_Accessibility",
+    "Win32_UI_WindowsAndMessaging",
+    "Win32_UI_Input_KeyboardAndMouse",
+    "Win32_System_Threading",
+    "Win32_System_Com",
+    "Win32_System_Ole",
+    "Win32_System_Variant",
+] }
+# Required by `#[implement]` for the property-event handler.
+windows-core = "0.62.2"
+
+[build-dependencies]
+winres = "0.1.12"

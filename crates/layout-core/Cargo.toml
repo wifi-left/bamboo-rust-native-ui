@@ -1,0 +1,15 @@
+[package]
+name = "bamboo-native-ui-layout-core"
+description = "Host-side model, parser and writer for Bamboo Native UI layout skins (.buixml)"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[features]
+default = []
+# The `.buixml` reader (quick-xml). The dynamic path enables it; a build that
+# only consumes generated Rust leaves it off and links no XML code.
+parse = ["dep:quick-xml"]
+
+[dependencies]
+quick-xml = { version = "0.41", optional = true, default-features = false }

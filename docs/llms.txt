@@ -1,0 +1,101 @@
+# Bamboo Native UI
+
+> A small, declarative native Windows UI framework: GDI + dirty-rectangle rendering,
+> a backend-abstracted painter, no egui/wgpu/WebView. The application computes widget
+> rectangles; the framework paints only dirty rectangles and routes normalized input.
+> Idle means zero paints. Rust 2024, Apache-2.0, Windows-only host layer.
+
+This file is a curated entry point for AI assistants. The full, self-contained
+context file is `en/ai/reference.md`; the widget lookup table is
+`en/ai/widgets.md`. All links are relative to this directory.
+
+## Overview
+
+- [Introduction](en/overview/introduction.md): what the framework is, why it exists, status and audience.
+- [Architecture](en/overview/architecture.md): crates, runtime layers, message and paint flow, feature gates.
+- [Design principles](en/overview/design-principles.md): the dirty-rectangle contract, back buffer, no paint-path allocations.
+
+## Quick start
+
+- [Quick start index](en/quickstart/index.md): prerequisites and the thirteen tutorials (six core, seven practical).
+- [Create a project](en/quickstart/01-create-project.md): `cargo new`, workspace, MSVC/SDK.
+- [Add the crate](en/quickstart/02-add-the-crate.md): path dependency and feature flags.
+- [Your first window](en/quickstart/03-first-window.md): `Host`, `WindowBuilder`, `Ui`, paint/resize/event.
+- [Custom widgets](en/quickstart/04-custom-widgets.md): `CustomWidget` and a manual `Widget<M>`.
+- [XML layouts at runtime](en/quickstart/05-xml-dynamic.md): `.buixml` + `LayoutDocument::parse` + `apply_layout`, created widgets and hot reload.
+- [Compiled XML layouts](en/quickstart/06-xml-compiled.md): codegen CLI and `layout_xml!`.
+- [Layout and breakpoints](en/quickstart/07-layout-and-breakpoints.md): layout helpers, variants, constants and expressions.
+- [Lists, tables and trees](en/quickstart/08-lists-tables-trees.md): virtualized data views and XML child lists.
+- [Menus, toolbars and status](en/quickstart/09-menus-toolbars-status.md): application chrome and command routing.
+- [Dialogs, tray and hotkeys](en/quickstart/10-dialogs-tray-hotkeys.md): native dialogs, tray, notifications, global hotkeys.
+- [Theming and images](en/quickstart/11-theming-and-images.md): `ThemeSettings`/`Palette`, `.buitheme`, RGBA images.
+- [Text editing and IME](en/quickstart/12-text-editing-and-ime.md): native/painted editors, selection, IME.
+- [Player UI](en/quickstart/13-player-ui.md): cover wall, playlist, transport and waveform seek bar.
+
+## API reference
+
+- [API index](en/api/index.md): the grouped list below.
+- [Geometry and color](en/api/geometry-and-color.md): `Rect`, `Size`, `Point`, `Insets`, `Corners`, `Color`, `Rgba`, DIPs.
+- [Theme and palette](en/api/theme-and-palette.md): `ThemeSettings`, `Palette`, accents, density, radii.
+- [Ui container](en/api/ui-container.md): `Ui<M>` construction, routing, bindings, scrolling, damage, menus, a11y.
+- [Widget trait](en/api/widget-trait.md): `Widget<M>` required/provided methods, state, input, skin protocol.
+- [Events and input](en/api/events-and-input.md): `Event`, `KeyCode`, `KeyEvent`, `MouseButton`, `Cursor`, modifiers.
+- [Painting and Canvas](en/api/painting-and-canvas.md): `Painter`, `Canvas`, text styles, `Renderer`.
+- [Host and window](en/api/host-and-window.md): `Host` hooks, `PaintCtx`, `WindowBuilder`, `WindowHandle`.
+- [Layout helpers](en/api/layout-helpers.md): `VStack`, `HStack`, `padded`, `split_h`, `split_v`, `grid`.
+- [Images](en/api/images.md): `UiImage`, `ImageStore`, `ImageId`, `ImageData`.
+- [Scrolling](en/api/scrolling.md): `ScrollView`, `ScrollChild`, offsets, bar styling.
+- [Accessibility](en/api/accessibility.md): `A11yRole`, `A11yInfo`, `A11yNode`, actions, announcements.
+- [Dialogs](en/api/dialogs.md): message/file/font/color dialogs and results.
+- [Menus](en/api/menus.md): `Menu`, `MenuItem`, `MenuBarModel`, `MenuDecision`, mnemonics.
+- [Tray and notifications](en/api/tray-and-notifications.md): `TrayIcon`, `Notification`, host hooks.
+- [Hotkeys](en/api/hotkeys.md): `Hotkey`, `HotkeyModifiers`, parse/label, capture.
+- [Drag and drop](en/api/drag-and-drop.md): `DragData`, `DropEffect`, text/files drag, host callbacks.
+- [Gamepad](en/api/gamepad.md): `Gamepad`, `PadButtons`, `PadState`, key routing.
+- [Layout documents](en/api/layout-documents.md): `.buixml` model, variants, expressions, diagnostics.
+- [Layout codegen](en/api/layout-codegen.md): CLI/library, generated `LAYOUT`/`install`, `layout_xml!`, `apply_compiled`.
+- [Theme documents](en/api/theme-documents.md): `.buitheme`, `ThemeDocument`, `palette()`, `set_palette_token`.
+- [Widget registry and creation](en/api/widget-registry-and-creation.md): `WidgetRegistry`, `type`/`command`/`parent`, `STANDARD_TYPES`.
+- [Properties and narration](en/api/props-and-narration.md): `WidgetProps`, `FontSpec`, `Narration`, `ContentCaps`.
+- [Diagnostics and debug](en/api/diagnostics-and-debug.md): diagnostics, `LayoutReport`/`LayoutFailure`, debug snapshots.
+
+## Widgets
+
+- [Widget catalog](en/widgets/index.md): all 62 widgets by category, with one-line summaries.
+- Content: [Label](en/widgets/content/label.md), [Icon](en/widgets/content/icon.md), [Badge](en/widgets/content/badge.md), [Divider](en/widgets/content/divider.md), [Avatar](en/widgets/content/avatar.md), [Kbd](en/widgets/content/kbd.md), [CopyableText](en/widgets/content/copyable-text.md), [MarqueeText](en/widgets/content/marquee-text.md), [RichText](en/widgets/content/rich-text.md).
+- Input: [Checkbox](en/widgets/inputs/checkbox.md), [RadioButton](en/widgets/inputs/radio-button.md), [RadioGroup](en/widgets/inputs/radio-group.md), [SearchBox](en/widgets/inputs/search-box.md), [TextEdit](en/widgets/inputs/text-edit.md), [NumberInput](en/widgets/inputs/number-input.md), [ComboBox](en/widgets/inputs/combo-box.md), [MultiSelectList](en/widgets/inputs/multi-select-list.md).
+- Controls: [Button](en/widgets/controls/button.md), [Toggle](en/widgets/controls/toggle.md), [Segmented](en/widgets/controls/segmented.md), [Tabs](en/widgets/controls/tabs.md), [Slider](en/widgets/controls/slider.md), [ProgressBar](en/widgets/controls/progress-bar.md), [Pager](en/widgets/controls/pager.md), [ColorSwatch](en/widgets/controls/color-swatch.md).
+- Pickers: [ColorPicker](en/widgets/pickers/color-picker.md), [DatePicker](en/widgets/pickers/date-picker.md), [TimePicker](en/widgets/pickers/time-picker.md).
+- Data: [Sparkline](en/widgets/data/sparkline.md), [Gauge](en/widgets/data/gauge.md), [RatingStars](en/widgets/data/rating-stars.md), [ListView](en/widgets/data/list-view.md), [Table](en/widgets/data/table.md), [TreeView](en/widgets/data/tree-view.md), [PropertyGrid](en/widgets/data/property-grid.md).
+- Navigation: [Accordion](en/widgets/navigation/accordion.md), [Breadcrumb](en/widgets/navigation/breadcrumb.md), [NavRail](en/widgets/navigation/nav-rail.md), [Splitter](en/widgets/navigation/splitter.md).
+- Feedback: [Spinner](en/widgets/feedback/spinner.md), [ProgressRing](en/widgets/feedback/progress-ring.md), [Banner](en/widgets/feedback/banner.md), [TooltipCard](en/widgets/feedback/tooltip-card.md), [Scrim](en/widgets/feedback/scrim.md), [Toast](en/widgets/feedback/toast.md).
+- Display: [Card](en/widgets/display/card.md), [GroupBox](en/widgets/display/group-box.md), [StatCard](en/widgets/display/stat-card.md), [EmptyState](en/widgets/display/empty-state.md), [SectionTitle](en/widgets/display/section-title.md).
+- Player: [WaveformSeekBar](en/widgets/player/waveform-seek-bar.md), [PlaybackTransport](en/widgets/player/playback-transport.md), [CoverWall](en/widgets/player/cover-wall.md), [PlaylistView](en/widgets/player/playlist-view.md).
+- Chrome: [MenuBar](en/widgets/chrome/menu-bar.md), [MenuButton](en/widgets/chrome/menu-button.md), [SplitButton](en/widgets/chrome/split-button.md), [Toolbar](en/widgets/chrome/toolbar.md), [StatusBar](en/widgets/chrome/status-bar.md), [Ribbon](en/widgets/chrome/ribbon.md).
+- Overlay/custom: [Popover](en/widgets/overlay/popover.md), [CustomWidget](en/widgets/custom/custom-widget.md).
+
+## Guides
+
+- [Guides index](en/guides/index.md)
+- [Theming](en/guides/theming.md)
+- [XML layout authoring](en/guides/xml-layout-authoring.md)
+- [Performance](en/guides/performance.md)
+- [Debugging](en/guides/debugging.md)
+- [Testing](en/guides/testing.md)
+- [Feature flags](en/guides/feature-flags.md)
+- [Accessibility](en/guides/accessibility.md)
+- [FAQ](en/guides/faq.md)
+
+## Reference
+
+- [Reference index](en/reference/index.md)
+- [Palette tokens](en/reference/palette-tokens.md)
+- [XML elements](en/reference/xml-elements.md)
+- [Key codes and hotkeys](en/reference/key-codes-and-hotkeys.md)
+
+## Optional
+
+- [AI reference (single file)](en/ai/reference.md)
+- [AI widget table](en/ai/widgets.md)
+- [Authoring guide](DOC-GUIDE.md)
+- [Archived design docs](archive/)

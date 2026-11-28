@@ -1,0 +1,189 @@
+site_name: Bamboo Native UI（中文）
+site_description: 一个小型声明式原生 Windows UI 框架，使用 GDI 与脏矩形渲染。
+docs_dir: docs/zh
+site_dir: site/zh
+use_directory_urls: true
+
+theme:
+  name: material
+  language: zh
+  features:
+    - navigation.sections
+    - navigation.top
+    - content.code.copy
+    - search.highlight
+  palette:
+    - scheme: default
+      toggle:
+        icon: material/weather-night
+        name: 切换到深色模式
+    - scheme: slate
+      toggle:
+        icon: material/weather-sunny
+        name: 切换到浅色模式
+
+extra:
+  alternate:
+    - name: English
+      link: ../
+      lang: en
+    - name: 中文
+      link: ./
+      lang: zh
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.highlight
+  - pymdownx.inlinehilite
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+
+plugins:
+  - search
+
+nav:
+  - 首页: index.md
+  - 综述:
+      - 项目介绍: overview/introduction.md
+      - 架构: overview/architecture.md
+      - 设计原则: overview/design-principles.md
+  - 快速上手:
+      - 概览: quickstart/index.md
+      - 创建项目: quickstart/01-create-project.md
+      - 引入 crate: quickstart/02-add-the-crate.md
+      - 第一个窗体: quickstart/03-first-window.md
+      - 自定义控件: quickstart/04-custom-widgets.md
+      - 运行时 XML: quickstart/05-xml-dynamic.md
+      - 编译静态 XML: quickstart/06-xml-compiled.md
+      - 布局与断点: quickstart/07-layout-and-breakpoints.md
+      - 列表、表格与树: quickstart/08-lists-tables-trees.md
+      - 菜单、工具栏与状态栏: quickstart/09-menus-toolbars-status.md
+      - 对话框、托盘与热键: quickstart/10-dialogs-tray-hotkeys.md
+      - 主题与图像: quickstart/11-theming-and-images.md
+      - 文本编辑与输入法: quickstart/12-text-editing-and-ime.md
+      - 播放器界面: quickstart/13-player-ui.md
+  - API:
+      - 索引: api/index.md
+      - 几何与颜色: api/geometry-and-color.md
+      - 主题与调色板: api/theme-and-palette.md
+      - Ui 容器: api/ui-container.md
+      - Widget trait: api/widget-trait.md
+      - 事件与输入: api/events-and-input.md
+      - 绘制与 Canvas: api/painting-and-canvas.md
+      - Host 与窗口: api/host-and-window.md
+      - 布局辅助: api/layout-helpers.md
+      - 图像: api/images.md
+      - 滚动: api/scrolling.md
+      - 辅助功能: api/accessibility.md
+      - 对话框: api/dialogs.md
+      - 菜单: api/menus.md
+      - 托盘与通知: api/tray-and-notifications.md
+      - 热键: api/hotkeys.md
+      - 拖放: api/drag-and-drop.md
+      - 手柄: api/gamepad.md
+      - 布局文档: api/layout-documents.md
+      - 布局代码生成: api/layout-codegen.md
+      - 主题文档: api/theme-documents.md
+      - 注册表与创建: api/widget-registry-and-creation.md
+      - 属性与朗读: api/props-and-narration.md
+      - 诊断与调试: api/diagnostics-and-debug.md
+  - 控件:
+      - 目录: widgets/index.md
+      - 文本与内容:
+          - Label: widgets/content/label.md
+          - Icon: widgets/content/icon.md
+          - Badge: widgets/content/badge.md
+          - Divider: widgets/content/divider.md
+          - Avatar: widgets/content/avatar.md
+          - Kbd: widgets/content/kbd.md
+          - CopyableText: widgets/content/copyable-text.md
+          - MarqueeText: widgets/content/marquee-text.md
+          - RichText: widgets/content/rich-text.md
+      - 输入:
+          - Checkbox: widgets/inputs/checkbox.md
+          - RadioButton: widgets/inputs/radio-button.md
+          - RadioGroup: widgets/inputs/radio-group.md
+          - SearchBox: widgets/inputs/search-box.md
+          - TextEdit: widgets/inputs/text-edit.md
+          - NumberInput: widgets/inputs/number-input.md
+          - ComboBox: widgets/inputs/combo-box.md
+          - MultiSelectList: widgets/inputs/multi-select-list.md
+      - 控件:
+          - Button: widgets/controls/button.md
+          - Toggle: widgets/controls/toggle.md
+          - Segmented: widgets/controls/segmented.md
+          - Tabs: widgets/controls/tabs.md
+          - Slider: widgets/controls/slider.md
+          - ProgressBar: widgets/controls/progress-bar.md
+          - Pager: widgets/controls/pager.md
+          - ColorSwatch: widgets/controls/color-swatch.md
+      - 选择器:
+          - ColorPicker: widgets/pickers/color-picker.md
+          - DatePicker: widgets/pickers/date-picker.md
+          - TimePicker: widgets/pickers/time-picker.md
+      - 数据:
+          - Sparkline: widgets/data/sparkline.md
+          - Gauge: widgets/data/gauge.md
+          - RatingStars: widgets/data/rating-stars.md
+          - ListView: widgets/data/list-view.md
+          - Table: widgets/data/table.md
+          - TreeView: widgets/data/tree-view.md
+          - PropertyGrid: widgets/data/property-grid.md
+      - 导航:
+          - Accordion: widgets/navigation/accordion.md
+          - Breadcrumb: widgets/navigation/breadcrumb.md
+          - NavRail: widgets/navigation/nav-rail.md
+          - Splitter: widgets/navigation/splitter.md
+      - 反馈:
+          - Spinner: widgets/feedback/spinner.md
+          - ProgressRing: widgets/feedback/progress-ring.md
+          - Banner: widgets/feedback/banner.md
+          - TooltipCard: widgets/feedback/tooltip-card.md
+          - Scrim: widgets/feedback/scrim.md
+          - Toast: widgets/feedback/toast.md
+      - 展示:
+          - Card: widgets/display/card.md
+          - GroupBox: widgets/display/group-box.md
+          - StatCard: widgets/display/stat-card.md
+          - EmptyState: widgets/display/empty-state.md
+          - SectionTitle: widgets/display/section-title.md
+      - 播放器:
+          - WaveformSeekBar: widgets/player/waveform-seek-bar.md
+          - PlaybackTransport: widgets/player/playback-transport.md
+          - CoverWall: widgets/player/cover-wall.md
+          - PlaylistView: widgets/player/playlist-view.md
+      - 窗口装饰:
+          - MenuBar: widgets/chrome/menu-bar.md
+          - MenuButton: widgets/chrome/menu-button.md
+          - SplitButton: widgets/chrome/split-button.md
+          - Toolbar: widgets/chrome/toolbar.md
+          - StatusBar: widgets/chrome/status-bar.md
+          - Ribbon: widgets/chrome/ribbon.md
+      - 浮层与自定义:
+          - Popover: widgets/overlay/popover.md
+          - CustomWidget: widgets/custom/custom-widget.md
+  - 指南:
+      - 索引: guides/index.md
+      - 主题: guides/theming.md
+      - XML 布局编写: guides/xml-layout-authoring.md
+      - 性能: guides/performance.md
+      - 调试: guides/debugging.md
+      - 测试: guides/testing.md
+      - 特性开关: guides/feature-flags.md
+      - 辅助功能: guides/accessibility.md
+      - 常见问题: guides/faq.md
+  - 参考:
+      - 索引: reference/index.md
+      - 调色板 token: reference/palette-tokens.md
+      - XML 元素: reference/xml-elements.md
+      - 键码与热键: reference/key-codes-and-hotkeys.md
+  - 供 AI 使用:
+      - 参考: ai/reference.md
+      - 控件速查: ai/widgets.md
