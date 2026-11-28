@@ -5,7 +5,7 @@
 
 ## 你将构建
 
-一个曲目浏览器：[`ListView`](../widgets/data/list-view.md) 是一个带
+一个曲目浏览器：[`ListView`](../widgets/data/list-view.md) 是带
 副标题和尾部文本的平面列表；[`Table`](../widgets/data/table.md) 添加排序、
 原地编辑和选择；[`TreeView`](../widgets/data/tree-view.md)
 展开、重命名并接受拖拽移动。三者都只绘制其
@@ -21,8 +21,8 @@
 
 ### 1. 一个虚拟化列表
 
-`ListView` 拥有其行、滚动偏移、滚轮处理、悬停/按下状态以及
-其集成的滚动条。先创建空的，然后用 `Ui::set_rows` 交给它行。
+`ListView` 拥有其行、滚动偏移、滚轮处理、悬停/按下状态和
+集成的滚动条。先创建空的，然后用 `Ui::set_rows` 把行交给它。
 
 ```rust
 use bamboo_native_ui::widgets::ListView;
@@ -56,19 +56,19 @@ fn scroll_to_track(ui: &mut Ui<Msg>, window: &mut WindowHandle<'_>) {
 
 `Row::new(title)` 接受任何可转换为 `String` 的内容；`.subtitle`、
 `.trailing`、`.current(true)` 和 `.disabled(true)` 是可选的。`row_height`
-有 24 DIP 的下限，`on_activate` 在行被按下并释放时以及
-列表拥有焦点时按 Enter 时触发。`scroll_to_row` 将一行放到顶部边缘；
+有 24 DIP 的下限，`on_activate` 在行被按下并释放时触发，
+列表有焦点时按 Enter 也触发。`scroll_to_row` 将一行放到顶部边缘；
 `ensure_row_visible` 移动最小距离。`edit_widget` 记录待处理
 损坏，`flush_damage` 将其变成一次失效。
 
 虚拟化是关键：绘制、命中测试和无障碍树都使用
-`visible_rows()`，因此工作与屏幕上的行成正比。列表周围的
+`visible_rows()`，因此工作量与屏幕上的行数成正比。列表周围的
 [`ScrollView`](../api/scrolling.md) 把滚轮刻度留给它，
 因为 `scrolls_with_wheel()` 为 `true`。
 
 ### 2. 一个可排序、可编辑的表格
 
-`Table` 是一个固定标题带加上由数据绘制的行。列只是
+`Table` 是一个固定标题带，加上按数据绘制的行。列只是
 几何：一个固定宽度，或一个共享剩余宽度的弹性列。
 排序由应用拥有；控件从不比较它无法知道的值。
 
@@ -112,9 +112,9 @@ fn build_table(ui: &mut Ui<Msg>) {
 ```
 
 `.sort(1, true)` 只绘制初始指示器。标题点击发出
-列索引；应用进行排序，然后调用 `set_sort` 使指示器
+列索引；应用负责排序，然后调用 `set_sort` 使指示器
 跟随。`editable(true)` 在 Enter、`F2` 或双击时启动原地
-会话；控件在 `on_cell_edit` 运行之前应用已提交的文本，因此
+会话；控件在 `on_cell_edit` 运行之前就已应用提交的文本，因此
 处理器只存储它。`on_select` 在点击的行被选中后触发；
 `on_activate` 在 Enter 或双击时触发。如果持久化布局，
 `on_column_resize` 和 `on_column_reorder` 存在。
@@ -222,7 +222,7 @@ fn library() -> Vec<TreeItem> {
 
 完全像 [05](05-xml-dynamic.md) 那样应用它。子列表是**数据，而不是
 绑定**：它们在文档生成变化时替换控件的模型，
-从不在尺寸改变时。编辑会话打开时发生生成变化会跳过该
+从不在尺寸改变时。如果编辑会话打开时生成发生变化，会跳过该
 控件（`xml.content.session-open`），因此重新加载无法覆盖正在输入的
 单元格。
 
@@ -242,7 +242,7 @@ fn library() -> Vec<TreeItem> {
 - **原地编辑不启动** —— `editable(true)` 关闭，或单元格
   只读。用 Enter、`F2` 或双击启动。
 - **重新加载后树的路径指向错误的节点** —— 路径是索引
-  链。当顺序变化时重建应用的路径映射。
+  链。顺序变化时重建应用的路径映射。
 
 ## 下一步
 

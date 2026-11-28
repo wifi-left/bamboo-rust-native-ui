@@ -1,12 +1,12 @@
 # NavRail
 
-> 一个垂直侧栏，包含带可选图标的单选导航行。
+> 垂直侧栏，包含带可选图标的单选导航行。
 
 ## 介绍
 
-`NavRail<M>` 绘制一个垂直的导航行列表。恰好一行处于选中状态；它会获得激活填充和一条 3 DIP 的强调色条，其标签和图标使用强调色文本色。点击另一行，或在调整模式下用方向键移动，会改变选择，并通过 `on_select` 报告行索引。
+`NavRail<M>` 绘制垂直的导航行列表。恰好一行处于选中状态；它会获得激活填充和一条 3 DIP 的强调色条，其标签和图标用强调色文本色绘制。点击另一行，或在调整模式下用方向键移动，会改变选择，并通过 `on_select` 报告行索引。
 
-行来自 `NavItem` 值：一个标签加一个可选的单字符图标。侧栏在自身矩形内绘制且不滚动；请按行数调整其大小（`rows * row_height`），或有意进行裁剪。
+行来自 `NavItem` 值：一个标签加一个可选的单字符图标。侧栏在自身矩形内绘制且不滚动；请按行数调整其大小（`rows * row_height`），或有意裁剪。
 
 ## 用法（Rust）
 
@@ -30,7 +30,7 @@ ui.add(
 ui.set_rect(WidgetId::new("sidebar"), Rect::from_xywh(16.0, 16.0, 180.0, 102.0));
 ```
 
-`new` 接收标签、初始选择（带限制）以及回调。`icon(index, char)` 为一个行添加装饰；私用区码点使用字形字体绘制，其他任何字符使用 UI 字体绘制。在运行时用 `Vec<NavItem>` 替换行：
+`new` 接收标签、初始选择（带限制）和回调。`icon(index, char)` 给一行添加装饰；私用区码点用字形字体绘制，其他任何字符用 UI 字体绘制。在运行时用 `Vec<NavItem>` 替换行：
 
 ```rust
 ui.edit_widget(WidgetId::new("sidebar"), |rail: &mut NavRail<Msg>| {
@@ -80,7 +80,7 @@ ui.edit_widget(WidgetId::new("sidebar"), |rail: &mut NavRail<Msg>| {
 |---|---|
 | 作为 `on_select` 传给 `new` 的 `Fn(usize) -> M` | 另一行通过点击或方向键/Home/End 导航变为选中；参数为行索引。点击已选中的行不发出任何内容。 |
 
-`set_selected`、`set_items` 以及 XML `selected` 属性都是静默的。
+`set_selected`、`set_items` 和 XML `selected` 属性都是静默的。
 
 ### 通用观察器
 
@@ -116,7 +116,7 @@ ui.bind(WidgetId::new("sidebar"), Trigger::ValueChange, |event, ctx| {
 | `DragStart` / `DragEnd` | 指针越过拖动阈值 / 释放按钮。 |
 | `ValueChange` | 控件的无障碍值发生变化（在内置更新之后）。 |
 
-它响应 `Click`、`Activate`、`HoverEnter`/`HoverLeave` 以及 `ValueChange`（选中行变化）。该侧栏不滚动，因此 `Wheel` 不产生任何操作，`RightClick` 以及拖动触发器也没有内置效果。
+它响应 `Click`、`Activate`、`HoverEnter`/`HoverLeave` 以及 `ValueChange`（选中行变化）。该侧栏不滚动，因此 `Wheel` 不产生任何操作，`RightClick` 和拖动触发器也没有内置效果。
 
 ## XML 定义
 

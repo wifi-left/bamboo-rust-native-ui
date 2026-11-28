@@ -49,7 +49,7 @@ fn build(ui: &mut Ui<Msg>) {
 }
 ```
 
-默认矩形为 280×34（多行时首选高度为 84）。没有 `.painted()` 时由平台宿主编辑会话；
+默认矩形为 280×34（多行时首选高度为 84）。没有 `.painted()` 时，编辑会话由平台宿主处理；
 `.painted()` 才能使 `EditColors`、内联 IME 组字和绘制的插入符生效。
 
 ## 用法（XML）
@@ -74,7 +74,7 @@ fn build(ui: &mut Ui<Msg>) {
 | `.painted()` | — | 关闭（原生 `EDIT` 会话） | 使用框架绘制就地编辑。 |
 | `.password()` | — | 关闭 | 用圆点遮盖值。 |
 | `.multiline()` | — | 关闭 | 换行、垂直滚动并在焦点丢失时提交。 |
-| `.wrap(bool)` | `bool` | `true` | 对长行进行单词换行（多行）。 |
+| `.wrap(bool)` | `bool` | `true` | 在单词边界处换行长行（多行）。 |
 | `.scrollbars(ScrollBars)` | `ScrollBars` | `ScrollBars::Vertical` | 多行字段显示哪些滚动条。 |
 | `.scrollbar_style(ScrollBarStyle)` | `ScrollBarStyle` | 7 DIP 轨道，最小 12 DIP 滑块 | 滚动条粗细和颜色。 |
 | `.align(TextAlign)` | `TextAlign` | `TextAlign::Left` | 水平文本对齐。 |
@@ -161,7 +161,7 @@ caret)`、`select_all()`、`clear()` 和 `insert_text(&str)`。
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

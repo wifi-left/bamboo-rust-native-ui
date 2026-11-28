@@ -1,14 +1,14 @@
 # WaveformSeekBar
 
-> 一个进度条，其轨道根据归一化的波形采样绘制。
+> 进度条，轨道按归一化波形采样绘制。
 
 ## 介绍
 
-`WaveformSeekBar<M>` 在其矩形范围内为每个槽位绘制一根竖直条。采样是 `0..=1` 范围内的归一化振幅；已播放部分使用强调色，其余部分为柔和色，而一个带有圆形手柄的播放头标记当前位置。悬停标记会预览按下时将跳转到何处。
+`WaveformSeekBar<M>` 在其矩形范围内为每个槽位绘制一根竖直条。采样是 `0..=1` 范围内的归一化振幅；已播放部分使用强调色，其余部分为柔和色，带有圆形手柄的播放头标记当前位置。悬停在标记上会预览按下时跳转到的位置。
 
-按下会跳转，拖动期间的每次指针移动都会发出一个新位置（因此播放器会随之搓动），释放则提交该位置并停止拖动。当设置了 `on_drag_start` / `on_drag` / `on_drag_end` 时，这些消息会与主要的跳转消息并行产生：控件返回跳转结果，并通过 `take_extra_message` 交回额外的消息。应用程序负责播放：在播放定时器中调用 `set_progress`，该调用从不发出消息。
+按下会跳转，拖动期间的每次指针移动都会发出一个新位置（因此播放器会随之搓动），释放则提交该位置并停止拖动。设置了 `on_drag_start` / `on_drag` / `on_drag_end` 后，这些消息会与主要的跳转消息并行产生：控件返回跳转结果，并通过 `take_extra_message` 交回额外的消息。应用程序负责播放：在播放定时器中调用 `set_progress`，该调用从不发出消息。
 
-当未设置采样时，进度条绘制一条平坦的中心线，因此在解码器提供波形之前，该控件仍会被理解为进度条。
+未设置采样时，进度条绘制一条平坦的中心线，因此在解码器提供波形之前，该控件仍会被理解为进度条。
 
 ## 用法（Rust）
 
@@ -31,7 +31,7 @@ ui.add(
 ui.set_rect(WidgetId::new("waveform"), Rect::from_xywh(16.0, 160.0, 520.0, 56.0));
 ```
 
-`new` 接收初始位置（钳制到 `0..=1`）和跳转处理函数，后者接收新的比例。`duration` 仅影响无障碍值文本：有持续时间时读作 `m:ss`，没有时读作百分比。通过类型化访问推送播放更新而不产生消息：
+`new` 接收初始位置（钳制到 `0..=1`）和跳转处理函数，后者接收新的比例。`duration` 仅影响无障碍值文本：有持续时间时读作 `m:ss`，没有时读作百分比。用类型化访问推送播放更新，不产生消息：
 
 ```rust
 ui.edit_widget::<WaveformSeekBar<Msg>>(WidgetId::new("waveform"), |bar| {
@@ -74,9 +74,9 @@ ui.edit_widget::<WaveformSeekBar<Msg>>(WidgetId::new("waveform"), |bar| {
 ### 行为
 
 - **默认值。** 已播放颜色为 `palette.accent`；未播放颜色为 `palette.muted`，向 `palette.background` 混合 35%。默认矩形为 `480 × 56` DIP；`preferred_height` 为 56。
-- **指针。** 按下会跳转并开始拖动；每次拖动移动都会发出消息。在两端之外的按下会钳制到 `0.0` / `1.0`。释放会提交预览，并且当设置了 `on_drag_end` 时它是唯一的消息。
+- **指针。** 按下会跳转并开始拖动；每次拖动移动都会发出消息。在两端之外的按下会钳制到 `0.0` / `1.0`。释放会提交预览，设置了 `on_drag_end` 时它是唯一的消息。
 - **键盘。** `WaveformSeekBar::STEP` 为 `0.02`。左/右方向键调整一个步长，Home/End 跳到两端，在边缘处步进不会发出任何消息。
-- **无障碍。** 角色为 `Slider`，范围为 `0..=1`，值文本为 `m:ss` 或百分比。`a11y_set_value` 接受 `"45%"` 或 `"0.45"` 并进行钳制。
+- **无障碍。** 角色为 `Slider`，范围为 `0..=1`，值文本为 `m:ss` 或百分比。`a11y_set_value` 接受 `"45%"` 或 `"0.45"` 并对其钳制。
 
 ## 事件
 
@@ -100,7 +100,7 @@ ui.edit_widget::<WaveformSeekBar<Msg>>(WidgetId::new("waveform"), |bar| {
 | 回调 | 签名 | 触发条件 |
 |---|---|---|
 | `new(id, progress, on_seek)` | `&'static str, f32, impl Fn(f32) -> M` | 按下、搓动移动或键盘步进。 |
-| `.on_drag_start(handler)` | `impl Fn(f32) -> M` | 一次，携带初始按下位置下的位置。 |
+| `.on_drag_start(handler)` | `impl Fn(f32) -> M` | 一次，携带按下时的初始位置。 |
 | `.on_drag(handler)` | `impl Fn(f32) -> M` | 在按住按钮期间每次拖动移动时。 |
 | `.on_drag_end(handler)` | `impl Fn(f32) -> M` | 释放时，携带提交的位置。 |
 
@@ -133,7 +133,7 @@ ui.bind(WidgetId::new("waveform"), Trigger::Click, |event, ctx| {
 
 此控件不由标准注册表创建。请在 Rust 中创建它，并通过文档中的 `id` 引用它。
 
-几何遵循常规的 `<widget>` 规则（一种水平形式和一种垂直形式）。通用属性（`visible`、`tooltip`、`name`、`description`、`automation-id`、`role`、`expose`、焦点策略）适用。内容支持仅为共享的 `value` 属性；`text`、`label`、`progress`、`number`、`checked` 和 `selected` 会被拒绝为 `xml.content.unsupported`。进度条从调色板绘制，没有 `SurfaceStyle`，因此 `radius`、`corners` 和 `background` 会被报告为 `xml.style.unsupported` 并被跳过。
+几何遵循常规的 `<widget>` 规则（水平形式和垂直形式各一种）。通用属性（`visible`、`tooltip`、`name`、`description`、`automation-id`、`role`、`expose`、焦点策略）适用。内容支持仅为共享的 `value` 属性；`text`、`label`、`progress`、`number`、`checked` 和 `selected` 会被拒绝为 `xml.content.unsupported`。进度条从调色板绘制，没有 `SurfaceStyle`，因此 `radius`、`corners` 和 `background` 会被报告为 `xml.style.unsupported` 并被跳过。
 
 控件局部属性：无。子元素：无。
 

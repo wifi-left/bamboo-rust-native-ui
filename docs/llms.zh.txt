@@ -1,7 +1,7 @@
 # Bamboo Native UI
 
 > 一个小巧的、声明式的原生 Windows UI 框架：GDI + 脏矩形渲染，
-> 一个后端抽象的绘制器，不依赖 egui/wgpu/WebView。应用负责计算控件
+> 一个抽象了后端的绘制器，不依赖 egui/wgpu/WebView。应用负责计算控件
 > 矩形；框架只绘制脏矩形并分发规范化后的输入。
 > 空闲即零绘制。Rust 2024，Apache-2.0，宿主层仅限 Windows。
 

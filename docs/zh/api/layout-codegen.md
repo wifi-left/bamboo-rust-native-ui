@@ -50,7 +50,7 @@ pub fn generate_with(xml: &str, source_name: &str, options: Options<'_>)
 bamboo-native-ui-layout-codegen <input.buixml> [-o out.rs] [--module name] [--context Type]
 ```
 
-`--module` 默认为 `module_name`；`--context Type` 选择下文的上下文模式。当文档出错时，CLI
+`--module` 默认为 `module_name`；`--context Type` 选择下文的上下文模式。文档出错时，CLI
 会打印每条诊断及其 `.buixml` 行号和列号，并以状态 1 退出，不写入任何内容。
 
 ### 生成的模块结构
@@ -212,7 +212,7 @@ impl Host for App {
   `layout-xml` 是独立的——一次构建可以拥有其中之一、两者，或都不拥有。
 - 生成的代码会纳入版本控制（测试夹具的 `*_generated.rs` 是黄金测试），因此过期的模块会
   使代码生成测试套件失败。请重新生成，而不要手动编辑。
-- 过程宏在稳定版 Rust 上无法注册文件依赖：编辑 `.buixml` 本身不会触发重建。当文档独立
+- 过程宏在稳定版 Rust 上无法注册文件依赖：编辑 `.buixml` 本身不会触发重建。文档独立
   变化时，请使用 CLI 或构建脚本。
 - 内联 Rust 使该文件成为源代码：`rustc` 在包含处进行类型检查。请勿从不受信任的位置加载
   此类文件。

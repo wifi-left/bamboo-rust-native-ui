@@ -1,12 +1,12 @@
 # Gauge
 
-> 一个开口弧形仪表，显示零到一之间的值。
+> 开口弧形仪表，显示零到一之间的值。
 
 ## 介绍
 
-`Gauge` 绘制一个 270 度的点状环。完整轨道使用滚动轨道色绘制，值弧使用强调色绘制，从 135 度开始并顺时针扫过，在底部留出开口。中心可选择显示百分比或自定义标签。
+`Gauge` 绘制一个 270 度的点状环。完整轨道用滚动轨道色绘制，值弧用强调色绘制，从 135 度开始并顺时针扫过，在底部留出开口。中心可选择显示百分比或自定义标签。
 
-它是一个纯显示控件：不接收输入，也不发出消息，并以纯显示 `ProgressBar` 节点（范围为 `0.0..=1.0`）的形式加入无障碍树。应用程序在 Rust 中更新它；它没有 XML 值属性。对于线性读数，请使用进度条；对于紧凑的历史记录，请使用 `Sparkline`。
+它是纯显示控件：不接收输入，也不发出消息，并作为纯显示 `ProgressBar` 节点（范围为 `0.0..=1.0`）加入无障碍树。应用程序在 Rust 中更新它；它没有 XML 值属性。对于线性读数，请使用进度条；对于紧凑的历史记录，请使用 `Sparkline`。
 
 ## 用法（Rust）
 
@@ -21,7 +21,7 @@ ui.add(Gauge::new("load", 0.65).thickness(4.0).label("Load"));
 ui.set_rect(WidgetId::new("load"), Rect::from_xywh(16.0, 16.0, 96.0, 96.0));
 ```
 
-构造函数会将值限制在 `0.0..=1.0`。`label` 会替换在中心绘制的百分比文本；在没有标签的情况下，`show_value(true)` 会绘制 `"{n}%"`。通过类型化接缝使用 `set_value` 静默更新弧线：
+构造函数会将值限制在 `0.0..=1.0`。`label` 会替换在中心绘制的百分比文本；没有标签时，`show_value(true)` 会绘制 `"{n}%"`。通过类型化接缝使用 `set_value` 静默更新弧线：
 
 ```rust
 ui.edit_widget(WidgetId::new("load"), |gauge: &mut Gauge| {
@@ -51,7 +51,7 @@ ui.edit_widget(WidgetId::new("load"), |gauge: &mut Gauge| {
 | `.value_now()` | `f32` | — | 当前值。 |
 | `.set_value(f32)` | `f32` | — | 静默设置值，限制在 `0.0..=1.0`。 |
 
-行为：首选高度为 96 DIP，且控件不可聚焦。无障碍名称在有标签时使用标签，否则使用控件 id；该节点被标记为纯显示，并发布 `range(0.0, 1.0, value)` 以及格式化后的百分比。
+行为：首选高度为 96 DIP，且控件不可聚焦。无障碍名称在有标签时使用标签，否则使用控件 id；该节点被标记为纯显示，并发布 `range(0.0, 1.0, value)` 和格式化后的百分比。
 
 ## 事件
 
@@ -98,9 +98,9 @@ ui.bind(WidgetId::new("load"), Trigger::Click, |event, ctx| {
 
 该控件不由标准注册表创建。请在 Rust 中创建它，并在文档中通过 `id` 引用。
 
-几何布局遵循常规的 `<widget>` 规则（一个水平形式和一个垂直形式）。诸如 `visible`、`expose`、`name`、`description` 和 `tooltip` 之类的通用属性均适用。`font-size` 和 `font-family` 属于绘制层。仪表从调色板绘制，没有 `SurfaceStyle`，因此 `radius`、`corners` 和 `background` 会被报告为 `xml.style.unsupported` 并跳过。
+几何布局遵循常规的 `<widget>` 规则（一个水平形式和一个垂直形式）。`visible`、`expose`、`name`、`description` 和 `tooltip` 等通用属性均适用。`font-size` 和 `font-family` 属于绘制层。仪表从调色板绘制，没有 `SurfaceStyle`，因此 `radius`、`corners` 和 `background` 会被报告为 `xml.style.unsupported` 并跳过。
 
-该控件不声明任何局部属性和任何子元素。没有共享的 `value` 内容属性，因此文档无法改变仪表的读数；请在 Rust 中调用 `set_value`（或重建控件）。
+该控件不声明任何局部属性或子元素。没有共享的 `value` 内容属性，因此文档无法改变仪表的读数；请在 Rust 中调用 `set_value`（或重建控件）。
 
 ## 另见
 

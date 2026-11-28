@@ -7,14 +7,13 @@
 `bamboo_native_ui::event` 定义了宿主交给应用的词汇表。后端会将 `WM_*`
 消息转换成这些值；控件永远看不到 Win32 常量，并且每个位置都以 DIP 为单位。流程是：
 Windows 宿主产生一个 `Event`，`Host::event` 路由它（基于 `Ui` 的应用
-将其映射到对应的 `Ui` 方法），`Ui` 在调用控件之前解析命中测试和焦点，并以一个
-`WidgetInput` 传入（见
+将其映射到对应的 `Ui` 方法），`Ui` 在调用控件之前解析命中测试和焦点，并以
+`WidgetInput` 的形式传入（见
 [控件 trait](./widget-trait.md)）。
 
-这些类型是 `Copy` 值类型，没有事件对象身份，也没有
+这些类型是 `Copy` 值类型，没有事件对象身份，也不做
 分配。只有 `KeyCode::from_vk`/`to_vk`、`MouseButton::from_wparam` 和
-`Color` 的 `COLORREF` 辅助方法带有 Windows 形状的数值，并且它们是
-如此文档化的。
+`Color` 的 `COLORREF` 辅助方法带有 Windows 形状的数值，文档中也注明了这一点。
 
 ## 关键类型
 
@@ -45,7 +44,7 @@ pub enum Event {
 `pointer_up_with` 路由（按下时和释放时的修饰键）。`Wheel` 向上/向左为正。`Alt(true)`
 跟在单独轻按 Alt 之后；组合键或焦点变化会发送
 `false`。内置的 Windows 宿主直接通过 `Host::resize` /
-`Host::dpi_changed` 报告尺寸和 DPI，因此 `Resize`/`DpiChanged` 是供转发它们的宿主使用。
+`Host::dpi_changed` 报告尺寸和 DPI，因此 `Resize`/`DpiChanged` 是供转发它们的宿主使用的。
 一次双击不会替换按下/释放对。
 
 ### `KeyCode`

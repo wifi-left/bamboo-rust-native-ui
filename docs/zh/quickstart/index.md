@@ -9,7 +9,7 @@
 ## 开始之前
 
 - **操作系统：** x64 上的 Windows 10 或 Windows 11，这是框架测试所用的配置。窗口宿主仅限 Windows；其他教程仍需它来运行结果。
-- **Rust：** 支持 edition 2024 的稳定工具链（Rust 1.85 或更新）。从 <https://rustup.rs> 安装，并确保 MSVC 目标是激活的：
+- **Rust：** 支持 edition 2024 的稳定工具链（Rust 1.85 或更新）。从 <https://rustup.rs> 安装，并确保 MSVC 目标已激活：
   `rustup show`。
 - **C++ 构建工具：** 带有 **使用 C++ 的桌面开发** 工作负载的 Visual Studio 2022 Build Tools，它提供 `link.exe` 和 Windows SDK。
 - 一个终端。示例使用 PowerShell 记法；在 cmd 中命令相同。

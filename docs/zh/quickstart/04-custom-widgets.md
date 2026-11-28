@@ -1,21 +1,21 @@
 # 04 — 自定义控件
 
-> 以两种方式绘制应用专属组件：仅闭包的
+> 以两种方式绘制应用专属组件：只用闭包的
 > `CustomWidget`，或带自持状态的手动 `Widget<M>` 实现。
 
 ## 你将构建
 
 一个 `LevelBar`：一条带填充部分的圆角轨道，悬停时变为强调色，
-点击时发出 `Msg::BarClicked`。你将它添加到
-[03 — 第一个窗口](03-first-window.md) 的窗口中；该程序的其余部分
+点击时发出 `Msg::BarClicked`。把它加进
+[03 — 第一个窗口](03-first-window.md) 的窗口；程序其余部分
 不变。
 
 展示两条路径，因为它们适合不同的需求：
 
-- `CustomWidget` 用于一个由矩形、一些绘制和一个输入
+- `CustomWidget` 适合由矩形、一些绘制和一个输入
   处理器组成的组件。
-- 手动 `Widget<M>` 实现，当组件拥有绘制
-  和输入必须共享的状态，或需要发布 XML 皮肤属性时。
+- 在组件拥有绘制
+  和输入必须共享的状态、或需要发布 XML 皮肤属性时，用手动 `Widget<M>` 实现。
 
 ## 前置条件
 
@@ -71,8 +71,7 @@ fn add_level_bar(ui: &mut bamboo_native_ui::Ui<Msg>) {
 
 注意：
 
-- `CustomWidget` 默认为 `focusable(false)` 和 `interactive(false)`，因此一个
-  仅显示的组件永远不会抢占点击。调用 `.interactive(true)` 以
+- `CustomWidget` 默认为 `focusable(false)` 和 `interactive(false)`，因此只用于显示的组件永远不会抢占点击。调用 `.interactive(true)` 以
   接收指针输入，调用 `.focusable(true)` 以加入 Tab 顺序（
   容器随后绘制焦点环）。
 - 绘制闭包接收控件矩形和一个 `WidgetState`，包含
@@ -205,7 +204,7 @@ fn skin_children(&self) -> &'static [&'static str] {
 
 然后文档可以写
 `<widget id="level" x="16" y="120" w="240" h="12" level="0.8"/>`。相关
-方法：`validate_skin_attr`（在应用任何内容之前进行的无副作用检查）、`skin_children`、`validate_skin_children` 和 `apply_skin_children`
+方法：`validate_skin_attr`（在应用任何内容之前做无副作用检查）、`skin_children`、`validate_skin_children` 和 `apply_skin_children`
 （用于数据子元素）。以 `x-` 开头的属性名保留给
 应用代码。完整协议见
 [自定义控件](../widgets/custom/custom-widget.md)。
@@ -222,7 +221,7 @@ cargo run
 ## 预期结果
 
 按钮下方出现一个圆角条。悬停只改变该条的矩形；
-点击发出消息，应用将其变为标签更改。标签
+点击发出消息，应用把它变成标签修改。标签
 重绘和条重绘是两个独立的脏矩形。
 
 ## 故障排查

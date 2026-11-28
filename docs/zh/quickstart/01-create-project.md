@@ -132,7 +132,7 @@ bamboo-hello/
 
 - **链接步骤失败并提示 "link.exe not found"** —— 缺少 MSVC 构建工具，或它不在 `PATH` 上。安装 **使用 C++ 的桌面开发**
   工作负载，或使用 Developer PowerShell。
-- **Cargo 因目标已存在而拒绝** —— 你已经在名为 `bamboo-hello` 的文件夹内。从父文件夹运行它，或换一个名字。
+- **Cargo 因目标已存在而拒绝** —— 你已经在名为 `bamboo-hello` 的文件夹内。在父文件夹里运行它，或换一个名字。
 - **`feature \`edition2024\` is required`** —— 工具链早于 Rust
   1.85。运行 `rustup update stable`。
 - **`rustup show` 报告 `windows-gnu`** —— 安装 MSVC 工具链

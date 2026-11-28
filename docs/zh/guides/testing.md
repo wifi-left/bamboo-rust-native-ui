@@ -148,12 +148,12 @@ fn a_click_flips_the_checkbox() {
 `caret_on`；设置你的绘制路径读取的那些。
 
 对于绘制断言，将 `BlankCanvas` 替换为一个记录器，它在 `fill_rect` 中将
-`(Rect, Color)` 推入 `Vec`、在 `text` 中推入 `(Rect, String)`，正如
-内置控件测试所做的那样，然后断言记录的几何和颜色。
+`(Rect, Color)` 推入 `Vec`、在 `text` 中推入 `(Rect, String)`，就像
+内置控件测试那样，然后断言记录的几何和颜色。
 
 ### 4. 测试容器和布局
 
-一个 `Ui` 测试需要一个实现 `Invalidator`（必需的 `invalidate`）和
+`Ui` 测试需要一个实现 `Invalidator`（必需的 `invalidate`）和
 `UiHost`（所有方法均有默认值）的接收端。
 
 ```rust

@@ -8,7 +8,7 @@
 
 该控件仅用于显示：它不可聚焦，不接受输入，且不发出任何消息。它采用 `SurfaceStyle`，因此圆角形状、填充和透明性都来自标准的表面构建器；默认表面为直角。其无障碍节点是一个仅用于显示的 `Group`，以标题命名，正文作为描述。
 
-尽管名为卡片，它并不是容器：`Ui` 是一个扁平的控件列表，因此请自行在卡片矩形之上放置其他控件，并在绘制顺序中位于卡片之后。
+尽管名为卡片，它并不是容器：`Ui` 是一个扁平的控件列表，因此请自行在卡片矩形之上放置其他控件，并让它们在绘制顺序中位于卡片之后。
 
 ## 用法（Rust）
 
@@ -38,7 +38,7 @@ ui.edit_widget::<Card>(WidgetId::new("summary"), |card| {
 
 ## 用法（XML）
 
-`card` 是标准注册表类型。当安装了 `WidgetRegistry::standard()` 时，用 `type="card"` 创建它：
+`card` 是标准注册表类型。安装了 `WidgetRegistry::standard()` 后，用 `type="card"` 创建它：
 
 ```xml
 <widget id="summary" type="card" x="16" y="16" w="240" h="96"
@@ -46,7 +46,7 @@ ui.edit_widget::<Card>(WidgetId::new("summary"), |card| {
         radius="large"/>
 ```
 
-工厂会构建一个空卡片；局部属性在同一代作用域的遍历中到达。在 Rust 中创建的卡片通过 id 寻址：
+工厂会构建空卡片；局部属性在同一代作用域的遍历中到达。在 Rust 中创建的卡片通过 id 寻址：
 
 ```xml
 <widget id="summary" x="16" y="16" w="240" h="96" title="Now playing"/>
@@ -77,7 +77,7 @@ ui.edit_widget::<Card>(WidgetId::new("summary"), |card| {
 
 ## 事件
 
-`Card` 是装饰：其 `input` 始终返回 `None`，它不可聚焦，且不发出任何消息。让卡片可点击意味着将触发器绑定到其 id，并将卡片用作命中区域。
+`Card` 是装饰：其 `input` 始终返回 `None`，它不可聚焦，且不发出任何消息。要让卡片可点击，就把触发器绑定到其 id，并把卡片用作命中区域。
 
 ### 消息
 

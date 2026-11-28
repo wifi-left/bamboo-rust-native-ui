@@ -14,9 +14,9 @@
 `type="…"` 选择加入创建；参见
 [widget-registry-and-creation.md](widget-registry-and-creation.md)。
 
-解析是纯函数且完全的：`LayoutDocument::parse` 要么返回整个模型，要么返回诊断列表。应用是
+解析是纯函数，也是全函数：`LayoutDocument::parse` 要么返回整个模型，要么返回诊断列表。应用是
 一个单独的步骤（`Ui::apply_layout`，特性 `layout-xml`），这正是热重载具备原子性的原因——
-无法解析的文件永远不会被半应用。同一模型服务于动态路径（`layout-xml`）和两个编译路径
+无法解析的文件永远不会被应用一半。同一模型服务于动态路径（`layout-xml`）和两个编译路径
 （`layout-compiled`）；本页介绍该模型，[layout-codegen.md](layout-codegen.md) 介绍编译后的
 消费者。
 
@@ -110,7 +110,7 @@ pub enum EntrySpace {
 }
 ```
 
-`LayoutSpace` 是一个宽度、一个高度以及文档的常量。`EntrySpace::Content(id)` 表示该 id 命名
+`LayoutSpace` 是一个宽度、一个高度和文档的常量。`EntrySpace::Content(id)` 表示该 id 命名
 一个滚动画布，其内容区域拥有该矩形；常量按声明顺序解析。
 
 ### 几何与属性视图
@@ -228,7 +228,7 @@ fn main() {
   会拒绝 `<!DOCTYPE>`。错误会拒绝整个文档；警告会被报告，其余部分照常应用。
 - 内容（`text`、`label`、`value`、`progress`、`number`、`checked`、`selected`）以及控件
   本地的皮肤数据是 generation 作用域的：调整尺寸永远不会重写它们，重载则会；变体必须就
-  同一 id 的内容保持一致（`xml.content.conflict`）。此处不进行任何绘制或测量——每个条目
+  同一 id 的内容保持一致（`xml.content.conflict`）。这里不做任何绘制或测量——每个条目
   自行确定其矩形。
 
 ## 另见

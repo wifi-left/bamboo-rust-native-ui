@@ -4,12 +4,12 @@
 
 ## 介绍
 
-`CopyableText<M>` 绘制一行文本，并且在设置了 `.copyable(handler)` 时，在右侧绘制一个
+`CopyableText<M>` 绘制一行文本，并且在设置 `.copyable(handler)` 时，在右侧绘制
 复制字形。点击控件、激活它，或在它聚焦时按 Ctrl+C，会发出 `handler()`。该控件从不接触
 平台剪贴板：由应用根据消息写入剪贴板（例如使用 `WindowHandle::copy_text`），
 这使控件保持可测试且平台中立。
 
-没有处理器时，文本是普通装饰，且不绘制字形。有处理器时，实例是指针可交互的并显示手形
+没有处理器时，文本是普通装饰，且不绘制字形。有处理器时，实例可接受指针交互并显示手形
 光标；悬停时字形变为强调色。`M` 是复制处理器返回的消息类型。
 
 ## 用法（Rust）
@@ -29,7 +29,7 @@ fn build(ui: &mut Ui<Msg>) {
 }
 ```
 
-通过将相同字符串写入剪贴板来处理该消息。当希望键盘 Ctrl+C 生效时，将实例设为
+把相同字符串写入剪贴板来处理该消息。希望键盘 Ctrl+C 生效时，把实例设为
 `focusable`（通过 `WidgetProps`）；指针点击无需此项即可工作。
 
 ## 用法（XML）
@@ -82,7 +82,7 @@ Getter 与 setter：`text()`、`color_value()`、`text_style()`、
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

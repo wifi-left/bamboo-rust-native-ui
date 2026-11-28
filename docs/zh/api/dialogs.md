@@ -85,7 +85,7 @@ pub enum DialogResult {
 }
 ```
 
-`None` 表示被取消（Cancel、关闭框或无法显示）。`DialogResult::is_some()` 报告是否产生了值。
+`None` 表示已取消（Cancel、关闭框或无法显示）。`DialogResult::is_some()` 报告是否产生了值。
 
 ### `WindowHandle` 与 `Host`
 

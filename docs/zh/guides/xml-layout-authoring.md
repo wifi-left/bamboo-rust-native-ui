@@ -8,8 +8,7 @@
 
 `.buixml` 文档主要是一层**皮肤（skin）**：它把矩形、属性、
 样式 token 和初始内容分配给 Rust 侧已经创建的控件 id。它
-不能移除、重排或改变这些被寻址控件的父级，也不能绑定事件。有两个
-例外是显式的：`type="..."` 通过已安装的 `WidgetRegistry` 创建一个控件
+不能移除、重排或改变这些被寻址控件的父级，也不能绑定事件。有两个明确的例外是：`type="..."` 通过已安装的 `WidgetRegistry` 创建一个控件
 （12 种标准类型；第三方类型从 Rust 注册；
 创建的 id 属于文档，一次重新加载会移除或替换它们），以及子
 元素（`<item>`、`<row>` 等）通过控件的皮肤
@@ -70,7 +69,7 @@ impl App {
 }
 ```
 
-未知 id 会产生 `xml.id.unknown-widget`，并且应用是原子的：不会有任何移动。
+未知 id 会产生 `xml.id.unknown-widget`，并且应用是原子的：什么都不会移动。
 
 ### 3. 在 `resize` 中应用它
 
@@ -127,7 +126,7 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 
 由已注册面板滚动的控件定位在该面板的**内容**
 空间中，`cw`/`ch` 表示该内容的范围。`auto`
-内容高度面板中的 `cw` 会落后一次应用；对于
+内容高度面板中的 `cw` 会晚一次应用；对于
 底部锚定的子项，请使用显式的 `content-height`。
 
 ### 6. 属性
@@ -136,8 +135,8 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 `focus-order`、`read-only`、`tooltip`、`name`、`description`、`automation-id`、
 `role`、`expose`、`cursor`。布尔值接受 `true`/`false`/`1`/`0`；`role` 接受
 一个 kebab-case 的 `A11yRole` 名称；`cursor` 接受
-`arrow`/`hand`/`i-beam`/`size-we`/`size-ns`。它们通过现有的
-容器 setter 落地，因此文档永远不会重建控件。省略意味着“保留
+`arrow`/`hand`/`i-beam`/`size-we`/`size-ns`。它们走现有的
+容器 setter，因此文档永远不会重建控件。省略意味着“保留
 应用设置的值”；`name`/`description` 只改变朗读，不改变
 绘制的文本。
 
@@ -163,15 +162,13 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 `SELECTION`。`text`/`label` 冲突，`value`/`progress`/`number` 也是如此。
 
 内容是**初始值**，仅在文档 generation
-改变时写入。一次调整尺寸、一次断点切换、一次主题更改或重新应用同一份
+改变时写入。调整尺寸、切换断点、更改主题或重新应用同一份
 文档都不会覆盖用户输入的文本。不发布
 该能力的控件会报告 `xml.content.unsupported`，并且该属性被跳过。
 
 ### 9. 子列表
 
-子元素替换控件的数据模型；它们不是实时绑定。一个
-`PlaylistView` 接受 `<track title subtitle current disabled>` 子元素，一个
-`Table` 接受 `<column>`/`<row>`（外加行内的 `<cell>`）。常见的子元素
+子元素替换控件的数据模型；它们不是实时绑定。`PlaylistView` 接受 `<track title subtitle current disabled>` 子元素，`Table` 接受 `<column>`/`<row>`（外加行内的 `<cell>`）。常见的子元素
 名称有 `item`、`option`、`row`、`cell`、`column`、`node`、`section`、
 `cover`、`track`、`segment`、`step`、`page`、`run` 和 `point`。每个控件的
 词汇和接受的属性见
@@ -180,7 +177,7 @@ factor := number | number '%' | variable | '(' expr ')' | '-' factor
 ### 10. 创建控件（`type`、`command`、`parent`）
 
 带有 `type` 的条目会创建一个尚不存在的 id。交互类型
-需要一个 `command`，通过注册表的 `CommandMap` 解析。
+需要 `command`，通过注册表的 `CommandMap` 解析。
 
 ```xml
 <widget id="save" type="button" command="101" x="16" y="8" w="96" h="32" label="Save"/>
@@ -198,7 +195,7 @@ ui.set_widget_registry(registry);
 `WidgetRegistry::standard()` 注册 `label`、`button`、`toggle`、`slider`、
 `progress`、`icon`、`badge`、`card`、`divider`、`kbd`、`avatar` 和 `spinner`。
 `parent` 把一个创建的控件加入一个已注册面板，并在该面板的内容空间中
-解析其矩形。创建的控件属于文档：一次重新加载
+解析其矩形。创建的控件属于文档：重新加载
 若丢弃它就会移除它，而 `Ui::clear_layout` 会移除每一个创建的控件。
 每个变体都必须以相同的 `type`/`command`/`parent` 声明每一个创建的 id。
 
@@ -237,8 +234,8 @@ impl Widget<Msg> for LevelBar {
 `<widget id="level" x="16" y="120" w="240" h="12" level="0.8"/>`。
 
 应用器在修改之前验证每一个声明的属性和子列表，
-然后按顺序应用子列表、内容和属性，并将控件
-标记为脏一次。`x-` 名称保留给应用代码；共享的内容
+然后按顺序应用子列表、内容和属性，并一次性把控件
+标记为脏。`x-` 名称保留给应用代码；共享的内容
 名称保留给 schema。局部值是内容：仅在
 generation 改变时写入，且不会被 `clear_layout` 恢复。完整协议参见
 [CustomWidget](../widgets/custom/custom-widget.md)。
@@ -279,7 +276,7 @@ fn reload(text: &str, current: &LayoutDocument, ui: &mut Ui<Msg>,
 - 错误会拒绝整个文档并保留先前安装的布局；
   警告（`xml.style.unsupported`、`xml.content.unsupported`、
   `xml.value.clamped` 等）会应用其余部分。
-- `Ui::clear_layout(window)` 交还每一个被声明的字段并移除创建的
+- `Ui::clear_layout(window)` 归还每个已声明的字段并移除创建的
   控件；矩形和内容不会被恢复。完整的诊断
   代码列表见[XML 元素](../reference/xml-elements.md)。
 

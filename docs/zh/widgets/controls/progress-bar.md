@@ -6,7 +6,7 @@
 
 `ProgressBar` 绘制一条 6 DIP 高、垂直居中于其高度的轨道，以及一段与 `value`（0.0 到 1.0）成比例的强调色填充。使用 `indeterminate()` 时，它改为绘制一个移动的片段——轨道长度的 30%，至少 24 DIP 宽——其位置由 `phase` 决定。用 `set_phase` 从应用定时器推进相位。
 
-该进度条是一个显示控件：它不可聚焦、忽略输入，也不上报任何消息。标签或百分比会绘制在轨道右边缘上方。它采用 `SurfaceStyle`，因此半径、按角半径和背景覆盖会应用到凹槽和填充上。
+该进度条是显示控件：它不可聚焦、忽略输入，也不上报任何消息。标签或百分比会绘制在轨道右边缘上方。它采用 `SurfaceStyle`，因此半径、按角半径和背景覆盖会应用到凹槽和填充上。
 
 ## 用法（Rust）
 
@@ -33,7 +33,7 @@ ui.set_rect(WidgetId::new("import"), Rect::from_xywh(16.0, 16.0, 200.0, 28.0));
 ui.edit_widget::<ProgressBar>(WidgetId::new("import"), |bar| bar.set_phase(0.37));
 ```
 
-`set_phase` 使用 `rem_euclid(1.0)` 进行环绕，并返回相位是否发生了更改，因此定时器在数值未变时可以跳过重绘。
+`set_phase` 用 `rem_euclid(1.0)` 环绕，并返回相位是否发生了更改，因此定时器在数值未变时可以跳过重绘。
 
 ## 用法（XML）
 
@@ -80,7 +80,7 @@ ui.edit_widget::<ProgressBar>(WidgetId::new("import"), |bar| bar.set_phase(0.37)
 
 ### 通用观察器
 
-该控件**不**安装共享的观察器构建器。它没有 `Observers` 字段，不可聚焦，且其 `Widget::input` 返回 `None`，因此也没有构造函数回调或控件专属处理函数。当需要触发器来触发应用侧效果时，在控件 id 上使用 `Ui::bind`。
+该控件**不**安装共享的观察器构建器。它没有 `Observers` 字段，不可聚焦，且其 `Widget::input` 返回 `None`，因此也没有构造函数回调或控件专属处理函数。需要用触发器触发应用侧效果时，在控件 id 上使用 `Ui::bind`。
 
 ### 控件专属回调
 
@@ -109,7 +109,7 @@ ui.bind(WidgetId::new("import"), Trigger::ValueChange, |event, ctx| {
 | `DragStart` / `DragEnd` | 指针越过拖动阈值 / 按钮被释放。 |
 | `ValueChange` | 控件的无障碍值发生变化（在内置更新之后）。 |
 
-进度条自身不响应其中任何一个：它是一个显示控件，因此绑定只会在（空的）内置处理之前观察事件。
+进度条自身不响应其中任何一个：它是显示控件，因此绑定只会在（空的）内置处理之前观察事件。
 
 ## XML 定义
 

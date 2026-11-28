@@ -4,7 +4,7 @@
 
 ## 介绍
 
-`Toggle<M>` 是一个简单控件，它把一个文本标签与一个 44 × 22 DIP 的开关轨道以及一个 18 DIP 的旋钮搭配在一起。关闭时旋钮位于左侧，开启时位于右侧；轨道在开启时使用 `accent`，关闭时使用 `button_bg`，指针悬停时使用 `button_hover`。
+`Toggle<M>` 是简单控件，把文本标签与 44 × 22 DIP 的开关轨道和 18 DIP 的旋钮搭配在一起。关闭时旋钮位于左侧，开启时位于右侧；轨道在开启时使用 `accent`，关闭时使用 `button_bg`，指针悬停时使用 `button_hover`。
 
 点击它，或在获得焦点时按下 Enter/Space，会翻转其状态并上报 `on_change(new_state)`。该控件为 MP3 播放器词汇提供别名：`Switch<M>` 是 `Toggle<M>` 的类型别名，由 `bamboo_native_ui::widgets`（以及 `widgets::inputs`）导出。`Ui::set_toggle` 静默地更改状态，不上报消息。
 
@@ -54,7 +54,7 @@ ui.set_rect(WidgetId::new("mute"), Rect::from_xywh(16.0, 16.0, 180.0, 36.0));
 
 ### 行为
 
-- **轨道几何。** 轨道为 44 × 22 DIP，紧贴标签的对侧，距矩形边缘 2 DIP；标签占据其余空间减去 10 DIP 的间距。焦点环是一个紧贴轨道的胶囊形，并保持在布局单元格内。
+- **轨道几何。** 轨道为 44 × 22 DIP，紧贴标签的对侧，距矩形边缘 2 DIP；标签占据其余空间减去 10 DIP 的间距。焦点环是紧贴轨道的胶囊形，保持在布局单元格内。
 - **状态。** `Toggle` 没有 `disabled()` 构建器，也没有公开的状态 getter。用 `Ui::set_enabled` 禁用它；在 Rust 中构建的开关会在其 `on_change` 消息中传递新状态。由文档创建的开关会重复上报其固定的命令，因此请从 `Ui::a11y_nodes` 读取状态，或注册一个携带该值的工厂。`Toggle` 声明 `content_caps = TOGGLED`，因此 `checked` 是文档侧的初始值。
 - **无障碍性。** 角色为 `toggle`，带有选中状态；无障碍名称是标签。Enter/Space（`Activate`）的行为与点击完全一致。
 

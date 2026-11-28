@@ -4,16 +4,16 @@
 
 ## 概述
 
-手柄由宿主轮询（XInput；对菜单而言 33 ms 已足够），其变化成为普通的 `KeyEvent`：方向键
+手柄由宿主轮询（XInput；对菜单来说 33 ms 已足够），其变化成为普通的 `KeyEvent`：方向键
 （D-pad）或左摇杆按下方向键，**A** 是 Enter，**B** 是 Escape，**RB** 是 Tab，**LB** 是
 Shift+Tab，**Y** 打开聚焦控件的上下文菜单（`Shift+F10`），**X** 是 Space。应用将这些按键
 转发给 `Ui::pad_key`（或 `Ui::key`），因此为键盘编写的页面无需第二套输入模型即可工作。
 
-当手柄打开文本字段时，`pad_key` 还会唤起 Windows 屏幕键盘，并在键盘弹出时将该手柄路由到
+手柄打开文本字段时，`pad_key` 还会唤起 Windows 屏幕键盘，并在键盘弹出时将该手柄路由到
 它。按住的方向会重复（延迟 400 ms，之后每 90 ms 重复一次），因此长列表可以滚动而无需反复
 点按。
 
-`Gamepad`、`PadButtons`、`PadState` 模型以及纯函数的 `update` 部分跨平台，且无需硬件即可
+`Gamepad`、`PadButtons`、`PadState` 模型和 `update` 的纯函数部分跨平台，不需要硬件即可
 测试；`read_state` 是唯一的平台调用，在非 Windows 上返回 `None`。软键盘仅限 Windows。
 
 ## 关键类型
@@ -103,7 +103,7 @@ fn timer(&mut self, window: &mut WindowHandle<'_>) {
 ```
 
 `window.is_foreground()` 即 `active` 标志：后台窗口永不接收手柄导航，与游戏主机仪表盘的
-约定相同。当手柄离开时，丢弃它，稍后慢速监视 tick 可重新附加它。
+约定相同。手柄离开时，丢弃它，稍后慢速监视 tick 可重新附加它。
 
 ## 说明与限制
 
@@ -112,7 +112,7 @@ fn timer(&mut self, window: &mut WindowHandle<'_>) {
 - 左摇杆在其主导轴超过 `0.55` 死区后计为一个方向；对角线摇杆时方向键（D-pad）优先。XInput
   的 y 轴向上增长，因此负 y 映射为 Down。
 - 合成按键携带 `vk: 0`；请与 `KeyEvent::code` 比较，而非 `vk`。
-- 当手柄打开文本字段时，`pad_key` 会唤起屏幕键盘。键盘弹出期间它接管手柄，按键不会被转发；
+- 手柄打开文本字段时，`pad_key` 会唤起屏幕键盘。键盘弹出期间它接管手柄，按键不会被转发；
   **A** 重新唤起被关闭的键盘，**B** 关闭它并离开该字段（提交）。
 - 没有 XInput 的平台从 `read_state` 返回 `None`；纯函数的 `update` 路径仍可用于测试和
   合成输入。

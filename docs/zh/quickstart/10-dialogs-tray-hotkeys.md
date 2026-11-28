@@ -7,12 +7,12 @@
 [03](03-first-window.md) 中的问候窗口获得一条集成带。
 **Remove history** 询问一个是/否问题，**Choose file** 打开 shell
 选择器，一个托盘图标恢复窗口并提供菜单，选择文件后发布
-一条通知，`Ctrl+Shift+M` 从 Windows 的任意位置计数点击。
+一条通知，`Ctrl+Shift+M` 在 Windows 的任意位置计数点击。
 **Change shortcut** 捕获下一个组合键并注册它。
 
 结果是异步的：`show_dialog` 返回一个 `DialogId`，答案
-到达 `Host::dialog_finished`。托盘和热键回调在其他回调之间
-在 UI 线程上运行。
+到达 `Host::dialog_finished`。托盘和热键回调在 UI 线程上、
+穿插在其他回调之间运行。
 
 ## 前置条件
 
@@ -98,7 +98,7 @@ fn open_file(&mut self, window: &mut WindowHandle<'_>) {
 ```
 
 `FileDialog::open`/`::save`/`::folder` 构建三个选择器。`.filter` 接受
-一个 `FileFilter::new(label, pattern)` 对；`.multi_select(true)` 使打开
+`FileFilter::new(label, pattern)` 这样的一对参数；`.multi_select(true)` 使打开
 选择器报告 `DialogResult::Files`。
 
 ### 5. 安装托盘图标并注册热键
@@ -176,7 +176,7 @@ fn notify(&mut self, path: &str, window: &mut WindowHandle<'_>) {
 ### 7. 注册、响应并捕获快捷键
 
 `Host::hotkey` 在窗口存在时触发，即使另一个应用拥有
-焦点；当系统拥有该组合键时 `register_hotkey` 返回 `false`。
+焦点；系统拥有该组合键时 `register_hotkey` 返回 `false`。
 
 ```rust
 fn hotkey(&mut self, hotkey: Hotkey, window: &mut WindowHandle<'_>) {

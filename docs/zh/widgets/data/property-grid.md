@@ -1,12 +1,12 @@
 # PropertyGrid
 
-> 一个分区的键/值检查器，每行带有一个类型化的网格内编辑器。
+> 分区的键/值检查器，每行带有一个类型化的网格内编辑器。
 
 ## 介绍
 
 `PropertyGrid<M>` 绘制带标题的分区表头，与键/值行交错，并就地编辑值。每一行选择一个 `PropertyKind`：只读文本、内联文本或数字字段、下拉选择、复选框或星级评分。表头是滚动内容的一部分。
 
-该控件拥有自己的数据（包含 `PropertyRow` 值的 `PropertySection` 值），并在通过 `on_change(key, value)` 报告编辑之前先应用它，因此应用程序只需持久化它。`on_activate(key, value)` 保留给在别处检查的只读行。网格不绘制背景。
+该控件拥有自己的数据（包含 `PropertyRow` 值的 `PropertySection` 值），并在通过 `on_change(key, value)` 报告编辑之前应用它，因此应用程序只需持久化它。`on_activate(key, value)` 保留给在别处检查的只读行。网格不绘制背景。
 
 ## 用法（Rust）
 
@@ -141,7 +141,7 @@ ui.bind(WidgetId::new("props"), Trigger::ValueChange, |event, ctx| {
 | `DragStart` / `DragEnd` | 指针越过拖动阈值 / 释放按钮。 |
 | `ValueChange` | 控件的无障碍值发生变化（在内置更新之后）。 |
 
-它响应 `Click`（选择或打开编辑器）、`DoubleClick`/`Activate`（激活）、`Wheel`（滚动）以及 `ValueChange`（光标或勾选/评分状态）。`RightClick` 以及拖动触发器没有内置效果。
+它响应 `Click`（选择或打开编辑器）、`DoubleClick`/`Activate`（激活）、`Wheel`（滚动）以及 `ValueChange`（光标或勾选/评分状态）。`RightClick` 和拖动触发器没有内置效果。
 
 ## XML 定义
 

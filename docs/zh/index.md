@@ -1,6 +1,6 @@
 # Bamboo Native UI
 
-一个小巧的、声明式的原生 Windows UI 框架：使用 GDI + 脏矩形渲染，一个后端抽象的绘制器，不依赖 egui、wgpu 或 WebView。你负责计算控件矩形；框架只绘制脏矩形并分发规范化后的输入。空闲即零绘制。
+一个小巧的声明式原生 Windows UI 框架：用 GDI + 脏矩形渲染，配一个后端抽象的绘制器，不依赖 egui、wgpu 或 WebView。你负责计算控件矩形；框架只绘制脏矩形并分发规范化后的输入。空闲即零绘制。
 
 本文档覆盖 `bamboo-native-ui` 工作区：框架 crate、布局模型/代码生成，以及全控件演示 showcase。
 
@@ -132,7 +132,7 @@ XML 与工具：[布局文档](api/layout-documents.md)、
 
 ## 面向 AI 助手
 
-一个紧凑、自包含的上下文文件位于
+一个紧凑、自包含的上下文文件在
 [`ai/reference.md`](ai/reference.md)，另有一页
 [控件查询表](ai/widgets.md)。仓库级别的 `docs/llms.txt` 是遵循 llmstxt.org 约定的工具的入口。
 

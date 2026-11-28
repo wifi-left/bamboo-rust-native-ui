@@ -7,7 +7,7 @@
 ## 你将构建
 
 一个窗口，带侧边栏、含两个按钮的标题栏、内容窗格和状态
-行。当客户区窄于 900 DIP 时，侧边栏从 220
+行。客户区窄于 900 DIP 时，侧边栏从 220
 DIP 折叠到 56 DIP；高于阈值时再次展开。本页的
 前半部分用 `VStack`、`HStack`、`split_h`、`split_v`、`grid` 和
 `padded` 完成。后半部分将同样的六个控件移入带
@@ -29,7 +29,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", features = ["layout
 
 ### 1. 创建外壳控件
 
-一次创建六个控件。它们与文档稍后将要寻址的 id 相同，
+一次创建六个控件。它们与文档稍后要寻址的 id 相同，
 因此本页的两半只交换放置代码。
 
 ```rust
@@ -118,7 +118,7 @@ impl Host for App {
 前一个单元格的边缘开始）。`split_h`/`split_v` 在
 减去 `gap * (n - 1)` 后划分空间，并按 `usable * weight / total` 给每个单元格；
 权重无需总和为一。`grid` 按行优先平铺区域并将两个
-计数钳制为至少一。`padded` 即 `rect.inset_by(insets)`。当你想要沟槽时使用拆分
+计数钳制为至少一。`padded` 即 `rect.inset_by(insets)`。想要沟槽时用拆分
 辅助函数，就像这里的标题栏和内容列那样。
 
 ### 3. 编写断点文档
@@ -182,7 +182,7 @@ fn load_layout() -> LayoutDocument {
 
 然后将程序化的 `layout` 调用替换为 `apply_layout`。调色板
 来自窗口，因此 `background="sidebar"` 和 `background="accent"`
-针对活动主题解析。
+按活动主题解析。
 
 ```rust
 impl Host for App {
@@ -203,7 +203,7 @@ impl Host for App {
 ### 5. 理解表达式语言
 
 每个几何属性都是一个表达式。它被解析一次，并在每次应用时
-针对当前空间（客户区，或滚动画板的内容区域）
+按当前空间（客户区，或滚动画板的内容区域）
 求值。
 
 | 名称 | 值 |
@@ -238,10 +238,10 @@ impl Host for App {
   每个条目确定自己的矩形；没有测量过程。
 - **缩小后控件保持陈旧矩形** —— 它在 `wide` 中声明
   但在 `base` 中缺失。在每个变体中声明每个 id（如有需要
-  用 `visible="false"` 隐藏它），否则其最后矩形会保留。
+  用 `visible="false"` 隐藏它），否则会保留它最后的矩形。
 - **布局从不随窗口变化** —— `select` 比较客户区 DIP；
   `min-width` 高于客户区的变体永远无法被选中。检查
-  阈值以及 `resize` 确实运行。
+  阈值，并确认 `resize` 确实在运行。
 
 ## 下一步
 

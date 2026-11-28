@@ -9,7 +9,7 @@
 使用字形字体绘制，也可以用 `.check(char)` 指定其他字符（私有使用区字符使用字形字体，
 其他字符使用 UI 字体）。
 
-该框默认是圆角的（`corner_radius` 为 4 DIP），`.square()` 会使其变为直角。绘制时半径会被
+该框默认是圆角的（`corner_radius` 为 4 DIP），`.square()` 会把它变成直角。绘制时半径会被
 钳制为框的一半。禁用的复选框使用禁用调色板颜色并忽略输入。
 
 无障碍：`A11yRole::Toggle`，名称来自标签，设置了 `checked`，并在禁用时设置
@@ -32,7 +32,7 @@ fn build(ui: &mut Ui<Msg>) {
 }
 ```
 
-构造函数接收初始状态。此后值由应用拥有：将其保存在模型中并重建，或者在处理消息后通过
+构造函数接收初始状态。此后值归应用所有：将其保存在模型中并重建，或者在处理消息后通过
 `Ui::with_widget` 读取 `checked()`。`Ui::set_toggle` 会静默更新状态。
 
 ## 用法（XML）
@@ -91,7 +91,7 @@ Getter 与 setter：`checked()`、`check_glyph()`、`corner_radius_value()` 和
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

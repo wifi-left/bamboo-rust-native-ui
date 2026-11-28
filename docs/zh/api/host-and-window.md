@@ -15,7 +15,7 @@ Windows 上从 crate 根部重导出。控件、绘制器和事件层保持平�
 `Host::paint`，并将每个回调交给一个
 `WindowHandle`——它可以失效、打开菜单和对话框、调整托盘
 图标或启动拖动。`WindowHandle` 实现了 `Invalidator` 和 `UiHost`，因此
-`&mut window` 正是 `Ui` 方法所期望的 sink。每个窗口存在一个持久的后台
+`&mut window` 正是 `Ui` 方法所期望的 sink。每个窗口有一个持久的后台
 缓冲区，且只有脏包围盒会被位块传输，因此空闲即零绘制。
 
 ## 关键类型
@@ -155,7 +155,7 @@ impl WindowBuilder {
 320 × 240、`ThemeSettings::default()`、深色模式 `true`、无菜单栏、无
 渲染器覆盖。`menu_bar` 安装系统绘制的窗口栏（命令
 在 `MenuEvent` 钩子之后通过 `Host::menu_bar_command` 到达）、`owner`
-使一个自有对话框居中于另一个 `HWND`，而 `window_hotkey` 注册
+使一个自有对话框以另一个 `HWND` 为中心，而 `window_hotkey` 注册
 一个在窗口拥有焦点时触发 `Host::menu_bar_command` 的组合键。
 
 ### 渲染器选择

@@ -70,7 +70,7 @@ Getter 与 setter：`text()`、`is_removable()`、`tone_value()` 和
 行为说明：
 
 - 关闭目标是 chip 末尾 `min(height, 24)` DIP 的区域。
-- 当实例接收键盘输入时，`Delete`/`Backspace` 会移除徽标；为此需要将其设为 `focusable`。
+- 实例接收键盘输入时，`Delete`/`Backspace` 会移除徽标；为此需要将其设为 `focusable`。
 - `interactive()` 和 `repaint_on_move()` 仅在可移除徽标上为 true。
 - 无障碍：`A11yRole::Text`，仅显示，名称来自徽标文本。
 
@@ -97,7 +97,7 @@ true）。如有需要，用 `Ui::bind` 绑定额外的指针触发器。
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

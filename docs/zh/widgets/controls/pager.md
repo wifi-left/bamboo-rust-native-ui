@@ -4,7 +4,7 @@
 
 ## 介绍
 
-`Pager<M>` 在前端和后端绘制两个相等的点击区域，并在它们之间绘制一个居中的标签：当前页和页数。这些区域最宽为 80 DIP（控件的 30%），可用时填充 `button_bg`，不可用时填充 `button_disabled`，并携带内置标题 `上一页`（“previous”）和 `下一页`（“next”）。
+`Pager<M>` 在前部和后部绘制两个相等的点击区域，并在它们之间绘制一个居中的标签：当前页和页数。这些区域最宽为 80 DIP（控件的 30%），可用时填充 `button_bg`，不可用时填充 `button_disabled`，并携带内置标题 `上一页`（“previous”）和 `下一页`（“next”）。
 
 该控件通过 `on_nav(i32)` 上报导航增量，且从不自行更改页面。应用更新自己的状态，并用 `Ui::set_selected(id, page)` 将页面写回；控件会钳制它并刷新标签。
 
@@ -26,7 +26,7 @@ ui.add(
 ui.set_rect(WidgetId::new("pager"), Rect::from_xywh(16.0, 16.0, 360.0, 32.0));
 ```
 
-`on_nav` 对“上一页”接收 `-1`，对“下一页”接收 `+1`。`label_with` 接受 `Fn(usize, usize) -> String`，其中页是**从 1 开始**的，外加页数；该闭包替换内置的 `第 N / M 页` 标签。在你的更新循环中应用上报的增量，例如使用 `ui.set_selected(WidgetId::new("pager"), page + 1)`。
+`on_nav` 对“上一页”接收 `-1`，对“下一页”接收 `+1`。`label_with` 接受 `Fn(usize, usize) -> String`，其中页**从 1 开始**，另一个参数是页数；该闭包替换内置的 `第 N / M 页` 标签。在你的更新循环中应用上报的增量，例如使用 `ui.set_selected(WidgetId::new("pager"), page + 1)`。
 
 ## 用法（XML）
 
@@ -73,7 +73,7 @@ ui.set_rect(WidgetId::new("pager"), Rect::from_xywh(16.0, 16.0, 360.0, 32.0));
 
 ### 通用观察器
 
-该控件**不**安装共享的观察器构建器。它没有 `Observers` 字段，自身也没有焦点/按键处理；导航就是上面的构造函数回调。当需要应用侧钩子时，绑定 `Ui::bind`。
+该控件**不**安装共享的观察器构建器。它没有 `Observers` 字段，自身也没有焦点/按键处理；导航就是上面的构造函数回调。需要应用侧钩子时，绑定 `Ui::bind`。
 
 ### 控件专属回调
 

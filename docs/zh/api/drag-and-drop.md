@@ -4,13 +4,13 @@
 
 ## 概述
 
-一次拖拽是一次**系统拖拽**：它会离开窗口和进程（OLE `DoDragDrop`），因此负载仅限于 Shell
+拖拽是**系统拖拽**：它会离开窗口和进程（OLE `DoDragDrop`），因此负载仅限于 Shell
 能够传输的内容——Unicode 文本和文件列表。需要更丰富负载的应用应将其编码进文本（JSON、
 URL、id）中，而不是使用进程本地的值。
 
 保留模式的控件树对 COM 一无所知。宿主将 `IDropTarget` 回调转换为 `Host` 方法
 （`drag_enter` / `drag_over` / `drag_leave` / `drag_drop`），并附带客户区 DIP 坐标，
-完全如同指针事件一样。容器将它们路由到控件注册的源、目标和悬停回调。
+和指针事件完全一样。容器将它们路由到控件注册的源、目标和悬停回调。
 
 `DragData` 和 `DropEffect` 是跨平台模型；OLE 传输、`WindowHandle::start_drag` 以及宿主的
 系统拖拽回调仅限 Windows。没有 OLE 时，容器会保留一个窗口内回退拖拽会话。
@@ -44,7 +44,7 @@ pub enum DropEffect { None, Copy, Move, Link }
 
 | 方法 | 签名 | 描述 |
 |---|---|---|
-| `set_drag_source` | `set_drag_source(&mut self, id, source: impl Fn() -> Option<DragData> + 'static) -> &mut Self` | 当手势离开此控件时生成负载。 |
+| `set_drag_source` | `set_drag_source(&mut self, id, source: impl Fn() -> Option<DragData> + 'static) -> &mut Self` | 手势离开此控件时生成负载。 |
 | `clear_drag_source` | `clear_drag_source(&mut self, id)` | 移除一个源。 |
 | `set_drop_target` | `set_drop_target(&mut self, id, drop: impl Fn(DragData, Point) -> Option<M> + 'static) -> &mut Self` | 接受任何负载。 |
 | `set_text_drop_target` | `set_text_drop_target(&mut self, id, drop: impl Fn(String, Point) -> Option<M> + 'static) -> &mut Self` | 仅接受文本。 |
@@ -113,7 +113,7 @@ fn export(window: &mut WindowHandle<'_>, path: std::path::PathBuf) -> bool {
 
 ## 说明与限制
 
-- 系统拖拽仅限 Windows（OLE）。`DragData` 和 `DropEffect` 在所有平台都能编译，当 OLE 不可
+- 系统拖拽仅限 Windows（OLE）。`DragData` 和 `DropEffect` 在所有平台都能编译，OLE 不可
   用时（测试、自动化运行），容器会保留一个窗口内回退拖拽会话。
 - 负载只能是文本或文件列表；它必须能跨越到另一个进程后仍然存活。请将更丰富的数据编码进
   文本。

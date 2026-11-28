@@ -4,12 +4,12 @@
 
 ## 概述
 
-`Ui` 是一个扁平控件映射，因此滚动视图是**容器区域**，而不是拥有子项的 `Widget`。应用提供
+`Ui` 是一张扁平的控件映射，因此滚动视图是**容器区域**，而不是拥有子项的 `Widget`。应用提供
 视口，并在*内容*坐标中一次性布局其子项（视口的左上角即内容原点）。`Ui` 将每个子项的矩形
 保持在 `content rect - offset`，因此命中测试、绘制、类型化访问、原生编辑器、工具提示和
 辅助功能树都继续读取普通的客户区矩形。
 
-滚动条由容器使用共享的 `widgets::scrollbar` 数学进行绘制和拖动；面板仅存储样式和每个滚动条
+滚动条由容器用共享的 `widgets::scrollbar` 数学绘制和拖动；面板只存储样式和每个滚动条
 的指针状态。该模块跨平台（滚轮行数在 Windows 上来自系统，其他平台默认为 3）。
 
 ## 关键类型
@@ -113,8 +113,8 @@ fn register_queue(ui: &mut Ui<Msg>, sink: &mut impl bamboo_native_ui::UiHost) {
 ```
 
 `row-0` 和 `row-1` 是用 `ui.add(...)` 添加的普通控件；面板在尺寸调整或子项布局变化后会
-被重新注册，并保持其活动偏移。`scroll_to_child` 会以将子项完全带入视野所需的最小距离滚动
-其所属面板。
+被重新注册，并保持其活动偏移。`scroll_to_child` 会滚动子项所属的面板，距离恰好是将其
+完全带入视野所需的最小值。
 
 ## 说明与限制
 
@@ -122,7 +122,7 @@ fn register_queue(ui: &mut Ui<Msg>, sink: &mut impl bamboo_native_ui::UiHost) {
   `.buixml` 中没有 `type=`，并且通过 `set_scroll_view` 而非 `add` 注册。
 - 在尺寸调整或子项重新布局后需再次调用 `set_scroll_view`。重新注册同一 id 会保留活动偏移；
   如需更改请使用 `set_scroll_offset`。
-- 仅当某个轴的溢出实际超出带内边距的视口时才显示对应滚动条，因此一个较短的面板不会显示
+- 只有某个轴的溢出实际超出带内边距的视口时，才显示对应滚动条，因此较短的面板不会显示
   空轨道。`page_on_track_click`（默认 `false`）使点击轨道时跳转至滑块居中；`true` 则按约
   90% 翻页。
 - 滚轮行程为每格 `wheel_step` DIP（默认 `ScrollView::DEFAULT_WHEEL_STEP`，48 DIP = 三行

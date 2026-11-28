@@ -5,10 +5,9 @@
 
 ## 性能契约
 
-Bamboo Native UI 是一个保留模式框架。一次状态更改不会
+Bamboo Native UI 是保留模式框架。一次状态更改不会
 重新布局，也不会重绘窗口；它记录损坏（damage）。宿主
-将损坏合并为一小组矩形，只绘制与它们相交的控件
-到持久化后备缓冲区中，并只将那些片段 blit 到屏幕。
+将损坏合并为一小组矩形，只把与它们相交的控件绘制到持久化后备缓冲区中，并只将那些片段 blit 到屏幕。
 
 | 规则 | 结果 |
 |---|---|
@@ -51,8 +50,7 @@ impl Host for App {
 
 损坏会合并重叠或相接（带一点容差）的矩形，
 并最多保留 32 个独立片段。超过该上限后，列表会折叠为单个
-包围盒，因此病态的页面会退化为整窗重绘，而不是
-无限制的记账。
+包围盒，因此病态的页面会退化为整窗重绘，而不是无限制地记账。
 
 ### 2. 保持矩形准确
 
@@ -68,7 +66,7 @@ impl Host for App {
 
 ### 3. 仅在动画时使用动画计时器
 
-没有帧循环。动画通过安装一个计时器并只使
+没有帧循环。动画的做法是安装计时器，并只让
 动画区域失效：
 
 ```rust
@@ -113,7 +111,7 @@ fn damage_hud(ui: &mut Ui<()>, window: &mut bamboo_native_ui::WindowHandle<'_>) 
 记录了任何内容（隐藏和零尺寸控件不记录任何内容）。
 `WindowHandle::invalidate` 接受一个矩形；`invalidate_all` 用于页面
 切换、调整尺寸或主题更改。`invalidate_force` 适用于
-覆盖窗口的某物刚刚消失而窗口仍被视为
+挡住窗口的东西刚消失、窗口却仍被视为
 被遮挡的情况。
 
 ### 5. 只在控件矩形内绘制
@@ -126,7 +124,7 @@ fn damage_hud(ui: &mut Ui<()>, window: &mut bamboo_native_ui::WindowHandle<'_>) 
 
 绘制昂贵整表面效果（半透明遮罩）的控件
 必须将其限制在 `WidgetPaint::dirty` 内；为一次
-小的失效而重绘整个表面很慢，并且对于 alpha 而言，当片段重叠时会明显错误。
+小的失效而重绘整个表面很慢，而且对 alpha 来说，片段重叠时还会明显错误。
 
 ### 6. 不要在 `paint` 中分配
 
@@ -135,8 +133,8 @@ fn damage_hud(ui: &mut Ui<()>, window: &mut bamboo_native_ui::WindowHandle<'_>) 
 违规是每帧构建一个 `String`（`format!`、
 `to_string()`）来绘制文本，以及在绘制期间将行收集到 `Vec` 中。
 
-绘制器本身没有每帧状态。后端在窗口的整个生命周期内
-进行缓存：
+绘制器本身没有每帧状态。后端在整个窗口生命周期内
+缓存：
 
 | 缓存 | 内容 |
 |---|---|
@@ -159,7 +157,7 @@ fn damage_hud(ui: &mut Ui<()>, window: &mut bamboo_native_ui::WindowHandle<'_>) 
 ### 7. 剔除滚动内容
 
 `Ui::paint` 将滚动视图的子项裁剪到视口，并跳过边界不与其相交的
-子项，因此一个 600 行的列表只绘制可见
+子项，因此 600 行的列表只绘制可见
 行和一个预读行。列表控件也只在实际悬停
 改变时重绘：在一行内移动或沿已悬停的滚动条移动
 不会使列表失效。
@@ -172,8 +170,8 @@ fn damage_hud(ui: &mut Ui<()>, window: &mut bamboo_native_ui::WindowHandle<'_>) 
 
 `Renderer::Gdi` 是默认值，也是基线。`d2d-software` 和
 `d2d-hardware` 通过 `ID2D1DCRenderTarget` 绘制到同一个后备缓冲区；
-硬件会为 D3D 设备付出代价（数十 MB 私有内存），仅在
-大量文本/形状页面时才值得。无法启动的 Direct2D 模式会在
+硬件会为 D3D 设备付出代价（数十 MB 私有内存），只有
+文本/形状密集的页面才值得。无法启动的 Direct2D 模式会在
 `BAMBOO_UI_DEBUG` 下记录日志并永久回退到 GDI。
 
 用 `WindowBuilder::renderer`、`BAMBOO_UI_RENDERER` 或 showcase 的
@@ -209,7 +207,7 @@ $env:BAMBOO_UI_PAINT_LOG=1; cargo run -p bamboo-native-ui-showcase
 - **每个 setter 之后都调用 `flush_damage`** —— 每个回调一次刷新就
   足够了；中间刷新会产生额外的重绘请求。
 - **忘记 `flush_damage`** —— 状态改变了，但控件看起来
-  是陈旧的，直到别的什么使它失效。
+  陈旧，直到别的什么使它失效。
 - **在 `paint` 中重新计算布局** —— 布局属于 `resize`（或一次
   页面重建）；绘制必须是当前状态的纯函数。
 - **在 `paint` 中用 `format!` 构建文本** —— 在值改变时

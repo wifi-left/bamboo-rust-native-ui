@@ -38,7 +38,7 @@ fn build(ui: &mut Ui<Msg>) {
 }
 ```
 
-`.checked(&[usize])` 在不发出消息的情况下播种选择。默认矩形为 220×160。
+`.checked(&[usize])` 播种选择时不发出消息。默认矩形为 220×160。
 `set_selection(&[usize])`、`set_checked(index, bool)` 和
 `set_rows(Vec<String>)` 静默地从模型同步控件。
 
@@ -107,7 +107,7 @@ Getter 与 setter：`selected() -> Vec<usize>`、`is_checked(index)`、
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

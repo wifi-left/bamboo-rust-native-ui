@@ -1,12 +1,12 @@
 # PlaybackTransport
 
-> 五单元格播放器传输条带：随机播放、上一曲、播放/暂停、下一曲和循环播放。
+> 五个单元格的播放器传输条带：随机播放、上一曲、播放/暂停、下一曲和循环播放。
 
 ## 介绍
 
-`PlaybackTransport<M>` 在一个矩形范围内绘制五个图标按钮：随机播放、上一曲、播放/暂停、下一曲和循环播放。点击某个单元格（或在键盘光标所在单元格上按 Enter/Space）会通过构造函数处理函数上报对应的 `TransportAction`。播放/暂停是主要动作，绘制为一个实心圆；当 `playing` 为 true 时，它显示暂停字形。
+`PlaybackTransport<M>` 在一个矩形范围内绘制五个图标按钮：随机播放、上一曲、播放/暂停、下一曲和循环播放。点击某个单元格（或在键盘光标所在单元格上按 Enter/Space）会由构造函数处理函数上报对应的 `TransportAction`。播放/暂停是主要动作，绘制为一个实心圆；`playing` 为 true 时，它显示暂停字形。
 
-该控件从不决定应该发生什么。`playing`、`shuffle` 和 `repeat` 是应用状态，通过 `set_playing`、`set_shuffle` 和 `set_repeat` 推回，每个都返回是否有任何变化，因此一次失败的播放命令会让该条带如实显示真实状态。
+该控件从不决定应该发生什么。`playing`、`shuffle` 和 `repeat` 是应用状态，通过 `set_playing`、`set_shuffle` 和 `set_repeat` 推回，每个都返回是否发生变化，因此一次失败的播放命令会让该条带如实显示真实状态。
 
 键盘模型是光标而非选择：左/右/Home/End 移动光标，Enter/Space 运行光标所在单元格，上/下则离开前往相邻控件。辅助技术获得一个包含五个子项的 `ToolBar`：三个 Button 和两个 Toggle（随机播放和循环播放）。
 
@@ -30,7 +30,7 @@ ui.add(
 ui.set_rect(WidgetId::new("transport"), Rect::from_xywh(120.0, 232.0, 300.0, 44.0));
 ```
 
-`TransportAction::ALL` 是该条带的顺序。`RepeatMode::next` 按 Off → All → One → Off 递进，`RepeatMode::active` 对两种循环类型都为 true。一个典型的处理函数会推进模式并绘制新状态：
+`TransportAction::ALL` 是该条带的顺序。`RepeatMode::next` 按 Off → All → One → Off 递进，`RepeatMode::active` 对两种循环类型都为 true。典型的处理函数会推进模式并绘制新状态：
 
 ```rust
 ui.edit_widget::<PlaybackTransport<Msg>>(WidgetId::new("transport"), |strip| {
@@ -51,7 +51,7 @@ ui.edit_widget::<PlaybackTransport<Msg>>(WidgetId::new("transport"), |strip| {
         playing="false" shuffle="true" repeat="all"/>
 ```
 
-`repeat` 以不区分大小写的方式解析：接受 `off`/`none`、`all`/`list` 和 `one`/`single`；任何其他值都会被拒绝为 `xml.skin.value`。这些属性静默地写入状态，与 setter 完全一致。
+`repeat` 不区分大小写：接受 `off`/`none`、`all`/`list` 和 `one`/`single`；任何其他值都会被拒绝为 `xml.skin.value`。这些属性静默地写入状态，与 setter 完全一致。
 
 ## 属性
 

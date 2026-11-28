@@ -4,7 +4,7 @@
 
 ## 介绍
 
-`RadioGroup<M>` 是一个控件，绘制一栈单选框行并拥有选择：点击某行、按 Space/Enter，
+`RadioGroup<M>` 是绘制一栈单选框行并拥有选择的控件：点击某行、按 Space/Enter，
 或使用方向键移动，会选择该选项并发出 `on_select(index)`。各行高度为 `row_height` DIP
 （默认 28），`gap` 为 4 DIP。
 
@@ -44,8 +44,8 @@ fn build(ui: &mut Ui<Msg>) {
 <widget id="mode" x="16" y="16" w="200" h="96" selected="1"/>
 ```
 
-`selected` 是唯一支持的共享内容（`content_caps` 公开 `SELECTION`），它会在不发出消息的
-情况下移动选择。选项标签是控件拥有的数据，而不是 XML 子元素；此控件没有 `<option>` 列表。
+`selected` 是唯一支持的共享内容（`content_caps` 公开 `SELECTION`），它移动选择时不发出消息。
+选项标签是控件拥有的数据，而不是 XML 子元素；此控件没有 `<option>` 列表。
 
 ## 属性
 
@@ -88,7 +88,7 @@ Getter 与 setter：`selected()`、`option_enabled(index)` 和
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

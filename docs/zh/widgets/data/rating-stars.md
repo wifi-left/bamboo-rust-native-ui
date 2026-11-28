@@ -1,10 +1,10 @@
 # RatingStars
 
-> 一个可点击的星级评分，带有悬停高亮和键盘调整。
+> 可点击的星级评分，带有悬停高亮和键盘调整。
 
 ## 介绍
 
-`RatingStars<M>` 绘制一行五角星，按当前值填充。点击某颗星即评为此星数，悬停会高亮指针下方的值，在调整模式下方向键、Home 和 End 会改变它。它是一个真正的控件：通过 `on_rate` 闭包以应用程序消息 `M` 的形式报告新的评分。
+`RatingStars<M>` 绘制一行五角星，按当前值填充。点击某颗星即评为此星数，悬停会高亮指针下方的值，在调整模式下方向键、Home 和 End 会改变它。它是真正的控件：通过 `on_rate` 闭包把新评分报告为应用程序消息 `M`。
 
 该控件占用 `Slider` 无障碍角色，范围为 `0..=stars`，并支持来自辅助技术的 `SetValue`。只读实例仍会绘制并发布其值，但忽略点击、悬停和按键。
 
@@ -27,7 +27,7 @@ ui.add(
 ui.set_rect(WidgetId::new("rating"), Rect::from_xywh(16.0, 16.0, 130.0, 28.0));
 ```
 
-`on_rate` 在每次被接受的变更时运行，包括清除手势。启用 `clearable(true)` 后，点击等于当前值的星会将评分重置为零并报告 `on_rate(0)`。`set_rating` 是推送已存储值的静默路径：
+`on_rate` 在每次变更被接受时运行，包括清除手势。启用 `clearable(true)` 后，点击等于当前值的星会将评分重置为零并报告 `on_rate(0)`。`set_rating` 是推送已存储值的静默路径：
 
 ```rust
 ui.edit_widget(WidgetId::new("rating"), |stars: &mut RatingStars<Msg>| {

@@ -6,7 +6,7 @@
 
 `ColorSwatch` 在其前缘绘制一个 40 DIP 宽、占满高度的色块，使用主题的 `explicit_border` 边框，并在其中居中绘制标签。标签文本颜色在浅色（亮度高于 `0.55`）上翻转为接近黑色，在深色上翻转为接近白色，因此短标签在任何色块上都保持可读。
 
-它是一个显示控件：不可聚焦、忽略输入、不上报任何消息。通过选择加入鼠标输入并在 `Ui` 上绑定处理函数（`WidgetProps::mouse(true)` 加上 `Ui::on_click`）使其可点击，正如 showcase 所做的那样。该控件还采用 `LABEL` 内容能力，因此文档可以设置内部文本。
+它是显示控件：不可聚焦、忽略输入、不上报任何消息。通过选择加入鼠标输入并在 `Ui` 上绑定处理函数（`WidgetProps::mouse(true)` 加上 `Ui::on_click`）使其可点击，showcase 就是这么做的。该控件还采用 `LABEL` 内容能力，因此文档可以设置内部文本。
 
 ## 用法（Rust）
 
@@ -24,7 +24,7 @@ ui.set_rect(WidgetId::new("accent"), Rect::from_xywh(16.0, 16.0, 120.0, 32.0));
 ui.on_click(WidgetId::new("accent"), |_event, _ctx| Some(Msg::InspectSwatch));
 ```
 
-如果没有 `on_click` 绑定和 `WidgetProps::mouse(true)`，色块不接受任何输入。`set_color` 静默地更改颜色，`set_label_text` 更改文本；两者也都可以从 `.buixml` 文档中访问。
+如果没有 `on_click` 绑定和 `WidgetProps::mouse(true)`，色块不接受任何输入。`set_color` 静默地更改颜色，`set_label_text` 更改文本；两者也都能通过 `.buixml` 文档访问。
 
 ## 用法（XML）
 
@@ -51,7 +51,7 @@ ui.on_click(WidgetId::new("accent"), |_event, _ctx| Some(Msg::InspectSwatch));
 
 - **布局。** 色块始终占据矩形左侧的 40 DIP，即使在更宽的单元格中也是如此；其余部分为空。标签在色块中居中，水平内缩 4 DIP。
 - **对比度。** 文本颜色根据颜色的亮度而非主题来选择，因此浅色色块获得深色文本，反之亦然。
-- **交互。** 无内置交互。当色块应充当按钮时，通过 `Ui` 绑定点击/激活；并通过 `WidgetProps` 为辅助技术设置角色/名称。
+- **交互。** 无内置交互。色块需要充当按钮时，通过 `Ui` 绑定点击/激活；并通过 `WidgetProps` 为辅助技术设置角色/名称。
 - **无障碍性。** 角色为 `text`、`display_only`，名称来自标签，描述为 `#RRGGBB`，以便色盲用户仍能获得准确的颜色。该实例仅在选择加入时才加入无障碍树（`WidgetProps::expose(true)`）。
 
 ## 事件
@@ -100,7 +100,7 @@ ui.bind(WidgetId::new("accent"), Trigger::Click, |event, ctx| {
 - **内容：** `label`（`content_caps = LABEL`）。
 - **局部属性：** 仅 `color`（`SkinValueKind::Color`）。
 - **样式：** `font-size`、`font-family`。没有表面，因此 `radius`、`corners` 和 `background` 会报 `xml.style.unsupported` 并被跳过。
-- **属性：** 通用运行时集合（`visible`、`tooltip`、`name`、`interactive`、……）。当 Rust 绑定应接收点击时，设置 `interactive="true"`。
+- **属性：** 通用运行时集合（`visible`、`tooltip`、`name`、`interactive`、……）。Rust 绑定需要接收点击时，设置 `interactive="true"`。
 - **子元素：** 无。
 
 ## 另见

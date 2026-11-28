@@ -1,12 +1,12 @@
 # PlaylistView
 
-> 一个虚拟化、可重排的曲目列表：选择、播放并拖动以重排。
+> 虚拟化、可重排的曲目列表：选择、播放并拖动以重排。
 
 ## 介绍
 
-`PlaylistView<M>` 从 `Vec<Row>` 绘制一个垂直列表，复用共享的行模型：标题（曲目）、副标题（艺术家）、尾部（时长）、`current`（正在播放的曲目）和 `disabled`。只有视口行会被绘制、命中测试和发布，并且该列表拥有自己的滚动偏移、滚轮处理和主题滚动条。
+`PlaylistView<M>` 从 `Vec<Row>` 绘制一个垂直列表，复用共享的行模型：标题（曲目）、副标题（艺术家）、尾部（时长）、`current`（正在播放的曲目）和 `disabled`。只绘制、命中测试并发布视口行，并且该列表拥有自己的滚动偏移、滚轮处理和主题滚动条。
 
-单击会选中并上报 `on_select`；双击或 Enter 通过 `on_activate` 播放。按下某行并拖动它会移动曲目：控件绘制一条强调色插入线，在视口边缘附近自动滚动，并通过 `on_reorder` 上报移动。应用拥有数据并自行应用该移动；控件从不重排其副本，因此模型和控件不会漂移。`Alt+上/下` 是等效的键盘操作。
+单击会选中并上报 `on_select`；双击或 Enter 通过 `on_activate` 播放。按下某行并拖动它会移动曲目：控件绘制一条强调色插入线，在视口边缘附近自动滚动，并通过 `on_reorder` 上报移动。应用拥有数据，并自行执行该移动；控件从不重排其副本，因此模型和控件不会漂移。`Alt+上/下` 是等效的键盘操作。
 
 ## 用法（Rust）
 
@@ -38,7 +38,7 @@ ui.add(
 ui.set_rect(WidgetId::new("queue"), Rect::from_xywh(552.0, 56.0, 320.0, 360.0));
 ```
 
-`on_reorder(from, to)` 上报的 `to` 是**移除** `from` 之后的最终索引，因此应用按 `let track = rows.remove(from); rows.insert(to, track);` 应用它，并用 `set_rows` 将结果推回。拖放到同一槽位不发出任何消息。
+`on_reorder(from, to)` 上报的 `to` 是**移除** `from` 之后的最终索引，因此应用按 `let track = rows.remove(from); rows.insert(to, track);` 执行它，并用 `set_rows` 将结果推回。拖放到同一槽位不发出任何消息。
 
 ## 用法（XML）
 
@@ -79,7 +79,7 @@ ui.set_rect(WidgetId::new("queue"), Rect::from_xywh(552.0, 56.0, 320.0, 360.0));
 | `.visible_range()` | `(usize, usize)` | 发布的视口范围，右端不含。 |
 | `.row_rect(usize)` / `.scroll_offset()` | `Option<Rect>` / `f32` | 行矩形和滚动偏移。 |
 | `.drag_state()` | `Option<(usize, usize)>` | 拖动进行中的 `(from, 插入槽位)`。 |
-| `.scroll_to_row(usize)` / `.ensure_row_visible(usize)` | `bool` | 将行顶部对齐或最小限度地显示一行。 |
+| `.scroll_to_row(usize)` / `.ensure_row_visible(usize)` | `bool` | 将行顶部对齐，或以最小幅度滚动到可见。 |
 | `.set_row_height(f32)` | `bool` | 运行时行高（`>= 24`），保持光标可见。 |
 | `.set_alternating(bool)` / `.is_alternating()` | `bool` | 运行时斑马纹。 |
 | `.set_empty_text(text)` / `.empty_text_ref()` | text | 运行时空消息。 |
@@ -87,7 +87,7 @@ ui.set_rect(WidgetId::new("queue"), Rect::from_xywh(552.0, 56.0, 320.0, 360.0));
 
 ### 行为
 
-- **指针。** 在按下的、已启用的行上释放会选中它，而不进行显示滚动。按下后拖动开始重排；将指针保持在顶部/底部边缘 24 DIP 以内，每次移动会滚动半行。插入槽位是最近的行间隙，并钳制到两端。
+- **指针。** 在按下的、已启用的行上释放会选中它，而不会滚动到它。按下后拖动开始重排；将指针保持在顶部/底部边缘 24 DIP 以内，每次移动会滚动半行。插入槽位是最近的行间隙，并钳制到两端。
 - **键盘。** 上/下、PageUp/PageDown、Home/End 移动光标并显示它；Enter 播放；`Alt+上/下` 移动选中的曲目并上报 `on_reorder`。重排不会在两端循环。
 - **行。** `current` 行绘制选中的填充和一条 3-DIP 强调色条；`disabled` 行绘制为暗淡，且无法被选中、播放或拖动。尾部文本在一个 64-DIP 区域内右对齐。
 - **无障碍。** 角色为 `List`，包含可见行，选中的行被标记，一个预读行被标记为屏幕外，并带有垂直滚动状态。调用子项会选中并显示它。

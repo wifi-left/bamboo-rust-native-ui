@@ -1,12 +1,12 @@
 # Accordion
 
-> 一堆可折叠的分区，可有一个或多个正文处于打开状态。
+> 堆叠的可折叠分区，可有一个或多个正文处于打开状态。
 
 ## 介绍
 
-`Accordion<M>` 绘制一个垂直的分区表头堆栈，每个打开的表头下方附带一个可选的包裹正文。点击表头，或在键盘光标上按下 Enter 或空格，会切换它，并通过 `on_toggle` 闭包报告 `(section, open)`。分区默认相互独立；`single_open` 会关闭先前打开的分区。
+`Accordion<M>` 绘制垂直的分区表头堆栈，每个打开的表头下方附带一个可选的包裹正文。点击表头，或在键盘光标上按下 Enter 或空格，会切换它，并通过 `on_toggle` 闭包报告 `(section, open)`。分区默认相互独立；`single_open` 会关闭先前打开的分区。
 
-该控件仅在它于自身矩形内绘制正文文本这一意义上是一个容器；它不拥有子控件。应用程序根据打开状态调整矩形大小，如果进行垂直布局则使用 `preferred_height`。每个分区都暴露展开/折叠状态，打开的分区在无障碍树中被选中。
+该控件只在自身矩形内绘制正文文本这一点上算是容器；它不拥有子控件。应用程序根据打开状态调整矩形大小，垂直布局时使用 `preferred_height`。每个分区都暴露展开/折叠状态，打开的分区在无障碍树中被选中。
 
 `Collapsible<M>` 是 `Accordion<M>` 的类型别名；用一个标题构建它。
 
@@ -44,7 +44,7 @@ ui.set_rect(WidgetId::new("settings"), Rect::from_xywh(16.0, 16.0, 300.0, 124.0)
 <widget id="settings" x="16" y="16" w="300" h="124" open="0" name="Playback settings"/>
 ```
 
-分区标题、正文文本以及切换回调属于 Rust 侧状态。没有子元素：文档无法添加或重命名分区标题。
+分区标题、正文文本和切换回调属于 Rust 侧状态。没有子元素：文档无法添加或重命名分区标题。
 
 ## 属性
 
@@ -66,7 +66,7 @@ ui.set_rect(WidgetId::new("settings"), Rect::from_xywh(16.0, 16.0, 300.0, 124.0)
 | `.set_body(index, text)` / `.set_title(index, text)` | silent setters | — | 运行时替换正文/标题。 |
 | `.toggle(index)` | `Option<M>` | — | 通过常规路径切换并返回消息。 |
 
-行为：首选高度为 `headers * header_height + open bodies * body_height`，且绘制被裁剪到控件矩形内，因此当某个分区打开时应用程序必须扩大矩形。调整模式下的键盘输入使用 Up/Left 和 Down/Right 移动光标（循环），Home/End 跳转，Enter/空格切换。点击打开的正文内部不产生任何操作。无障碍角色为 `List`：每个分区是一个带 `expanded`/`selected` 状态的项，UIA 展开/折叠请求会驱动与点击相同的路径。
+行为：首选高度为 `headers * header_height + open bodies * body_height`，且绘制被裁剪到控件矩形内，因此某个分区打开时应用程序必须扩大矩形。调整模式下的键盘输入用 Up/Left 和 Down/Right 移动光标（循环），Home/End 跳转，Enter/空格切换。点击打开的正文内部不产生任何操作。无障碍角色为 `List`：每个分区是一个带 `expanded`/`selected` 状态的项，UIA 展开/折叠请求会驱动与点击相同的路径。
 
 ## 事件
 
@@ -126,7 +126,7 @@ ui.bind(WidgetId::new("settings"), Trigger::Activate, |event, ctx| {
 |---|---|---|
 | `open` | number | 要打开的分区索引；其他每个分区都会关闭。必须 `>= 0`；越界的索引会关闭所有分区。 |
 
-子元素：无。标题的向量在构造时固定，文档无法添加、移除或重命名分区标题。共享的 `selected` 属性会被接受（它移动键盘光标），但不会打开分区；请使用 `open`。
+子元素：无。标题向量在构造时固定，文档无法添加、移除或重命名分区标题。共享的 `selected` 属性会被接受（它移动键盘光标），但不会打开分区；请使用 `open`。
 
 ## 另见
 

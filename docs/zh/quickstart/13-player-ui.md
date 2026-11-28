@@ -113,7 +113,7 @@ impl App {
 ```
 
 `on_open` 在双击或 Enter 时触发，因此单击只选择；
-最后两个封面显示回退。`samples` 是 `0..=1` 中的振幅；
+最后两个封面显示回退。`samples` 是 `0..=1` 范围内的振幅；
 `duration` 只影响无障碍的 `m:ss` 文本；`on_seek` 接收按下
 和拖拽位置。添加 `.on_drag_start`/`.on_drag`/`.on_drag_end` 以进行拖拽。
 
@@ -236,7 +236,7 @@ impl App {
 - **`ui.set_progress` 不移动波形** —— 使用 `ui.set_value` 或
   `edit_widget` + `bar.set_progress`；该控件实现了 `set_value`。
 - **当前行不保持高亮** —— 应用拥有
-  `Row::current`。在更改它之后重建行并调用 `ui.set_rows`。
+  `Row::current`。更改后重建行并调用 `ui.set_rows`。
 - **封面全是回退** —— 传给 `Cover::image` 的 `ImageId` 没有
   用 `Ui::set_image` 注册。
 - **传输带在点击后弹回** —— 将动作应用到 `App`，然后推回它。

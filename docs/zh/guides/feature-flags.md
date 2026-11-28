@@ -39,8 +39,7 @@
 文档无论哪种方式都会产生相同的矩形、属性和内容。
 
 `theme-xml` 仅启用 `layout-core/parse`。它不会打开布局
-读取器，而仅含主题的构建仍可应用用
-`layout-compiled` 编译的布局。
+读取器，而只含主题的构建仍可应用 `layout-compiled` 编译出的布局。
 
 ## 启用特性
 
@@ -66,7 +65,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", features = ["layout
 ```
 
 生成的模块由
-`bamboo-native-ui-layout-codegen`（CLI 或构建脚本）或由
+`bamboo-native-ui-layout-codegen`（CLI 或构建脚本）或
 `bamboo-native-ui-layout-macros` 的 `layout_xml!` 过程宏生成。参见
 [06 — 编译期 XML](../quickstart/06-xml-compiled.md)。
 
@@ -85,7 +84,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", default-features = 
 ```
 
 `platform` 模块是 `#[cfg(windows)]` 且会导入 GDI 后端，因此
-**Windows** 构建需要 `gdi`；禁用默认特性是用于非 Windows
+**Windows** 构建需要 `gdi`；禁用默认特性适用于非 Windows
 目标（一个编译可移植层并运行控件测试的 Linux CI runner）。
 在 Windows 上，启用 `gdi` 时仍可使用可移植层。
 

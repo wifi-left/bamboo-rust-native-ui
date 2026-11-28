@@ -1,12 +1,12 @@
 # CustomWidget
 
-> 一个用于应用特定组件的闭包绘制控件。
+> 用于应用特定组件的闭包绘制控件。
 
 ## 介绍
 
-`CustomWidget<M>` 是添加库未提供的组件的轻量方式。它携带一个矩形以及用于绘制和输入的应用闭包，并且像内置控件一样被注册、聚焦、命中测试并发布到无障碍。将其用于不需要自有状态的小型组件；当组件拥有状态或需要自己的布局行为时，请直接实现 `Widget<M>`。
+`CustomWidget<M>` 是添加库未提供的组件的轻量方式。它携带矩形和用于绘制与输入的应用闭包，并且像内置控件一样被注册、聚焦、命中测试并发布到无障碍。将其用于不需要自有状态的小型组件；组件拥有状态或需要自己的布局行为时，请直接实现 `Widget<M>`。
 
-绘制闭包接收绘制上下文、控件矩形和容器状态（悬停、按下、焦点、启用）。容器会 blit 控件的脏矩形，因此闭包必须只在 `rect` 内绘制。输入闭包接收矩形和一个 `WidgetInput`，并返回 `Option<M>`；`.hit_test` 为圆形或带缺口的卡片替换默认的矩形命中区域。无障碍是固定的 `A11yInfo`（`.a11y` / `.a11y_name`），或针对每帧都变化的值使用动态闭包（`.a11y_fn`）。
+绘制闭包接收绘制上下文、控件矩形和容器状态（悬停、按下、焦点、启用）。容器会 blit 控件的脏矩形，因此闭包必须只在 `rect` 内绘制。输入闭包接收矩形和一个 `WidgetInput`，并返回 `Option<M>`；`.hit_test` 为圆形或带缺口的卡片替换默认的矩形命中区域。无障碍用固定的 `A11yInfo`（`.a11y` / `.a11y_name`）；对每帧都变化的值，则用动态闭包（`.a11y_fn`）。
 
 已配置的表面（`.corner_radius`、`.corners`、`.background`、`.transparent_background`）会先绘制，因此闭包通常只绘制内容。
 
@@ -50,7 +50,7 @@ ui.add(
 );
 ```
 
-指针命中测试要落到控件上，需要 `.interactive(true)`；将其与 `.input` 配合使用。`.focusable(true)` 使其成为 Tab 停靠点，容器会绘制焦点环。`ui.add_custom(id, rect, paint)` 是仅绘制的简写。
+要让指针命中测试落到控件上，需要 `.interactive(true)`；把它与 `.input` 配合使用。`.focusable(true)` 使其成为 Tab 停靠点，容器会绘制焦点环。`ui.add_custom(id, rect, paint)` 是仅绘制的简写。
 
 ## 用法（XML）
 
@@ -85,7 +85,7 @@ ui.add(
 
 ### 手动控件
 
-拥有状态的组件直接实现 `Widget<M>`：提供 `id`、`rect`/`set_rect`、`as_any`/`as_any_mut`、`paint` 和 `input`，然后根据需要覆盖 `preferred_height`、`focusable`、`interactive`、`hit_test`、`cursor`、`a11y` 和焦点钩子。当类型拥有 `SurfaceStyle` 时转发 `surface_style` / `surface_style_mut`，并存储一个带有 `observer_methods!()` 宏（加上 `observer_builders!`）的 `Observers<M>` 字段，以支持附加型的 `on_click` / `on_key_down` / `on_focus_*` 构建器。`surface_builders!` 宏添加相同的 `.corner_radius` / `.background` 系列。
+拥有状态的组件直接实现 `Widget<M>`：提供 `id`、`rect`/`set_rect`、`as_any`/`as_any_mut`、`paint` 和 `input`，然后根据需要覆盖 `preferred_height`、`focusable`、`interactive`、`hit_test`、`cursor`、`a11y` 和焦点钩子。类型拥有 `SurfaceStyle` 时转发 `surface_style` / `surface_style_mut`，并存储一个带有 `observer_methods!()` 宏（加上 `observer_builders!`）的 `Observers<M>` 字段，以支持附加型的 `on_click` / `on_key_down` / `on_focus_*` 构建器。`surface_builders!` 宏添加相同的 `.corner_radius` / `.background` 系列。
 
 要接受文档数据，请用皮肤协议声明它：`skin_attrs` 和 `skin_children` 发布词汇，`validate_skin_attr` / `validate_skin_children` 无副作用，`apply_skin_attr` / `apply_skin_children` 静默写入。以 `x-` 开头的名称属于应用；共享内容名称是保留的。showcase 的 `crates/showcase/src/meter.rs` 是一个完整的第三方示例。
 

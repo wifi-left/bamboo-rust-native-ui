@@ -6,9 +6,7 @@
 
 ## 你将构建
 
-一个包含绘制的 `MenuBar`、`MenuButton`、`SplitButton`、两种 `Toolbar`
-方向的 `Toolbar`、一个 `StatusBar` 以及一个上下文菜单的外壳。`Msg::Command(u32)` 将
-每个命令承载到 `Host::menu_command` 或 `menu_bar_command`。
+一个外壳，包含绘制的 `MenuBar`、`MenuButton`、`SplitButton`、两个方向的 `Toolbar`、一个 `StatusBar` 和一个上下文菜单。`Msg::Command(u32)` 把每个命令送到 `Host::menu_command` 或 `menu_bar_command`。
 
 ## 前置条件
 
@@ -45,7 +43,7 @@ fn file_menu() -> Menu {
 ### 2. 添加绘制的菜单栏
 
 [`MenuBar`](../widgets/chrome/menu-bar.md) 绘制顶级单元格；点击、
-Enter/Space 或 `Alt+key` 将单元格的菜单打开为原生弹出菜单。
+Enter/Space 或 `Alt+key` 把单元格的菜单作为原生弹出菜单打开。
 
 ```rust
 use bamboo_native_ui::widgets::MenuBar;
@@ -133,7 +131,7 @@ impl Host for App {
 }
 ```
 
-`menu_bar_command` 没有控件 id；`MenuEvent` 首先以源 `MenuBar` 运行。
+`menu_bar_command` 没有控件 id；`MenuEvent` 先以 `MenuBar` 为源运行。
 
 ### 5. 页内菜单按钮
 
@@ -222,7 +220,7 @@ ui.add_with(Button::new("primary", "Play", Msg::Command(600)),
         .separator().disabled_item(802, "Remove")));
 ```
 
-该模型是静态的；为实时状态用
+该模型是静态的；需要实时状态时用
 `ui.set_context_menu(WidgetId::new("primary"), Some(menu))` 重建它。
 
 ## 预期结果

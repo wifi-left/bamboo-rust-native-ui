@@ -28,7 +28,7 @@ pub struct UiImage {
 }
 ```
 
-与页面关联的、由应用持有的 RGBA 像素。
+与页面关联、由应用持有的 RGBA 像素。
 
 | 方法 | 签名 | 描述 |
 |---|---|---|
@@ -75,7 +75,7 @@ pub struct ImageData<'a> {
 }
 ```
 
-后端在未命中时转换并缓存的借用 RGBA 视图。应用通常注册 `UiImage`；`ImageData` 是接触
+后端在未命中时转换并缓存的 RGBA 借用视图。应用通常注册 `UiImage`；`ImageData` 是接触
 `Canvas`/`Renderer` 的代码所看到的后端级形式。
 
 ### `Ui` 方法
@@ -107,8 +107,8 @@ fn register_covers(ui: &mut Ui<Msg>) {
 ```
 
 展示美术资源的控件会引用这些 id；自定义绘制闭包调用
-`WidgetPaint::image(rect, crop_square, id)`，当该 id 未注册时返回 `false`，使控件可以
-改为绘制其回退内容。
+`WidgetPaint::image(rect, crop_square, id)`，该 id 未注册时返回 `false`，控件可以
+改为绘制回退内容。
 
 ## 说明与限制
 
@@ -120,7 +120,7 @@ fn register_covers(ui: &mut Ui<Msg>) {
   `None`；`solid` 和 `gradient` 总是成功，并生成正确的长度。
 - 图像是页面作用域的：`set_image` 作用于 `Ui`，而非窗口。若页面重建并创建了新的 `Ui`，
   则必须重新注册其图像。
-- `WidgetPaint::image` 接受 `crop_square`；对于不能拉伸的头像/封面传 `true`，要精确填满
+- `WidgetPaint::image` 接受 `crop_square`；对不能拉伸的头像/封面传 `true`，要精确填满
   矩形则传 `false`。
 
 ## 另见

@@ -7,7 +7,7 @@
 诊断分为两层。解析器和应用器产生带有稳定字符串代码和源位置的 `LayoutDiagnostic` 值；
 一次应用要么返回 `LayoutReport`（已应用，可能带有警告），要么返回 `LayoutFailure`（被拒绝，
 未做任何更改）。`debug-form` 特性添加对活动容器的只读快照——布局、控件、损伤、绘制耗时以及
-一个有界日志环——并且当设置了 `BAMBOO_UI_DEBUG` 时，平台层会将内部信息记录到 stderr。
+一个有界日志环——并且设置 `BAMBOO_UI_DEBUG` 时，平台层会将内部信息记录到 stderr。
 
 错误会拒绝整个文档；警告会被报告，其余部分仍照常应用。这种划分正是原子性承诺：一次糟糕的
 热重载会让之前的布局保持在屏幕上，并交回其原因。
@@ -44,8 +44,8 @@ impl LayoutDiagnostic {
 }
 ```
 
-`Display` 打印 `line:column: severity[code] (path): message`，因此一条诊断可以直接被记录或
-显示。
+`Display` 打印 `line:column: severity[code] (path): message`，因此可以直接记录或
+显示一条诊断。
 
 ### `Diagnostics` 接收器
 
@@ -94,7 +94,7 @@ impl LayoutFailure {
 ```
 
 `summary()` 命名变体、条目/内容/皮肤计数以及第一条警告（或无警告标记）。`LayoutFailure`
-实现 `Display` 和 `std::error::Error`；`first()` 返回第一条错误，当仅存在警告时回退到第一条
+实现 `Display` 和 `std::error::Error`；`first()` 返回第一条错误，只有警告时回退到第一条
 诊断。`diagnostics` 按错误在前排序。
 
 `Ui::installed_layout()` 返回一个 `AppliedLayout` 供检查：generation、client、变体 id、
@@ -142,7 +142,7 @@ pub struct DebugSnapshot {
 - `DebugEvent` — `sequence`、`kind`（`layout`、`warning`、`error`、`note`）以及 `text`；
   环形缓冲保留最近的 128 条条目。
 
-库不绘制任何检查器；应用可以随其所愿地呈现这些值（showcase 会将摘要写入一个对话框）。
+库不绘制任何检查器；应用可以自行呈现这些值（showcase 会把摘要写入对话框）。
 
 ### 环境变量与进程指标
 

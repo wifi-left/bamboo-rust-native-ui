@@ -13,10 +13,10 @@
 3. Windows 宿主从 `Host::a11y_nodes` 返回该向量；平台
    层通过 UI Automation 暴露它。
 4. 一个屏幕阅读器请求会以 `A11yAction` 返回，`Ui::apply_a11y`
-   将其转化为用户会产生的一样的输入。
+   将其转成与用户操作相同的输入。
 
 该模型是平台中立的；只有 UIA provider 和
-`WindowHandle::a11y_*` 是仅 Windows 的。
+`WindowHandle::a11y_*` 仅限 Windows。
 
 ## 步骤
 
@@ -97,7 +97,7 @@ fn tabs_info(labels: &[&str], selected: usize, rect: Rect) -> A11yInfo {
 `A11yChild` 构建器：`.selected`、`.enabled`、`.offscreen`、`.checked`、
 `.expanded`、`.role`（覆盖容器的子角色）、`.grid_cell(row,
 column)`、`.value`、`.editable`。只发布已实现的行，并将
-预读行标记为 `.offscreen(true)`；一个 600 行的队列保持低成本。
+预读行标记为 `.offscreen(true)`；600 行的队列也能保持低成本。
 
 对于滚动容器，发布 `A11yScroll`：
 
@@ -142,8 +142,8 @@ fn describe_play(ui: &mut Ui<()>, sink: &mut impl UiHost) {
 | `WidgetProps::expose(bool)` | 强制将仅显示控件加入或移出树。 |
 
 `display_only()` 控件不进树，也不进 Tab，除非它是
-可聚焦、可交互、被朗读、被覆盖角色或 `expose(true)`。这就是为什么
-标题、卡片和进度条不会在每次 Tab 时都被朗读。
+可聚焦、可交互、被朗读、被覆盖角色或 `expose(true)`。所以
+标题、卡片和进度条不会每次 Tab 都被朗读。
 
 ### 4. 接入宿主
 
@@ -164,7 +164,7 @@ impl Host for App {
 }
 ```
 
-两个钩子对于一棵有用的树都是必需的。默认的 `a11y_nodes` 返回
+要有可用的树，两个钩子都必需。默认的 `a11y_nodes` 返回
 空向量，默认的 `a11y_action` 什么也不做：只读检查
 可以工作，但 Invoke/Toggle/Select/SetValue 什么也不做。
 

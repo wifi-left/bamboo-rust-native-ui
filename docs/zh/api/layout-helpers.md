@@ -1,6 +1,6 @@
 # 布局辅助函数
 
-> 用于在 `Host::resize` 内进行堆叠、内边距、分割和网格布局的纯矩形运算。
+> 在 `Host::resize` 内做堆叠、内边距、分割和网格布局的纯矩形运算。
 
 ## 概述
 
@@ -11,7 +11,7 @@
 几何。
 
 这些辅助函数不了解控件或树：`VStack` 和 `HStack` 是你手动推进的
-游标，`split_h`/`split_v` 按权
+游标，`split_h`/`split_v` 按权重
 分割一个矩形，`grid` 将其平铺，而 `padded` 应用 `Insets`。结果通过
 `Ui::set_rect` 分配（当插入顺序和
 `preferred_height` 足够时，也可用 `Ui::layout_vertical`）。
@@ -118,7 +118,7 @@ fn layout_page(client: Rect) -> Vec<(&'static str, Rect)> {
 - `remaining` 排除末尾的间隙：它从 `cursor - gap` 开始，钳制在
   区域的顶部/左侧。
 - `VStack`/`HStack` 不保留控件状态；每次布局阶段都创建一个新的游标。
-- 对于按插入顺序排列的垂直控件堆叠，`Ui::layout_vertical`
+- 对按插入顺序排列的垂直控件堆叠，`Ui::layout_vertical`
   用每个控件的 `preferred_height` 包装 `VStack`（见
   [Ui 容器](./ui-container.md)）。
 

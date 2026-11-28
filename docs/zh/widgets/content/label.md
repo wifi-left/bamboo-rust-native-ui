@@ -10,8 +10,8 @@
 
 普通标签只是装饰。`focusable` 为 `false`，无障碍树看到的是一个仅显示的 `Text` 节点。
 链接标签（`.link(true)`）以强调文本颜色绘制，带 1 DIP 下划线，接收指针输入以便 `Click`
-绑定触发，并显示手形光标；它仍然不是一个 Tab 停靠点，因此当键盘激活很重要时，
-需要应用主动选择启用焦点。
+绑定触发，并显示手形光标；它仍然不是一个 Tab 停靠点，因此键盘激活很重要时，
+应用需要主动选择启用焦点。
 
 标签还可以通过其 `SurfaceStyle`（`.background`、`.corner_radius`）绘制 chip 风格背景；
 普通标签不绘制填充。控件自身从不发送消息，因此 `M` 只是容器的消息类型。
@@ -44,7 +44,7 @@ fn build(ui: &mut Ui<Msg>) {
 
 ## 用法（XML）
 
-`label` 是标准注册表类型之一，因此当通过 `Ui::set_widget_registry` 安装了
+`label` 是标准注册表类型之一，因此在通过 `Ui::set_widget_registry` 安装
 `WidgetRegistry::standard()` 后，文档即可创建它：
 
 ```xml
@@ -101,7 +101,7 @@ Getter 与 setter：`text()`、`color_value()`、`text_style()`、`surface()`、
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

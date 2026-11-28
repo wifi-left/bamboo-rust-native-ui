@@ -4,13 +4,13 @@
 
 ## 概述
 
-`bamboo_native_ui::theme` 掌管应用为在运行时重新设定 UI 外观而更改的一切：
+`bamboo_native_ui::theme` 掌管应用在运行时重设 UI 外观所需改动的一切：
 `ThemeSettings`（输入）、`Palette`（解析后的颜色）和
 `ListDensity`。它还重导出 layout-core 的 `radius` 模块，使各控件共享同一套具名圆角半径。
 
 调色板不是某个控件拥有的单例：窗口根据
 `ThemeSettings` 加上解析后的浅色/深色决策构建一个 `Palette`，将其安装进
-`Painter`，每个控件都用它接收到的调色板进行绘制
+`Painter`，每个控件都用自己收到的调色板绘制
 （`WidgetPaint::palette`）。`WidgetProps::palette` 可为单个控件覆盖它。
 
 `.buitheme` 文档格式受特性开关控制：启用
@@ -150,7 +150,7 @@ fn install_theme() -> Palette {
 - 浅色/深色决策由调用方负责：`ThemeSettings` 不读取
   系统主题，因此"跟随系统"要在 `Palette::new` 之前解析。
 - `ACCENT_NAMES` 是预设随附语言（中文）下的显示字符串；
-  对于采用其他本地化的应用，请使用你自己的标签。
+  对其他本地化的应用，请使用你自己的标签。
 - `font_scale` 限制在 `0.85..=1.4`，因此非常小或非常大的 `font_size`
   值不会线性缩放。
 - `.buitheme` 解析及其调色板映射需要 `feature = "theme-xml"`；

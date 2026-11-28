@@ -1,7 +1,7 @@
 # Bamboo Native UI
 
 一个小巧的、声明式的原生 Windows UI 框架，为 Bamboo Music
-Player 构建。使用 GDI + 脏矩形渲染、一个后端抽象的绘制器，且不依赖
+Player 构建。使用 GDI + 脏矩形渲染、一个抽象了后端的绘制器，且不依赖
 egui、wgpu 或 WebView。
 
 > **AI 辅助项目。** 代码、测试和文档大部分由 AI 编码助手
@@ -18,7 +18,7 @@ egui、wgpu 或 WebView。
 - 每个窗口一个持久化后备缓冲区；只 blit 脏包围盒。
 - 空闲即零绘制。没有显式计时器就不会周期性重绘。
 - 禁止绘制路径上的分配；画刷、字体和转换后的图像在
-  窗口的整个生命周期内被缓存。
+  窗口的整个生命周期内缓存。
 - 公共类型是平台中立的；Win32/GDI/Direct2D 宿主是唯一的
   平台层。
 
@@ -66,7 +66,7 @@ bamboo-native-ui = { path = "native-ui/crates/native-ui" }
 bamboo-native-ui = { git = "https://github.com/wifi-left/bamboo-rust-native-ui", package = "bamboo-native-ui" }
 ```
 
-最小程序形态是一个 `Host` 实现加上一个 `Ui<M>`：
+最小程序是一个 `Host` 实现加上 `Ui<M>`：
 
 ```rust
 use bamboo_native_ui::{Host, PaintCtx, WindowBuilder, WindowHandle};

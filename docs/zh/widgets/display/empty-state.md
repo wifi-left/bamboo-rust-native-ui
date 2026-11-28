@@ -4,7 +4,7 @@
 
 ## 介绍
 
-`EmptyState` 为空的视图绘制零内容状态：正文文本颜色下的一个标题，以及其下一行小号柔和样式的提示，两者都在控件的矩形上水平居中，并围绕其垂直中心堆叠。它不绘制框架或填充，因此直接位于页面背景之上。
+`EmptyState` 为空的视图绘制零内容状态：正文文本颜色下的标题，以及其下方一行小号柔和样式的提示，两者都在控件的矩形上水平居中，并围绕垂直中心堆叠。它不绘制框架或填充，因此直接位于页面背景之上。
 
 该控件仅用于显示且是惰性的：它不可聚焦，不接受输入，且不发出任何消息。除构造函数外没有其他构建器，也没有运行时设置器；两段文本在该实例的生命周期内固定不变。其无障碍节点是一个仅用于显示的 `Text`，以标题命名，提示作为描述。
 
@@ -90,7 +90,7 @@ ui.set_rect(WidgetId::new("queue_empty"), Rect::from_xywh(16.0, 96.0, 320.0, 120
 - **几何：** 适用普通的 `widget` 规则；宽而短的矩形适合这对居中的文本行。
 - **内容：** 无。不支持 `label` 和 `text`（`xml.content.unsupported`，警告），并会被跳过。
 - **局部属性：** 无。`skin_attrs()` 为空。
-- **样式令牌：** 适用 `font-size` 和 `font-family`；`radius`、`corners` 和 `background` 是 `xml.style.unsupported` 警告，并会被跳过，因为没有填充任何内容。
+- **样式令牌：** 适用 `font-size` 和 `font-family`；`radius`、`corners` 和 `background` 是 `xml.style.unsupported` 警告，并会被跳过，因为没有绘制任何填充。
 - **子控件：** 无。
 - **属性：** 适用通用运行时集合（`visible`、`tooltip`、`name`、`description`、`expose`、`automation-id`、……）。
 

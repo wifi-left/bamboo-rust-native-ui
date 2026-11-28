@@ -72,7 +72,7 @@ API 契约位于 [API](../api/theme-and-palette.md)。
 ## 本文使用的约定
 
 - **DIP** 指设备无关像素。公共 API 中的每个矩形、半径和字号都以 DIP 为单位；
-  平台会乘以 `dpi / 96`。
+  平台会把它乘以 `dpi / 96`。
 - **控件 id** 是由 `&'static str` 构建的 `WidgetId`。文档只能寻址 Rust 侧
   已经创建的 id（除非它通过 `WidgetRegistry` 创建它们；参见
   [XML 布局编写](xml-layout-authoring.md)）。

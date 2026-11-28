@@ -32,7 +32,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", features = ["theme-
 ### 1. 将主题输入保存在应用状态中
 
 `ThemeSettings` 是一个普通值。默认值是 Bamboo 绿色强调色、
-`Microsoft YaHei UI`、13.5 DIP 基础字号和舒适的行使高。
+`Microsoft YaHei UI`、13.5 DIP 基础字号和舒适的行高。
 
 ```rust
 use bamboo_native_ui::widgets::{Avatar, Cover, CoverWall};
@@ -57,7 +57,7 @@ struct App {
 
 `new` 添加一个标签和三个按钮，设置 `dark: true` 和
 `settings.list_density = ListDensity::Compact`。`ThemeSettings` 是
-`{ accent, font_family, font_size, list_density }`；行使高为 34、40 和
+`{ accent, font_family, font_size, list_density }`；行高为 34、40 和
 48 DIP。
 
 ### 2. 派生并安装调色板
@@ -165,7 +165,7 @@ impl App {
 }
 ```
 
-对于未知名称，`set_palette_token` 返回 `false` 且不写入任何内容。
+名称未知时，`set_palette_token` 返回 `false` 且不写入任何内容。
 
 ### 6. 注册图像并通过 id 引用它们
 
@@ -200,10 +200,10 @@ ui.add(
 );
 ```
 
-页面拥有存储：`UiImage` 持有一个 `Arc<[u8]>`，因此被墙、头像和
-播放卡片共享的封面只耗费一份副本。在同一个 `ImageId` 下注册另一个图像
+页面拥有存储：`UiImage` 持有一个 `Arc<[u8]>`，因此墙、头像和
+播放卡片共用的封面只占一份副本。在同一个 `ImageId` 下注册另一个图像
 会为每个引用替换像素。`set_image`
-不会失效，因此重绘显示它的控件。
+不会失效，因此要重绘显示它的控件。
 
 文档使用相同的数字 id；没有图像名注册表。在应用布局之前
 在 Rust 中注册像素。

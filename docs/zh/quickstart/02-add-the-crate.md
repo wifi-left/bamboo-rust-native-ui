@@ -8,8 +8,8 @@
 
 ## 前置条件
 
-完成 [01 — 创建项目](01-create-project.md)。你需要 `bamboo-hello` 工作区、可用的 MSVC 工具链和 Windows SDK，以及
-<https://github.com/wifi-left/bamboo-rust-native-ui> 的本地检出或克隆它所需的网络访问。配置好 Git 代理即可；仓库是公开的。
+完成 [01 — 创建项目](01-create-project.md)。你需要 `bamboo-hello` 工作区、可用的 MSVC 工具链和 Windows SDK，以及本地检出
+<https://github.com/wifi-left/bamboo-rust-native-ui>，或克隆它的网络访问。配置好 Git 代理即可；仓库是公开的。
 
 ## 步骤
 
@@ -29,7 +29,7 @@ git submodule add https://github.com/wifi-left/bamboo-rust-native-ui.git native-
 git submodule update --init --recursive
 ```
 
-两种形式都会得到下面使用的 `native-ui/` 文件夹。crate 本身位于
+两种方式都会得到下面要用的 `native-ui/` 文件夹。crate 本身位于
 `native-ui/crates/native-ui`；仓库根目录是虚拟工作区，不是库。
 
 ### 2. 指向框架

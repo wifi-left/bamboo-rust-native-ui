@@ -9,8 +9,8 @@
 `NOTIFYICONDATAW` 注册、菜单弹出以及任务栏重启后的重新添加。点击和菜单选择会以携带图标
 id 的 `TrayEvent` 在 UI 线程上到达。
 
-`Notification` 是单个 Toast 面向应用的描述；`WindowHandle::notify` 通过 Windows 通知平台
-（WinRT `ToastNotificationManager`）投递它。当 Toast 无法显示时（未注册 AUMID 的未打包
+`Notification` 描述面向应用的单个 Toast；`WindowHandle::notify` 通过 Windows 通知平台
+（WinRT `ToastNotificationManager`）投递它。Toast 无法显示时（未注册 AUMID 的未打包
 应用，或平台不可用），若已安装托盘图标，窗口会回退到托盘图标气泡。
 
 `TrayIcon`、`Menu`、`Notification` 和 `NotificationResult` 是跨平台模型；托盘注册、
@@ -46,7 +46,7 @@ pub enum TrayEvent {
 ```
 
 `TrayImage::Default` 是系统应用程序图标；`File` 加载一个 `.ico`，失败时回退到默认图标。
-`Command` 携带来自该图标 `Menu` 的非零 id。两个变体都从通知消息在 UI 线程上运行，且从不在
+`Command` 携带来自该图标 `Menu` 的非零 id。两个变体都在 UI 线程上从通知消息运行，且从不在
 `Host` 回调执行期间运行。
 
 ### `Notification`

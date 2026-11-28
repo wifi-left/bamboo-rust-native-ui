@@ -4,7 +4,7 @@
 
 ## 介绍
 
-`MarqueeText` 绘制一行文本。当测量后的文本适合矩形时，它按左对齐静态绘制。当不适配时，
+`MarqueeText` 绘制一行文本。测量后的文本适合矩形时，它按左对齐静态绘制。不适配时，
 文本会被裁剪并滚动：在开头停留 `pause` 秒，以 `speed` DIP/秒 移动 `span + gap` DIP，
 在末尾停留，然后重复。绘制两份副本，中间间隔 `gap` DIP，使回绕看起来无缝。
 
@@ -77,7 +77,7 @@ Getter 与 setter：`text()`、`offset()`、`is_scrolling()`、
 
 `MarqueeText` 不安装共享观察器构建器。它从不接收输入，不可聚焦且 `interactive()` 为
 `false`，因此没有指针或按键事件到达它。请使用 `Ui::edit_widget::<MarqueeText>`
-进行动画 tick，而不是使用事件回调。
+驱动动画 tick，而不是使用事件回调。
 
 ### 控件专属回调
 
@@ -86,7 +86,7 @@ Getter 与 setter：`text()`、`offset()`、`is_scrolling()`、
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

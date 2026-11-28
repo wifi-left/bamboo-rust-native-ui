@@ -5,16 +5,16 @@
 
 ## 主题是什么
 
-一个主题包含三个层次：
+主题包含三个层次：
 
 1. **`ThemeSettings`** —— 应用编辑的输入：强调色、字体系列、
    基础字号、列表密度。
 2. **`Palette`** —— 控件绘制时使用的、已解析的颜色。`Palette::new`
-   根据设置和一个浅色/深色决定派生每一个字段。
+   根据设置和浅色/深色决定派生每个字段。
 3. **`Painter`** —— 拥有已安装的调色板和文本样式。窗口安装它；
    控件通过 `WidgetPaint::palette` 读取它。
 
-浅色/深色的决定由应用来做。`ThemeSettings` 没有模式字段：自行解析
+浅色/深色由应用决定。`ThemeSettings` 没有模式字段：自行解析
 “跟随系统”，并将得到的 `bool` 传给 `Palette::new` 或
 `WindowBuilder::theme`。
 
@@ -87,7 +87,7 @@ fn main() -> windows::core::Result<()> {
 ### 3. 在运行时切换
 
 `WindowHandle::set_theme(settings, dark)` 重建调色板和文本
-样式，在样式改变时丢弃缓存的字体，重新为主题化原生菜单，并
+样式，在样式改变时丢弃缓存的字体，重新给原生菜单应用主题，并
 将整个窗口重绘一次。
 
 ```rust
@@ -117,7 +117,7 @@ fn set_dark(dark: bool, settings: &ThemeSettings, window: &mut WindowHandle<'_>)
 ```
 
 如果你需要当前调色板（用于页面填充、自定义控件或布局
-应用），用 `WindowHandle::palette()` 读回它，它返回
+应用），用 `WindowHandle::palette()` 读回，它返回
 `&Palette`。
 
 ### 4. 预设与半径
@@ -162,7 +162,7 @@ bamboo-native-ui = { path = "../native-ui/crates/native-ui", features = ["theme-
 ```
 
 `base` 是必需的（`light` 或 `dark`）；它决定派生方式，并忽略
-应用当前的模式。`accent` 是可选的，它会在派生之前馈送给
+应用当前的模式。`accent` 是可选的，它会在派生之前传给
 `Palette::new`，因此由强调色派生的字段（`accent-text`、
 `row-selected`、按钮按下状态、`play_*`）会跟随它。每个 `<color>`
 在派生之后按声明顺序覆盖一个调色板字段。一个
@@ -193,7 +193,7 @@ fn apply_theme(
 重绘一次 —— 当文档处于活动状态时，两者都要做。
 
 如果安装了布局文档，用新调色板重新应用它，以便其
-`background` token 依据它解析：
+`background` token 按新调色板解析：
 
 ```rust
 use bamboo_native_ui::layout_xml::LayoutDocument;
@@ -275,8 +275,8 @@ fn recolor(mut palette: Palette) -> Palette {
 
 - **调用 `set_palette` 却期望字体改变** —— 它从不触碰
   文本样式。用 `set_theme` 设置模式和字体。
-- **一个浅色的 `.buitheme` 看起来是深色** —— `base` 决定模式；
-  不会参考应用当前的 `dark` 标志。
+- **一个浅色的 `.buitheme` 看起来是深色** —— `base` 决定模式，
+  不参考应用当前的 `dark` 标志。
 - **覆盖项不生效** —— `<color>` 名称是调色板 token
   名称（`nav-active`、`accent-text`），而不是 Rust 字段名
   （`nav_active`、`accent_text`）。

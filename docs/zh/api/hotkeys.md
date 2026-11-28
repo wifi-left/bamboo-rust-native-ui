@@ -4,12 +4,12 @@
 
 ## 概述
 
-`Hotkey` 是一个修饰键集合加上一个与 `KeyEvent::vk` 处于同一数值空间的虚拟键码，因此公开
-API 中不会出现任何 Win32 类型。宿主使用 `RegisterHotKey` 注册它（系统级），或将其注册为
-窗口快捷键（不做系统注册）。可打印的普通按键必须带修饰键：`parse` 会拒绝裸 `A`，因为全局
+`Hotkey` 由一组修饰键和一个虚拟键码组成，虚拟键码与 `KeyEvent::vk` 处于同一数值空间，
+因此公开 API 中不会出现任何 Win32 类型。宿主使用 `RegisterHotKey` 注册它（系统级），
+或将其注册为窗口快捷键（不做系统注册）。可打印的普通按键必须带修饰键：`parse` 会拒绝裸 `A`，因为全局
 `A` 快捷键会在任何地方吞掉普通输入。
 
-`Hotkey` 和 `HotkeyModifiers` 模型以及 `parse`/`label` 跨平台。注册、捕获以及
+`Hotkey`、`HotkeyModifiers` 模型和 `parse`/`label` 跨平台。注册、捕获和
 `Host`/`WindowHandle` 回调仅限 Windows。
 
 ## 关键类型
@@ -115,14 +115,14 @@ fn hotkey_captured(&mut self, hotkey: Option<Hotkey>, window: &mut WindowHandle<
 
 ## 说明与限制
 
-- `register_hotkey` 在 Windows 上是系统级的，当另一个进程已拥有该组合键时返回 `false`；
+- `register_hotkey` 在 Windows 上是系统级的，另一个进程已拥有该组合键时返回 `false`；
   重复注册同一热键是无操作，返回 `true`。窗口销毁时注册会被释放。
-- `register_window_hotkey` 不需要系统注册，因此不会与另一个进程冲突。当窗口拥有焦点时，
+- `register_window_hotkey` 不需要系统注册，因此不会与另一个进程冲突。窗口拥有焦点时，
   它会以 `command` 触发 `Host::menu_bar_command`（在 `MenuEvent` 钩子之后），页面永远不会
   看到该组合键。对于命令 `0`、不带修饰键且非功能键的组合键，或重复项，它返回 `false`。
 - 原生菜单栏的加速键标签会自动注册为窗口快捷键；为同一组合键显式调用
   `register_window_hotkey` 会覆盖它们。
-- 捕获会在完成前消耗按键，使其在应用看到它们之前被拦截（包括其转换后的字符）。仅按修饰键
+- 捕获会在完成前消耗按键，让它们在应用看到之前就被拦截（包括转换后的字符）。仅按修饰键
   会继续等待；`Some` 表示带修饰键或功能键的组合键，`None` 表示 Esc、焦点丢失或
   `cancel_hotkey_capture`。该结果**不会**自动注册。
 - 请持久化 `hotkey.label()` 字符串；在检查 `bool` 结果后（系统可能已拥有该组合键）用

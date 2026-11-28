@@ -5,10 +5,10 @@
 ## 概述
 
 `Menu` 描述菜单项、分隔符和子菜单。在 Windows 上，宿主将其展平为原生 `HMENU` 并使用
-`TrackPopupMenu` 显示，因此选择会以菜单项的命令 id 通过 `Host::menu_command` 返回——应用
+`TrackPopupMenu` 显示，因此选择通过 `Host::menu_command` 以菜单项的命令 id 返回——应用
 从不接触 `WM_COMMAND`。命令是应用定义的正整数 id；`0` 保留给被取消的弹出菜单。
 
-`MenuBarModel` 建模系统绘制在标题栏下方的原生窗口菜单栏。`MenuEvent` 是框架打开的每个
+`MenuBarModel` 描述由系统绘制在标题栏下方的原生窗口菜单栏。`MenuEvent` 是框架打开的每个
 弹出菜单（上下文菜单、chrome 菜单、托盘菜单、程序化打开以及菜单栏）的通用生命周期钩子。
 
 `Menu`、`MenuItem`、`MenuEntry`、`Submenu`、`MenuPath` 和 `MnemonicLabel` 模型是跨平台的
@@ -59,8 +59,8 @@ impl MenuItem { pub fn new(command: u32, label: impl Into<String>) -> Self; }
 `hotkey() -> Option<Hotkey>`（解析加速键文本）、`icon_image()`、
 `is_checked()`、`is_disabled()`。
 
-`MenuIcon::from_rgba(width: u16, height: u16, rgba: impl Into<Vec<u8>>)` 根据自顶向下的
-RGBA 构建一个惯例为 16×16 的位图；读取方法为 `width`、`height`、`rgba`。
+`MenuIcon::from_rgba(width: u16, height: u16, rgba: impl Into<Vec<u8>>)` 用自顶向下的
+RGBA 构建位图，惯例尺寸是 16×16；读取方法为 `width`、`height`、`rgba`。
 
 ### `MenuEntry` 与 `Submenu`
 
@@ -167,7 +167,7 @@ fn menu_event(
 ## 说明与限制
 
 - 命令 id 非零；`MenuItem::new` 在 `0` 时 panic，而 `0` 保留给被取消的弹出菜单。在 `Opening`
-  上返回 `MenuDecision::Handled` 会取消弹出菜单；在 `Selected` 上则抑制默认回放。
+  事件上返回 `MenuDecision::Handled` 会取消弹出菜单；在 `Selected` 事件上则抑制默认回放。
 - 打开的弹出菜单保留其构建时所用的模型；`Ui::set_menu` 的编辑应用于下一次打开。在 `Opened`
   期间调用 `Host::menu_event` 以及 `WindowHandle::edit_open_menu` 会关闭并重建活动弹出菜单。
 - 原生弹出菜单和系统菜单栏仅限 Windows，并遵循系统颜色/DPI。菜单栏的 `&` 访问键由 Shell

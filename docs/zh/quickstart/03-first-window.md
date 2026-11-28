@@ -6,7 +6,7 @@
 ## 你将构建
 
 一个 520×320 的深色窗口，标题为 "Bamboo Hello"。它显示一个标签和一个按钮；
-每次点击将标签更新为 `Clicked N time(s)`。该程序是后续每个快速上手所修改的基础。
+每次点击都把标签更新为 `Clicked N time(s)`。该程序是后续每个快速上手修改的基础。
 
 ## 前置条件
 
@@ -21,8 +21,7 @@
   后台缓冲。`WindowBuilder::new(host)` 按值接收你的 `Host`。
 - `Host` 是窗口的应用侧。只有 `paint` 是必需的；
   其余（`resize`、`event`、`started`……）都有空默认实现。
-- `Ui<M>` 是拥有控件的容器。`M` 是你的消息类型；一个
-  控件从其输入处理器返回 `Option<M>`。
+- `Ui<M>` 是拥有控件的容器。`M` 是你的消息类型；控件从输入处理器返回 `Option<M>`。
 
 框架将 Win32 消息规范化为 `Event` 值。你的 `event`
 方法将它们转发给 `Ui`，并取出控件产生的消息。
@@ -175,14 +174,14 @@ cargo run
 ## 故障排查
 
 - **窗口空白或灰色** —— `resize` 没有运行，或矩形
-  从未被设置。检查 `WindowBuilder::new(App::new())` 是否接收到你的 app，
+  从未被设置。检查 `WindowBuilder::new(App::new())` 是否收到你的 app，
   以及 `resize` 是否为每个 id 调用了 `ui.set_rect`。
 - **按钮没有反应** —— 指针事件没有到达 `Ui`。确保
   `event` 用 `pointer_down_with`/`pointer_up_with` 转发 `PointerDown`/`PointerUp`，
   并且按钮的矩形
   非空。
-- **点击后标签从不改变** —— 消息被取出了但
-  更改没有被刷新。在处理消息后调用 `ui.flush_damage(window)`。
+- **点击后标签从不改变** —— 消息取出来了，但
+  更改没有刷新。在处理消息后调用 `ui.flush_damage(window)`。
 - **`run` 立即返回错误** —— `WindowBuilder::run` 必须在
   主线程上调用；Win32 要求消息循环在那里。不要从工作线程
   生成窗口。

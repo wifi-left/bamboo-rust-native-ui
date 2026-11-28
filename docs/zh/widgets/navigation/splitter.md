@@ -1,6 +1,6 @@
 # Splitter
 
-> 一个可拖动的分隔条，报告窗格边界应移动到的位置。
+> 可拖动的分隔条，报告窗格边界应移动到的位置。
 
 ## 介绍
 
@@ -23,7 +23,7 @@ ui.add(Splitter::vertical("split", Msg::Split).label("Resize panes"));
 ui.set_rect(WidgetId::new("split"), Rect::from_xywh(296.0, 16.0, 8.0, 300.0));
 ```
 
-`on_drag` 接收客户区 DIP 中的新分隔条中心，并保留按下点与旧中心之间的偏移（在中心右侧 2 DIP 处按下会保留该 2 DIP 的偏移）。通过限制到窗格最小值并分配窗格和分隔条矩形来作出响应：
+`on_drag` 接收客户区 DIP 中的新分隔条中心，并保留按下点与旧中心之间的偏移（在中心右侧 2 DIP 处按下会保留该 2 DIP 的偏移）。作出响应时，限制到窗格最小值，再分配窗格和分隔条矩形：
 
 ```rust
 fn split_at(ui: &mut Ui<Msg>, centre: f32) {
@@ -41,7 +41,7 @@ fn split_at(ui: &mut Ui<Msg>, centre: f32) {
 <widget id="split" x="296" y="16" w="8" h="300" name="Resize panes"/>
 ```
 
-回调以及方向是构造函数参数；文档无法更改它们。
+回调和方向是构造函数参数；文档无法更改它们。
 
 ## 属性
 
@@ -54,7 +54,7 @@ fn split_at(ui: &mut Ui<Msg>, centre: f32) {
 | `.is_active()` | `bool` | — | 是否有拖动正在进行。 |
 | `.is_vertical()` | `bool` | — | 分隔条方向。 |
 
-行为：该条绘制一条 1 DIP 的中心线以及三个 3×3 DIP 的抓握点。正常情况下颜色为分隔条 token，悬停时为 `scroll_thumb_hover`，拖动时为强调色（禁用的分隔条保持分隔条颜色）。垂直分隔条的光标为 `SizeWE`，水平分隔条的光标为 `SizeNS`。`on_drag` 仅在按住期间触发；没有按下的拖动不发出任何内容。垂直分隔条的首选高度为 200 DIP，水平分隔条为 8 DIP。无障碍角色为 `Separator`。
+行为：该条绘制一条 1 DIP 的中心线和三个 3×3 DIP 的抓握点。正常情况下颜色为分隔条 token，悬停时为 `scroll_thumb_hover`，拖动时为强调色（禁用的分隔条保持分隔条颜色）。垂直分隔条的光标为 `SizeWE`，水平分隔条的光标为 `SizeNS`。`on_drag` 仅在按住期间触发；没有按下的拖动不发出任何内容。垂直分隔条的首选高度为 200 DIP，水平分隔条为 8 DIP。无障碍角色为 `Separator`。
 
 ## 事件
 
@@ -77,7 +77,7 @@ fn split_at(ui: &mut Ui<Msg>, centre: f32) {
 | `Splitter::vertical(id, on_drag)` | `&'static str, impl Fn(f32) -> M + 'static` | 存储用于水平拖动（垂直分隔条）的拖动回调。 |
 | `Splitter::horizontal(id, on_drag)` | `&'static str, impl Fn(f32) -> M + 'static` | 存储用于垂直拖动（水平分隔条）的拖动回调。 |
 
-两个构造函数声明相同的回调字段；方向仅改变报告哪个轴。`is_active()` 报告是否有拖动正在进行。
+两个构造函数声明相同的回调字段；方向仅改变报告哪个轴。`is_active()` 报告是否正在拖动。
 
 ### Ui 触发器
 
@@ -102,7 +102,7 @@ ui.bind(WidgetId::new("split"), Trigger::DragStart, |event, ctx| {
 | `DragStart` / `DragEnd` | 指针越过拖动阈值 / 释放按钮。 |
 | `ValueChange` | 控件的无障碍值发生变化（在内置更新之后）。 |
 
-它响应 `HoverEnter`/`HoverLeave`（悬停颜色）以及 `DragStart`/`DragEnd`（拖动会话），拖动位置通过 `on_drag` 传递。它不可聚焦，因此 `Activate` 从不触发；它也不携带值，因此 `ValueChange` 也不会触发；`Click`、`DoubleClick`、`RightClick` 和 `Wheel` 没有内置效果。
+它响应 `HoverEnter`/`HoverLeave`（悬停颜色）以及 `DragStart`/`DragEnd`（拖动会话），拖动位置通过 `on_drag` 传递。它不可聚焦，因此 `Activate` 从不触发；它也不携带值，因此 `ValueChange` 不会触发；`Click`、`DoubleClick`、`RightClick` 和 `Wheel` 没有内置效果。
 
 ## XML 定义
 
@@ -110,7 +110,7 @@ ui.bind(WidgetId::new("split"), Trigger::DragStart, |event, ctx| {
 
 几何布局遵循常规的 `<widget>` 规则；请为垂直分隔条指定较窄的宽度，为水平分隔条指定较小的高度。通用属性适用，包括 `enabled` 和 `name`。`font-size` 和 `font-family` 属于绘制层。分隔条从调色板绘制，没有 `SurfaceStyle`，因此 `radius`、`corners` 和 `background` 会被报告为 `xml.style.unsupported` 并跳过。
 
-该控件不声明任何局部属性和任何子元素。方向和拖动回调在构造时固定。
+该控件不声明任何局部属性或子元素。方向和拖动回调在构造时固定。
 
 ## 另见
 

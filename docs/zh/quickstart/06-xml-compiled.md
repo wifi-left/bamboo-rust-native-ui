@@ -63,14 +63,14 @@ cargo run --manifest-path ../native-ui/Cargo.toml `
 `pub fn install<M, H>(ui, sink, palette, client)`。将其检入，或从构建脚本生成它（
 `bamboo-native-ui-layout-codegen` 库暴露
 `generate` 和 `generate_with`）。文档错误会使 CLI 以
-状态 1 退出，并打印带有其 `.buixml` 行和列的诊断；不写入任何文件。
+状态 1 退出，并打印带 `.buixml` 行号和列号的诊断；不写入任何文件。
 可选的 `--context Type` 使生成的 `install` 接受一个
 额外的 `&Type` 参数，文档中的内联 Rust 值可以读取它。
 
 ### 2. 包含生成的模块并应用它
 
-在 `src/main.rs` 顶部添加 include。该文件已经将其内容
-包裹在一个模块中，因此包含它，而不是声明 `mod main_layout;`（一个 `mod`
+在 `src/main.rs` 顶部添加 include。该文件已经把内容
+包进一个模块，因此包含它，而不是声明 `mod main_layout;`（一个 `mod`
 会嵌套它并产生 `main_layout::main_layout`）：
 
 ```rust
@@ -132,7 +132,7 @@ layout_xml!("layouts/main.buixml", module = main_layout);
 
 这定义了 `main_layout::LAYOUT` 和 `main_layout::install`，与
 CLI 输出完全一样。文档错误变成带 `.buixml`
-行和列的 `compile_error!`。
+行号和列号的 `compile_error!`。
 
 **重建注意事项。** 稳定版过程宏无法注册文件依赖，因此
 编辑 `layouts/main.buixml` 本身**不会**触发重建。当文档独立变化时，
@@ -154,7 +154,7 @@ CLI 输出完全一样。文档错误变成带 `.buixml`
 
 ## 预期结果
 
-`cargo build` 成功，窗口与第 05 页相同：相同的标签
+`cargo build` 成功，窗口与第 05 页相同：标签
 和按钮位于相同的矩形。差异在运行时不可见 —— 不
 读取文件、不链接解析器，无效文档是构建错误
 而不是日志行。编辑 `.buixml` 在你重新生成

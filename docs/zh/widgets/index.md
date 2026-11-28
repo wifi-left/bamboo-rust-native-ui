@@ -3,7 +3,7 @@
 Bamboo Native UI 提供 62 个公开控件。每个页面都遵循相同的结构：
 介绍、Rust 示例、XML 示例、属性表、事件章节，以及 XML 定义规则。
 能够通过 `type="..."` 从布局文档创建的控件会特别说明；其余控件在 Rust 中创建，
-并在文档中通过 `id` 来引用。
+并在文档中用 `id` 引用。
 
 如果你要编写自己的控件，请从 [控件 trait](../api/widget-trait.md) 开始；如果你要从
 `.buixml` 文件中定位这些控件，请参阅 [XML 布局编写指南](../guides/xml-layout-authoring.md)。
@@ -113,7 +113,7 @@ Bamboo Native UI 提供 62 个公开控件。每个页面都遵循相同的结�
 |---|---|
 | [MenuBar](chrome/menu-bar.md) | 绘制式顶层菜单栏，其菜单项打开原生菜单。 |
 | [MenuButton](chrome/menu-button.md) | 带标签、字形和原生下拉菜单的按钮。 |
-| [SplitButton](chrome/split-button.md) | 主操作主体，外加一个包含备选菜单的尖角符号。 |
+| [SplitButton](chrome/split-button.md) | 主操作主体，外加包含备选菜单的尖角符号。 |
 | [Toolbar](chrome/toolbar.md) | 带分隔符和溢出功能的固定单元格命令条。 |
 | [StatusBar](chrome/status-bar.md) | 带可选进度和大小调整手柄的只读状态分段。 |
 | [Ribbon](chrome/ribbon.md) | 带分组大/小命令磁贴的选项卡式功能区。 |
@@ -127,8 +127,8 @@ Bamboo Native UI 提供 62 个公开控件。每个页面都遵循相同的结�
 
 ## 别名
 
-这些类型别名的存在是为了让草图可以使用它偏好的词汇；它们解析为相同的类型，
-并在其规范页面上记录。
+这些类型别名让草图可以使用它偏好的词汇；它们解析为相同的类型，
+并记录在规范页面上。
 
 | 别名 | 规范 |
 |---|---|

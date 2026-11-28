@@ -9,7 +9,7 @@
 打开时点击框会关闭列表而不选择，Escape 会关闭列表。
 
 展开的列表是覆盖层，由控件自身绘制在同级元素之上并优先进行命中测试。它最多显示
-`max_visible` 行（默认 8），并可通过滚轮、跟随键盘高亮或拖动其主题滚动条来滚动。
+`max_visible` 行（默认 8），并可通过滚轮、跟随键盘高亮或拖动其主题滚动条滚动。
 导航键：下/上空移动高亮（若已关闭则先打开），Home/End 跳转，PageUp/PageDown 翻页移动，
 Enter/Space 选择，Escape 关闭。如果列表会超出视口且有空间，它会自动翻转到框的上方；
 `.drop_up(true)` 会强制该方向。
@@ -36,7 +36,7 @@ fn build(ui: &mut Ui<Msg>) {
 ```
 
 构造函数会将 `selected` 钳制到项目列表中。`selected_text()` 返回可见值；
-`set_selected(index)` 和 `set_items(Vec<String>)` 在不发出消息的情况下更新控件，
+`set_selected(index)` 和 `set_items(Vec<String>)` 更新控件时不发出消息，
 用于模型同步。
 
 ## 用法（XML）
@@ -110,7 +110,7 @@ Getter 与 setter：`selected()`、`selected_text()`、`items()`、`is_open()`�
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

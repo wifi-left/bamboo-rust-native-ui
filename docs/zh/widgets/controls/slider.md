@@ -31,7 +31,7 @@ ui.add(
 ui.set_rect(WidgetId::new("volume"), Rect::from_xywh(16.0, 16.0, 240.0, 44.0));
 ```
 
-`on_change` 是 `Fn(f32) -> M`；拖动回调具有相同的形状。由于 `on_drag_end` 在 `on_change` 旁边上报，一次释放会投递两条消息：先是 `on_change(value)`，然后是 `on_drag_end` 消息。当存在刻度标签时，单元格需要 44 DIP 高度（否则为 32）。
+`on_change` 是 `Fn(f32) -> M`；拖动回调具有相同的形状。由于 `on_drag_end` 在 `on_change` 旁边上报，一次释放会投递两条消息：先是 `on_change(value)`，然后是 `on_drag_end` 消息。存在刻度标签时，单元格需要 44 DIP 高度（否则为 32）。
 
 ## 用法（XML）
 
@@ -70,7 +70,7 @@ ui.set_rect(WidgetId::new("volume"), Rect::from_xywh(16.0, 16.0, 240.0, 44.0));
 
 ### 行为
 
-- **吸附。** `quantize` 将数值钳制到范围内，并在开启吸附时，从 `min` 起舍入到 `step` 的最近倍数。应用驱动的 `Ui::set_value` 保持精确（它仅进行钳制）。构造函数不会重新排列 `range`，因此请传入 `min <= max`；`set_range` 会交换颠倒的数值对。
+- **吸附。** `quantize` 将数值钳制到范围内，并在开启吸附时，从 `min` 起舍入到 `step` 的最近倍数。应用驱动的 `Ui::set_value` 保持精确（它只做钳制）。构造函数不会重新排列 `range`，因此请传入 `min <= max`；`set_range` 会交换颠倒的数值对。
 - **拖动。** 拖动期间，旋钮和填充跟随预览；真实数值仅在释放时更改。`on_drag_start`/`on_drag` 是对该预览的附加。
 - **键盘。** 上/右增加一个步长，下/左减少一个，PageUp/PageDown 增加/减少十个。
 - **表面。** `corner_radius` 圆角化凹槽和填充，`background` 覆盖凹槽颜色，`transparent_background(true)` 隐藏凹槽。
@@ -129,7 +129,7 @@ ui.bind(WidgetId::new("volume"), Trigger::Click, |event, ctx| {
 | `DragStart` / `DragEnd` | 指针越过拖动阈值 / 按钮被释放。 |
 | `ValueChange` | 控件的无障碍值发生变化（在内置更新之后）。 |
 
-滑块响应 `Click` 作为按下/释放拖动，响应 `DragStart`/`DragEnd` 作为指针拖动，响应方向键/PageUp/PageDown 键以及 `ValueChange`；除观察器之外，它忽略 `Wheel` 和 `DoubleClick`。
+滑块把 `Click` 当作按下/释放拖动，把 `DragStart`/`DragEnd` 当作指针拖动，并响应方向键/PageUp/PageDown 键和 `ValueChange`；除观察器之外，它忽略 `Wheel` 和 `DoubleClick`。
 
 ## XML 定义
 

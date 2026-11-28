@@ -1,6 +1,6 @@
 # 架构
 
-> crate、运行时层次以及两种布局消费模式如何衔接在一起。
+> crate、运行时层次，以及两种布局消费模式如何衔接。
 
 ## crate 地图
 
@@ -53,7 +53,7 @@
   └────────────────────────────────────┘
 ```
 
-宿主边界仅限 Windows：`crate::host`、`crate::platform` 以及 `windows` crate 依赖都在 `#[cfg(windows)]` 之后编译。`Painter`/`Canvas` 之上的所有内容都能在任何平台上编译，这正是控件测试可以在没有窗口的情况下运行的原因。
+宿主边界仅限 Windows：`crate::host`、`crate::platform` 和 `windows` crate 依赖都在 `#[cfg(windows)]` 之后编译。`Painter`/`Canvas` 之上的所有内容都能在任何平台上编译，这正是控件测试可以在没有窗口的情况下运行的原因。
 
 ## 消息流程
 
@@ -61,14 +61,14 @@
 2. 调用 `Host::event(&event, &mut WindowHandle)`。应用将指针/键盘事件转发给 `Ui` 方法，例如 `pointer_move`、`pointer_down_with`、`pointer_up_with`、`wheel_xy`、`key` 和 `char`。
 3. `Ui` 执行命中测试，更新悬停/按下/焦点状态，并调用目标控件的 `Widget::input`。控件返回 `Option<M>`，即应用的消息类型。
 4. 消息汇集到队列中。应用用 `ui.drain_messages()` 取出它们并更新自身状态。
-5. 通过 `Ui` 的 setter（`set_label`、`set_progress`、`edit_widget`……）所做的程序化更改会将受影响的矩形记录为待处理损坏，而不是立即重绘。应用在回调末尾调用一次 `ui.flush_damage(window)`，因此一连串 setter 只耗费一次重绘请求。
+5. `Ui` 的 setter（`set_label`、`set_progress`、`edit_widget`……）带来的程序化更改会把受影响的矩形记录为待处理损坏，而不是立即重绘。应用在回调末尾调用一次 `ui.flush_damage(window)`，因此一连串 setter 只耗费一次重绘请求。
 6. 宿主合并失效矩形（最多 32 个独立片段）并使客户区失效。随后 `WM_PAINT` 运行一次绘制过程。
 
 生命周期回调（`resize`、`dpi_changed`、`started`、`loaded`、`close_requested`）在同一线程上、在绘制过程之间运行。`resize` 是唯一可以重新计算布局的地方。
 
 ## 绘制流程
 
-1. 宿主将累积的损坏合并为一个独立脏矩形列表（DIP），超过阈值后将其合并为一个边界框。
+1. 宿主把累积的损坏合并为一组独立脏矩形（DIP），超过阈值后再合并成一个边界框。
 2. 它构建一个 `PaintCtx`，包含借用的脏列表、客户区 `Size`、DPI、编辑状态以及任何叠加标志。
 3. `Host::paint` 在每个脏片段下填充页面背景，并调用 `ui.paint(ctx)`。
 4. `Ui::paint` 按插入顺序遍历控件，跳过绘制边界不与任何脏矩形相交的控件，并调用 `Widget::paint`。
@@ -101,7 +101,7 @@
 
 两条路径运行相同的内部应用器（`Ui::install_prepared`），因此同一文档在两种方式下产生相同的矩形、属性和内容。共享模型位于 `layout-core`；应用器位于 `crates/native-ui/src/layout_xml/`。
 
-主题文档（`.buitheme`，`feature = "theme-xml"`）是一个单独的读取器，它产生一个 `Palette`；布局的颜色令牌针对传给应用调用的调色板进行解析。
+主题文档（`.buitheme`，`feature = "theme-xml"`）是一个单独的读取器，它产生一个 `Palette`；布局的颜色令牌按传给应用调用的调色板解析。
 
 ## 另见
 

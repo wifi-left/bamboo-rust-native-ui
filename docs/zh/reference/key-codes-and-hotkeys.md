@@ -20,7 +20,7 @@ pub enum KeyCode {
 
 | 方法 | 返回 |
 |---|---|
-| `is_letter(u8)` | 是否为等于给定从 0 开始索引的 `Letter`。 |
+| `is_letter(u8)` | 是否为索引等于给定值（从 0 开始）的 `Letter`。 |
 | `from_vk(u16)` | 当虚拟键码已知时返回一个具名变体，否则返回 `Other(vk)`。 |
 | `to_vk()` | `Option<u16>`；对 `Other(0)` 和 `1..=24` 之外的 `Function` 返回 `None`。 |
 
@@ -53,7 +53,7 @@ pub struct KeyEvent {
 
 `Event::Key(KeyEvent)` 到达 `Ui::key`；`Event::KeyUp` 到达 `Ui::key_up`
 （观察）。`Event::Char(char)` 是独立的，且从不携带控制
-字符：Enter、Tab 和 Backspace 以 `Key` 形式到达。应每次按下只执行一次的
+字符：Enter、Tab 和 Backspace 以 `Key` 形式到达。每次按下只应执行一次的
 处理器会检查 `repeat`。
 
 指针修饰键是一个独立的两字段结构体：
@@ -90,7 +90,7 @@ pub struct Hotkey {
 
 `HotkeyModifiers` 常量：`NONE`、`CTRL`、`SHIFT`、`ALT`、`WIN`；构建器
 `with_ctrl`、`with_shift`、`with_alt`、`with_win`；`is_empty`。
-`hotkey::is_modifier_vk(vk) -> bool` 报告某个码是否只贡献于
+`hotkey::is_modifier_vk(vk) -> bool` 报告某个码是否只参与
 组合键（Shift/Ctrl/Alt、Win，或左/右修饰键变体）。
 
 ### 解析语法
@@ -211,8 +211,8 @@ assert!(Hotkey::parse("F9").is_some());      // 功能键无需修饰键
 | LB | `Tab` + `shift` |
 
 面/肩按钮是边沿触发的。按住的方向会立即触发，
-然后在 400 ms 之后重复，此后每 90 ms 一次。方向键优先于摇杆。一个
-被禁用的手柄或后台窗口不发出任何内容并丢弃按住状态，因此
+然后在 400 ms 之后重复，此后每 90 ms 一次。方向键优先于摇杆。被
+禁用的手柄或后台窗口不发出任何内容并丢弃按住状态，因此
 重新启用后绝不会恢复陈旧的重复。聚焦文本字段上的 **A** 还会
 通过 `Ui::pad_key` 唤起 Windows 屏幕键盘。
 

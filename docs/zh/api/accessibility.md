@@ -8,8 +8,8 @@
 平台层则通过 UI Automation（UIA）公开该树。字符串是自有的，因此快照的生命周期可以超出
 绘制阶段并传入屏幕阅读器。
 
-编写发生在两处：控件返回一个 `A11yInfo` 来描述其角色、名称、值和已发布的子项；应用则通过
-从 `Host::a11y_nodes` 返回该快照，并通过 `Ui::apply_a11y` 应用传入的 `A11yAction` 来接通
+编写发生在两处：控件返回 `A11yInfo` 描述其角色、名称、值和已发布的子项；应用则从
+`Host::a11y_nodes` 返回该快照，并用 `Ui::apply_a11y` 应用传入的 `A11yAction`，接通
 宿主。UIA 提供程序仅限 Windows（`platform::uia`），但 `a11y` 中的模型以及 `A11yRole`
 词汇表跨平台。
 
@@ -174,7 +174,7 @@ fn a11y_action(&mut self, action: A11yAction, window: &mut WindowHandle<'_>) {
 }
 ```
 
-`apply_a11y` 将屏幕阅读器请求转换为用户本会产生的一样的控件输入，因此不存在单独的代码路径。
+`apply_a11y` 把屏幕阅读器请求转换成用户本来也会产生的控件输入，因此不存在单独的代码路径。
 
 ## 说明与限制
 

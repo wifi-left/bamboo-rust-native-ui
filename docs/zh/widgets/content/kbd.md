@@ -4,9 +4,9 @@
 
 ## 介绍
 
-`Kbd` 将其文本绘制在一个小型圆角 chip 内：一个 1 DIP 的边框、调色板 `button_bg` 填充、
+`Kbd` 把文本绘制在小型圆角 chip 内：一个 1 DIP 的边框、调色板 `button_bg` 填充、
 小号文本角色和弱化前景色。圆角使用主题的小号圆角。它是一种固定呈现；没有大小或颜色构建器，
-更大的矩形只是将相同的 chip 文本居中。
+更大的矩形只是把相同的 chip 文本居中。
 
 该控件是装饰（`focusable` 为 `false`），并发布一个由快捷键命名的仅显示 `Text` 节点。
 它不发送消息，因此 `M` 只是容器的消息类型。
@@ -60,7 +60,7 @@ Getter 与 setter：`text()` 和 `set_text(impl Into<String>)`（静默）。
 ### 通用观察器
 
 `Kbd` 不安装共享观察器构建器。它不可聚焦，`interactive()` 为 `false`，也不接收输入，
-因此没有指针事件到达它。当提示必须可点击时，用 `WidgetProps::mouse(true)` 选择启用，
+因此没有指针事件到达它。提示必须可点击时，用 `WidgetProps::mouse(true)` 选择启用，
 并用 `Ui::bind` / `Ui::on_click` 绑定。
 
 ### 控件专属回调
@@ -70,7 +70,7 @@ Getter 与 setter：`text()` 和 `set_text(impl Into<String>)`（静默）。
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

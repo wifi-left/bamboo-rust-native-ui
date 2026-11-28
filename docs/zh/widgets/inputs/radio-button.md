@@ -5,8 +5,8 @@
 ## 介绍
 
 `RadioButton<M>` 绘制一个单选圆点和标签。它仅在从未选中过渡到选中时发出 `on_select()`；
-对已选中按钮的点击和激活不做任何事。互斥不是内置的：将同组中的另一个按钮设为未选中是
-应用的责任，或者使用 [`RadioGroup`](radio-group.md)，它拥有整个选项列表。
+对已选中按钮的点击和激活不做任何事。互斥不是内置的：把同组中的另一个按钮设为未选中是
+应用的责任，或者用 [`RadioGroup`](radio-group.md)，它拥有整个选项列表。
 
 禁用的按钮使用禁用调色板并忽略输入。焦点环贴合圆点而不是整个标签。无障碍为
 `A11yRole::RadioItem`，设置了 `selected`，并在禁用时设置 `read_only`。`M` 是
@@ -26,7 +26,7 @@ fn build(ui: &mut Ui<Msg>) {
 }
 ```
 
-对于真正的组，请优先使用 `RadioGroup`：它会绘制选项并为你移动选择。如果保留独立按钮，
+真正的组请优先使用 `RadioGroup`：它会绘制选项并为你移动选择。如果保留独立按钮，
 应用在处理消息时必须在先前选中的按钮上调用 `set_checked(false)`。
 
 ## 用法（XML）
@@ -37,7 +37,7 @@ fn build(ui: &mut Ui<Msg>) {
 <widget id="local" x="16" y="16" w="180" h="28" label="This device only"/>
 ```
 
-只有 `label` 被支持为共享内容；单选框的 `content_caps` 公开 `LABEL`，但不公开
+共享内容只支持 `label`；单选框的 `content_caps` 公开 `LABEL`，但不公开
 `TOGGLED` 或 `SELECTION`，因此不会从文档写入 `checked`/`selected`。没有本地属性或子元素。
 
 ## 属性
@@ -80,7 +80,7 @@ Getter 与 setter：`selected()` 和 `set_checked(bool)`（静默；通常由组
 ### Ui 触发器
 
 任意控件 id 都可以用 `Ui::bind(id, Trigger, handler)`（或 `Ui::on_click` /
-`Ui::on_activate` 简写）进行绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
+`Ui::on_activate` 简写）绑定。返回 `Some(M)` 的处理器会将消息入队；除非处理器调用
 `ctx.run_default()`，否则内置操作仍会执行。
 
 | 触发器 | 触发条件 |

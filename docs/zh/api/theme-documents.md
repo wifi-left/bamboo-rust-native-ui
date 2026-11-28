@@ -9,9 +9,9 @@
 `bamboo_native_ui_layout_core::theme`，无需 Win32，也无需 `Palette`。`bamboo-native-ui` 的
 `theme-xml` 特性重新导出它们，并添加映射到 window crate 的 `Palette` 上的功能。
 
-应用主题就是应用交换其调色板并重绘。布局模式的颜色令牌（`background="accent"`、`card`、
+应用主题就是交换调色板并重绘。布局模式的颜色令牌（`background="accent"`、`card`、
 `text` 等）随后会在下一次 `apply_layout` 时针对新调色板解析。推导过程恰好是
-`Palette::new(settings, base)` 后接文档的覆盖，因此一个主题可以更改一个令牌或整张表。
+`Palette::new(settings, base)` 后接文档的覆盖，因此一个主题可以只改一个令牌，也可以改整张表。
 
 `theme-xml` 特性仅启用 `layout-core/parse`；它独立于 `layout-xml` 和 `layout-compiled`。
 一次构建可以在不加载布局的情况下加载主题。
@@ -85,7 +85,7 @@ impl ThemeDocumentExt for ThemeDocument { /* … */ }
 pub fn set_palette_token(palette: &mut Palette, name: &str, color: Color) -> bool;
 ```
 
-`palette(&settings)` 克隆设置，在文档存在 accent 时用其替换设置中的 accent，推导
+`palette(&settings)` 克隆设置，文档存在 accent 时用其替换设置中的 accent，推导
 `Palette::new(&settings, base.is_dark())`，然后按声明顺序应用每个 `<color>` 覆盖。
 `set_palette_token` 写入一个 kebab-case 调色板字段，并返回该名称是否为令牌；该函数是全函数，
 因此应用可以直接使用它。令牌名称与布局 `background` 属性接受的 `PALETTE_TOKENS` 表相同。
