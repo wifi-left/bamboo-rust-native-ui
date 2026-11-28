@@ -140,6 +140,14 @@ XML 与工具：[布局文档](api/layout-documents.md)、
 
 框架正在积极开发中。控件、按实例属性、触发器、UI 自动化、工具提示、菜单、对话框、托盘和热键均已就位；M6.5 组件组已完成；M7 布局皮肤（`.buixml`）和 M7.8 主题文档（`.buitheme`）已实现。showcase 覆盖了每一个领域。详情见[简介](overview/introduction.md)。
 
+## 贡献
+
+欢迎 Bug 修复、新功能、文档、翻译和跨平台工作。请阅读
+[CONTRIBUTING.zh-CN.md](https://github.com/wifi-left/bamboo-rust-native-ui/blob/main/CONTRIBUTING.zh-CN.md)
+（English:
+[CONTRIBUTING.md](https://github.com/wifi-left/bamboo-rust-native-ui/blob/main/CONTRIBUTING.md)），
+并使用 issue 模板提交 Bug 报告、功能建议、翻译或跨平台方案。
+
 ## 许可证
 
 Apache License 2.0。参见仓库根目录的 `LICENSE` 和 `NOTICE` 文件。

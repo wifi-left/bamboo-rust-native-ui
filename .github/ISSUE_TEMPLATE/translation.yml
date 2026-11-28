@@ -1,0 +1,64 @@
+name: Translation
+description: Offer a translation, report a translation problem, or propose a new language.
+title: "[Translation]: "
+labels: ["documentation", "translation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        `docs/en/` is the source of truth; translations mirror the same relative
+        paths under `docs/<lang>/`. Keep code, identifiers, XML/TOML, commands and
+        link targets unchanged.
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of contribution
+      options:
+        - Improve the existing Simplified Chinese translation
+        - Add a new language
+        - Report an incorrect or missing translation
+        - Terminology / consistency review
+    validations:
+      required: true
+  - type: input
+    id: language
+    attributes:
+      label: Language
+      description: Language name and BCP 47 code, e.g. Japanese (`ja`).
+      placeholder: Simplified Chinese (`zh`)
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope
+      description: Which pages, folders, or sections? For a new language, list the first batch.
+      placeholder: |
+        docs/zh/quickstart/01-create-project.md
+        docs/zh/quickstart/02-add-the-crate.md
+    validations:
+      required: true
+  - type: textarea
+    id: terminology
+    attributes:
+      label: Terminology notes
+      description: Preferred terms for widget, host, message, event, trigger, registry, layout document, etc.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I will mirror the English relative paths and keep code/link targets unchanged.
+          required: true
+        - label: I will run the link check and `zensical build -s` for the language.
+          required: true
+        - label: I can review the terminology with a maintainer if needed.
+          required: false
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+    validations:
+      required: false

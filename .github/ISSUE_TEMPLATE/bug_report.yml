@@ -1,0 +1,99 @@
+name: Bug report
+description: Report a reproducible defect in the framework, a widget, the layout engine, or the documentation.
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please search existing issues first, and reduce the
+        problem to the smallest program or `.buixml` file you can share.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Summary
+      description: What is wrong, in one or two sentences.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Minimal reproduction
+      description: The smallest Rust/XML that shows the problem. Paste code or link a repository.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Build with ...
+        2. Click ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+    validations:
+      required: true
+  - type: input
+    id: windows
+    attributes:
+      label: Windows version
+      placeholder: Windows 11 23H2 (22631.4460)
+    validations:
+      required: true
+  - type: input
+    id: rust
+    attributes:
+      label: Rust version
+      description: Output of `rustc --version`.
+      placeholder: rustc 1.85.0 (4d91de4e4 2025-02-17)
+    validations:
+      required: true
+  - type: dropdown
+    id: renderer
+    attributes:
+      label: Renderer
+      options:
+        - GDI (default)
+        - Direct2D software
+        - Direct2D hardware
+        - Not sure
+    validations:
+      required: true
+  - type: checkboxes
+    id: features
+    attributes:
+      label: Enabled features
+      options:
+        - label: layout-xml
+        - label: layout-compiled
+        - label: theme-xml
+        - label: debug-form
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs, panic output or screenshots
+      description: Set `BAMBOO_UI_DEBUG=1` for host diagnostics. Visual bugs benefit from a screenshot.
+      render: text
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I searched existing issues for the same problem.
+          required: true
+        - label: I reproduced this on the latest `main`.
+          required: true

@@ -141,6 +141,19 @@ docs/                    中英文文档与归档的设计记录
 路径依赖能够解析。不要把 `native-ui/` 添加到父仓库
 `.gitignore`。
 
+## 贡献
+
+欢迎 Bug 修复、新功能、文档、翻译和跨平台工作。先读
+[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md)（English:
+[CONTRIBUTING.md](CONTRIBUTING.md)），然后使用 issue 模板提交
+[Bug 报告](.github/ISSUE_TEMPLATE/bug_report.yml)、
+[功能建议](.github/ISSUE_TEMPLATE/feature_request.yml)、
+[翻译](.github/ISSUE_TEMPLATE/translation.yml) 或
+[跨平台方案](.github/ISSUE_TEMPLATE/cross_platform.yml)。
+
+贡献指南包含开发环境、设计契约、必须运行的检查、翻译流程、跨平台分层地图，
+以及后续会考虑的方向。
+
 ## 授权
 
 Apache License 2.0。参见 [`LICENSE`](LICENSE) 和 [`NOTICE`](NOTICE)。允许商业

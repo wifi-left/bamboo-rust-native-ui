@@ -152,6 +152,16 @@ the M6.5 component groups are complete; the M7 layout skin (`.buixml`) and
 M7.8 theme documents (`.buitheme`) are implemented. The showcase exercises
 every area. See the [introduction](overview/introduction.md) for details.
 
+## Contributing
+
+Bug fixes, features, documentation, translations and cross-platform work are
+welcome. Read
+[CONTRIBUTING.md](https://github.com/wifi-left/bamboo-rust-native-ui/blob/main/CONTRIBUTING.md)
+(中文:
+[CONTRIBUTING.zh-CN.md](https://github.com/wifi-left/bamboo-rust-native-ui/blob/main/CONTRIBUTING.zh-CN.md))
+and use the issue templates for bug reports, feature proposals, translations and
+cross-platform work.
+
 ## License
 
 Apache License 2.0. See the `LICENSE` and `NOTICE` files in the repository root.

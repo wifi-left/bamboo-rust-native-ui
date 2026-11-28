@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Documentation
+    url: https://github.com/wifi-left/bamboo-rust-native-ui/tree/main/docs
+    about: Read the overview, quickstarts, API reference and widget pages before filing.
+  - name: Contributing guide
+    url: https://github.com/wifi-left/bamboo-rust-native-ui/blob/main/CONTRIBUTING.md
+    about: Development setup, design rules, PR checks, translation and cross-platform guidance.

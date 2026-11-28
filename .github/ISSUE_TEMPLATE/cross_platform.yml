@@ -1,0 +1,71 @@
+name: Cross-platform support
+description: Propose or track a port of the backend, window host, platform layer, or accessibility bridge.
+title: "[Platform]: "
+labels: ["enhancement", "cross-platform"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        The public types are platform-neutral, but the host and platform layer are
+        currently Windows-only. A port keeps the widget/layout layer shared; it
+        implements a backend and a platform layer, not a fork.
+  - type: input
+    id: target
+    attributes:
+      label: Target platform
+      description: OS, architecture, and toolchain.
+      placeholder: macOS 14 arm64 (Xcode 16, Rust 1.85)
+    validations:
+      required: true
+  - type: dropdown
+    id: layer
+    attributes:
+      label: Layer to start with
+      multiple: true
+      options:
+        - Canvas backend / Renderer
+        - Window host and message loop
+        - DPI, timers, damage tracking
+        - Keyboard and IME
+        - Menus
+        - Tray / notifications
+        - Dialogs
+        - Drag and drop
+        - Accessibility bridge
+        - Build, CI and packaging
+    validations:
+      required: true
+  - type: textarea
+    id: status
+    attributes:
+      label: Current status
+      description: What already builds? What is stubbed or missing?
+    validations:
+      required: true
+  - type: textarea
+    id: plan
+    attributes:
+      label: Proposed plan
+      description: First milestone, API seams, and how the Windows path stays untouched.
+    validations:
+      required: true
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and risks
+      description: Event loop integration, DPI, text shaping, accessibility APIs, CI hardware, etc.
+    validations:
+      required: false
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Checklist
+      options:
+        - label: I will keep the widget layer and layout model shared (no per-platform fork).
+          required: true
+        - label: I will keep public types platform-neutral and gate the new code behind its platform.
+          required: true
+        - label: I can add a smoke test equivalent to `showcase --self-test`.
+          required: false
+        - label: I am willing to maintain this target.
+          required: false

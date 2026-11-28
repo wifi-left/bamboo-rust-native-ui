@@ -143,6 +143,20 @@ use `git clone --recursive` (or `git submodule update --init --recursive`) so
 the path dependency resolves. Do not add `native-ui/` to the parent
 `.gitignore`.
 
+## Contributing
+
+Bug fixes, features, documentation, translations and cross-platform work are
+welcome. Start with [CONTRIBUTING.md](CONTRIBUTING.md) (中文:
+[CONTRIBUTING.zh-CN.md](CONTRIBUTING.zh-CN.md)), then use the issue templates
+for [bug reports](.github/ISSUE_TEMPLATE/bug_report.yml),
+[features](.github/ISSUE_TEMPLATE/feature_request.yml),
+[translations](.github/ISSUE_TEMPLATE/translation.yml) and
+[cross-platform work](.github/ISSUE_TEMPLATE/cross_platform.yml).
+
+The contributing guide covers development setup, the design contract, the
+required checks, the translation workflow, the cross-platform layer map and the
+directions under consideration.
+
 ## License
 
 Apache License 2.0. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE). Commercial

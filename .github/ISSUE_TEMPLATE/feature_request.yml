@@ -1,0 +1,66 @@
+name: Feature request
+description: Propose a new widget, API, layout-document feature, theme capability, or tooling improvement.
+title: "[Feature]: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the proposal. This framework deliberately keeps a small,
+        dirty-rectangle contract; describe the problem before the API so the
+        trade-offs are visible.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What can't you do today, and why does it matter?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Sketch the Rust API, XML surface, or behaviour. A small code/XML example helps.
+      render: markdown
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing widgets, workarounds, or another design.
+    validations:
+      required: false
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      multiple: true
+      options:
+        - Widgets
+        - Layout documents (.buixml)
+        - Theme documents (.buitheme)
+        - Core API (Ui / Widget / Host)
+        - Accessibility
+        - Performance
+        - Documentation / examples
+        - Tooling / build
+        - Other
+    validations:
+      required: true
+  - type: checkboxes
+    id: impact
+    attributes:
+      label: Impact
+      options:
+        - label: This changes a public API or an existing XML/theme document.
+        - label: This needs a new dependency.
+        - label: This affects the paint-path contract (dirty rectangles, no allocations, idle paints).
+        - label: I am willing to implement this and open a pull request.
+  - type: textarea
+    id: extra
+    attributes:
+      label: Additional context
+      description: Links, mockups, prior art, or a proposed milestone.
+    validations:
+      required: false
